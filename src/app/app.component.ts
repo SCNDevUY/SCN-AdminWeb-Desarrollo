@@ -7,11 +7,8 @@ import { SettingsService } from './services/settings.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  
+
   constructor( _ajustes: SettingsService ) {
-
-    
-
   }
 
 

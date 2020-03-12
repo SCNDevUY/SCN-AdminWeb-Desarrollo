@@ -8,7 +8,9 @@ import { RegisterComponent } from './login/register.component';
 
 // Modulos
 import { PagesModule } from './pages/pages.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
 
 // Rutas
 import { APP_ROUTES } from './app.routes';
@@ -24,7 +26,9 @@ import { APP_ROUTES } from './app.routes';
     BrowserModule,
     APP_ROUTES,
     PagesModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
