@@ -14,6 +14,7 @@ export class ImagenPipe implements PipeTransform {
       return url + '/usuarios/xxx';
     }
 
+    // Chequeo si viene de google
     if ( img.indexOf('https') >= 0 ) {
       return img;
     }

@@ -22,9 +22,7 @@ export class UsuarioService {
                  public router: Router,
                  public _subirArchivoService: SubirArchivoService ) {
 
-      console.log('Servicio de usuario listo!');
       this.cargarStorage();
-      console.log('ID DEL USUARIO!!!' + this.usuario._id);
     }
 
     // Ver si esta logueado
@@ -174,6 +172,16 @@ export class UsuarioService {
         });
 
     }
+
+    cargarUsuarios( desde: number = 0 ) {
+
+      const url = URL_SERVICIOS + '/usuario?desde=' + desde;
+
+      return this.http.get( url );
+
+    }
+
+
 
 
 }

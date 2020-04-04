@@ -31,6 +31,7 @@ import { GraficoDonaComponent } from '../components/grafico-dona/grafico-dona.co
 import { PAGES_ROUTES } from './pages.routes';
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
+import { UsuariosComponent } from './usuarios/usuarios.component';
 
 @NgModule({
     declarations: [
@@ -43,7 +44,8 @@ import { RxjsComponent } from './rxjs/rxjs.component';
         AccountSettingsComponent,
         PromesasComponent,
         RxjsComponent,
-        ProfileComponent
+        ProfileComponent,
+        UsuariosComponent
     ],
     exports: [
         DashboardComponent,
