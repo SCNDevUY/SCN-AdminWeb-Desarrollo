@@ -175,7 +175,8 @@ export class UsuarioService {
 
     cargarUsuarios( desde: number = 0 ) {
 
-      const url = URL_SERVICIOS + '/usuario?desde=' + desde;
+      this.token = localStorage.getItem('token');
+      const url = URL_SERVICIOS + '/usuario?desde=' + desde + '&token=' + this.token;
 
       return this.http.get( url );
 
