@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "scn-desarrollo": {
+      "hosting": {
+        "adminpro": [
+          "scn-desarrollo"
+        ]
+      }
+    }
+  }
+}

@@ -5,7 +5,12 @@ import { map } from 'rxjs/operators';
 
 import { Usuario } from '../models/usuario.model';
 import { URL_SERVICIOS } from '../config/config';
-import { SubirArchivoService } from './subir-archivo.service';
+
+// Firebase
+import { AngularFireStorage } from '@angular/fire/storage';
+import * as firebase from 'firebase';
+
+// import { SubirArchivoService } from './subir-archivo.service';
 
 import Swal from 'sweetalert2';
 
@@ -18,9 +23,11 @@ export class UsuarioService {
     usuario: Usuario;
     token: string;
 
+    url: any = '';
+
     constructor( public http: HttpClient,
                  public router: Router,
-                 public _subirArchivoService: SubirArchivoService ) {
+                 private storage: AngularFireStorage ) {
 
       this.cargarStorage();
     }
@@ -133,8 +140,10 @@ export class UsuarioService {
         .pipe(
           map( (resp: any) => {
 
-              const usuarioDB: Usuario = resp.usuario;
-              this.guardarStorage( usuarioDB._id, this.token, usuarioDB );
+              if ( usuario._id === this.usuario._id ) {
+                const usuarioDB: Usuario = resp.usuario;
+                this.guardarStorage( usuarioDB._id, this.token, usuarioDB );
+              }
 
               Swal.fire({
                 title: 'Usuario Modificado',
@@ -154,24 +163,50 @@ export class UsuarioService {
     // Cambiar Imagen
     cambiarImagen( archivo: File, id: string ) {
 
-      this._subirArchivoService.subirArchivo( archivo, 'usuarios', id )
-        .then( (resp: any) => {
-          this.usuario.img = resp.usuario.img;
-          this.guardarStorage( id, this.token, this.usuario );
+      const imagenVieja = this.usuario.imgNombre;
 
-          Swal.fire({
-            title: 'Imagen de usuario actualizada',
-            text: this.usuario.nombre,
-            icon: 'success',
-            confirmButtonText: 'Bien!'
-          });
+      // Obtener nombre del archivo
+      const nombreCortado = archivo.name.split('.');
+      const extensionArchivo = nombreCortado[nombreCortado.length - 1];
 
-        })
-        .catch( resp => {
-          console.log(resp);
-        });
+      // Nombre de archivo persolalizado
+      const nombreArchivo = `${ id }-${ new Date().getMilliseconds() }.${extensionArchivo}`;
+
+
+      const storageRef = firebase.storage().ref();
+
+      const uploadTask: firebase.storage.UploadTask =
+        storageRef.child(`usuarios/${ nombreArchivo }`)
+            .put( archivo );
+
+      uploadTask.on( firebase.storage.TaskEvent.STATE_CHANGED,
+          null,
+          ( error ) => console.error('Error al subir', error),
+          () => {
+
+              uploadTask.snapshot.ref.getDownloadURL().then( (URL) => {
+
+                this.usuario.img = URL;
+                this.usuario.imgNombre = nombreArchivo;
+                // this.guardarStorage( id, this.token, this.usuario );
+
+                // Borro imagen vieja
+                storageRef.child(`usuarios/${ imagenVieja }`)
+                .delete();
+
+                this.actualizarUsuario( this.usuario )
+                    .subscribe();
+              });
+
+      });
+
+
+
 
     }
+
+
+
 
     cargarUsuarios( desde: number = 0 ) {
 
@@ -183,6 +218,22 @@ export class UsuarioService {
     }
 
 
+    buscarUsuarios( termino: string ) {
 
+      const url = URL_SERVICIOS + '/busqueda/usuarios/' + termino;
+
+      return this.http.get( url )
+          .pipe(
+            map( (resp: any) => resp.usuarios )
+          );
+
+    }
+
+    borrarUsuario( id: string ) {
+
+      const url = URL_SERVICIOS + '/usuario/' + id + '?token=' + this.token;
+      return this.http.delete( url );
+
+    }
 
 }

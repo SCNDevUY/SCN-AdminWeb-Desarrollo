@@ -12,6 +12,15 @@
     width: 150px;
 }
 
+.w70 {
+    width: 70px;
+}
+
 input[type=file].hidden {
     color: transparent;
   }
+
+.img-50 {
+    width: 50px;
+}
+

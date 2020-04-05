@@ -1,44 +1,68 @@
 import { Injectable, ɵSWITCH_VIEW_CONTAINER_REF_FACTORY__POST_R3__ } from '@angular/core';
 import { URL_SERVICIOS } from '../config/config';
 
+import { AngularFireStorage } from '@angular/fire/storage';
+
+import * as firebase from 'firebase';
+
 @Injectable({
   providedIn: 'root'
 })
 export class SubirArchivoService {
 
-  constructor() { }
+  constructor( private storage: AngularFireStorage ) { }
 
 
-  subirArchivo( archivo: File, tipo: String, id: String ) {
+  subirArchivo( archivo: File, tipo: string, id: string ) {
 
     return new Promise( ( resolve, reject ) => {
 
-      const formData = new FormData();
-      const xhr = new XMLHttpRequest();
+        const storageRef = firebase.storage().ref();
 
-      formData.append( 'imagen', archivo, archivo.name );
+        const uploadTask: firebase.storage.UploadTask =
+          storageRef.child(`${ tipo }/${ archivo.name }`)
+              .put( archivo );
 
-      xhr.onreadystatechange = () => {
+        uploadTask.on( firebase.storage.TaskEvent.STATE_CHANGED,
 
-        if ( xhr.readyState === 4 ) {
+            () => {},
+            ( error ) => console.error('Error al subir', error),
+            () => {
 
-          if ( xhr.status === 200 ) {
-            console.log('Imagen subida');
-            resolve( JSON.parse( xhr.response ) );
-          } else {
-            console.log('Fallo la subida');
-            reject( xhr.response );
-          }
+              console.log('Imagen subida');
 
-        }
-      };
-
-      const url = URL_SERVICIOS + '/upload/' + tipo + '/' + id;
-
-      xhr.open('PUT', url, true);
-      xhr.send( formData );
+            });
 
     });
+
+    // return new Promise( ( resolve, reject ) => {
+
+    //   const formData = new FormData();
+    //   const xhr = new XMLHttpRequest();
+
+    //   formData.append( 'imagen', archivo, archivo.name );
+
+    //   xhr.onreadystatechange = () => {
+
+    //     if ( xhr.readyState === 4 ) {
+
+    //       if ( xhr.status === 200 ) {
+    //         console.log('Imagen subida');
+    //         resolve( JSON.parse( xhr.response ) );
+    //       } else {
+    //         console.log('Fallo la subida');
+    //         reject( xhr.response );
+    //       }
+
+    //     }
+    //   };
+
+    //   const url = URL_SERVICIOS + '/upload/' + tipo + '/' + id;
+
+    //   xhr.open('PUT', url, true);
+    //   xhr.send( formData );
+
+    // });
 
 
   }
