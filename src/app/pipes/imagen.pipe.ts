@@ -6,12 +6,10 @@ import { URL_SERVICIOS } from '../config/config';
 })
 export class ImagenPipe implements PipeTransform {
 
-  transform( img: string, tipo: string = 'usuario'): any {
-
-    let url = URL_SERVICIOS + '/imagen';
+  transform( img: string ): any {
 
     if ( !img ) {
-      return url + '/usuarios/xxx';
+      return '/assets/images/no-img.jpg';
     }
 
     // Chequeo si viene de google
@@ -19,26 +17,7 @@ export class ImagenPipe implements PipeTransform {
       return img;
     }
 
-    switch ( tipo ) {
-
-      case 'usuario':
-          url += '/usuarios/' + img;
-          break;
-
-      case 'medico':
-          url += '/medicos/' + img;
-          break;
-
-      case 'hospital':
-          url += '/hospitales/' + img;
-          break;
-
-      default:
-          console.log('Tipo de imagen no existe, usuarios, mendico, hospitales');
-          url += '/usuarios/xxx';
-    }
-
-    return url;
+    return img;
   }
 
 }

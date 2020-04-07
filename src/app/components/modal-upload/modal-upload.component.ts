@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2';
+import { UsuarioService } from '../../services/usuario.service';
+import { ModalUploadService } from './modal-upload.service';
+import { Usuario } from '../../models/usuario.model';
+import { SubirArchivoService } from '../../services/subir-archivo.service';
 
 @Component({
   selector: 'app-modal-upload',
@@ -7,9 +12,67 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModalUploadComponent implements OnInit {
 
-  constructor() { }
+  imagenSubir: File;
+  imagenTemp: string | ArrayBuffer;
+  data: any;
+
+  constructor( public _subirArchivoService: SubirArchivoService,
+               public _modalUploadService: ModalUploadService ) {
+
+   }
 
   ngOnInit(): void {
   }
+
+  seleccionImagen( archivo: File ) {
+
+    if ( !archivo ) {
+      this.imagenSubir = null;
+      return;
+    }
+
+    if ( archivo.type.indexOf('image') < 0 ) {
+        Swal.fire({
+          title: 'Solo imagenes',
+          text: 'El archivo seleccionado no es una imagen',
+          icon: 'error',
+          confirmButtonText: 'Atencion!'
+        });
+        this.imagenSubir = null;
+        return;
+    }
+
+    this.imagenSubir = archivo;
+
+    const reader = new FileReader();
+    const urlImagenTemp = reader.readAsDataURL( archivo );
+
+    reader.onloadend = () => this.imagenTemp = reader.result;
+
+  }
+
+  subirImagen( tipo: string, data: any ) {
+
+    if ( tipo === 'usuarios' ) {
+      this._subirArchivoService.subirArchivoUsuario( this.imagenSubir, data );
+    }
+
+    console.log(data);
+
+    // this._modalUploadService.notificacion.emit( 'OK' );
+
+    data = null;
+    this.cerrarModal();
+
+  }
+
+  cerrarModal() {
+    this.imagenSubir = null;
+    this.imagenTemp = null;
+    this.data = null;
+
+    this._modalUploadService.ocultarModal();
+  }
+
 
 }
