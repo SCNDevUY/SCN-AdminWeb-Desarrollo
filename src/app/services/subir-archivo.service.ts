@@ -1,5 +1,6 @@
-import { Injectable, ɵSWITCH_VIEW_CONTAINER_REF_FACTORY__POST_R3__ } from '@angular/core';
-import { URL_SERVICIOS } from '../config/config';
+import { Injectable } from '@angular/core';
+
+import { HttpClient } from '@angular/common/http';
 
 // Firebase
 import { AngularFireStorage } from '@angular/fire/storage';
@@ -8,8 +9,12 @@ import * as firebase from 'firebase';
 import { Usuario } from 'src/app/models/usuario.model';
 
 import { UsuarioService } from './usuario.service';
-import Swal from 'sweetalert2';
+
+import { URL_SERVICIOS } from '../config/config';
+
 import { map } from 'rxjs/operators';
+import Swal from 'sweetalert2';
+import { ModalUploadService } from '../components/modal-upload/modal-upload.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,12 +22,15 @@ import { map } from 'rxjs/operators';
 export class SubirArchivoService {
 
   constructor( private storage: AngularFireStorage,
-               private usuarioService: UsuarioService ) {
+               private usuarioService: UsuarioService,
+               public http: HttpClient,
+               public _modalUploadService: ModalUploadService ) {
 
   }
 
     // Cambiar Imagen
-    subirArchivoUsuario( archivo: File, usuario: Usuario ) {
+    async subirArchivoUsuario( archivo: File, usuario: Usuario ) {
+
 
       const imagenVieja = usuario.imgNombre;
 
@@ -33,11 +41,10 @@ export class SubirArchivoService {
       // Nombre de archivo persolalizado
       const nombreArchivo = `${ usuario._id }-${ new Date().getMilliseconds() }.${extensionArchivo}`;
 
-
       const storageRef = firebase.storage().ref();
 
       const uploadTask: firebase.storage.UploadTask =
-        storageRef.child(`usuarios/${ nombreArchivo }`)
+         storageRef.child(`usuarios/${ nombreArchivo }`)
             .put( archivo );
 
       uploadTask.on( firebase.storage.TaskEvent.STATE_CHANGED,
@@ -45,24 +52,66 @@ export class SubirArchivoService {
           ( error ) => console.error('Error al subir', error),
           () => {
 
-              uploadTask.snapshot.ref.getDownloadURL().then( (URL) => {
+            uploadTask.snapshot.ref.getDownloadURL().then( (URL) => {
 
                 usuario.img = URL;
                 usuario.imgNombre = nombreArchivo;
-                // this.guardarStorage( id, this.token, this.usuario );
 
-                // Borro imagen vieja
-                storageRef.child(`usuarios/${ imagenVieja }`)
-                .delete();
+                // Actualizo el usuario
+                this.actualizarUsuario( usuario )
+                .subscribe( resp => {
 
-                this.usuarioService.actualizarUsuario( usuario )
-                    .subscribe();
+                  console.log(resp);
 
-              });
+                  // Borro imagen vieja
+                  if ( imagenVieja !== undefined ) {
+                      storageRef.child(`usuarios/${ imagenVieja }`)
+                      .delete();
+                  }
 
-      });
+                  Swal.fire({
+                    title: 'Atencion!',
+                    text: 'Imagen actualizada',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                  });
+
+                  this._modalUploadService.ocultarModal();
+
+                });
+
+
+            });
+        });
+
+      return true;
 
     }
+
+    // Actualizar usuario
+    actualizarUsuario( usuario: Usuario ) {
+
+      const token = localStorage.getItem('token');
+      const id = localStorage.getItem('id');
+
+      let url = URL_SERVICIOS + '/usuario/' + usuario._id;
+      url += '?token=' + token;
+
+      return this.http.put( url, usuario )
+        .pipe(
+          map( (resp: any) => {
+
+              if ( id === usuario._id ) {
+                const usuarioDB: Usuario = resp.usuario;
+                this.usuarioService.guardarStorage( usuarioDB._id, token, usuarioDB );
+              }
+              return true;
+          })
+        );
+
+    }
+
+
 
   }
 

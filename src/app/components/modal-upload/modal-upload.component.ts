@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
-import { UsuarioService } from '../../services/usuario.service';
+
 import { ModalUploadService } from './modal-upload.service';
-import { Usuario } from '../../models/usuario.model';
+
 import { SubirArchivoService } from '../../services/subir-archivo.service';
 
 @Component({
@@ -22,6 +22,7 @@ export class ModalUploadComponent implements OnInit {
    }
 
   ngOnInit(): void {
+
   }
 
   seleccionImagen( archivo: File ) {
@@ -54,19 +55,18 @@ export class ModalUploadComponent implements OnInit {
   subirImagen( tipo: string, data: any ) {
 
     if ( tipo === 'usuarios' ) {
-      this._subirArchivoService.subirArchivoUsuario( this.imagenSubir, data );
-    }
 
-    console.log(data);
+       this._subirArchivoService.subirArchivoUsuario( this.imagenSubir, data );
+
+      }
+
 
     // this._modalUploadService.notificacion.emit( 'OK' );
-
-    data = null;
-    this.cerrarModal();
 
   }
 
   cerrarModal() {
+
     this.imagenSubir = null;
     this.imagenTemp = null;
     this.data = null;

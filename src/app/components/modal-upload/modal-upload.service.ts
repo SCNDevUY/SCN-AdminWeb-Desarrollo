@@ -1,5 +1,4 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { Usuario } from '../../models/usuario.model';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +34,7 @@ export class ModalUploadService {
     this.oculto = '';
     this.tipo = tipo;
     this.data = data;
+
   }
 
 
