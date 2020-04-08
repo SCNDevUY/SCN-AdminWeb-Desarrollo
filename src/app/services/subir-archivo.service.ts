@@ -1,20 +1,23 @@
 import { Injectable } from '@angular/core';
-
 import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+
+import Swal from 'sweetalert2';
+
+// Configuraciones
+import { URL_SERVICIOS } from '../config/config';
 
 // Firebase
 import { AngularFireStorage } from '@angular/fire/storage';
 import * as firebase from 'firebase';
 
+// Modelos
 import { Usuario } from 'src/app/models/usuario.model';
 
+// Servicios
 import { UsuarioService } from './usuario.service';
-
-import { URL_SERVICIOS } from '../config/config';
-
-import { map } from 'rxjs/operators';
-import Swal from 'sweetalert2';
 import { ModalUploadService } from '../components/modal-upload/modal-upload.service';
+
 
 @Injectable({
   providedIn: 'root'

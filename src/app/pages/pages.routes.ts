@@ -11,12 +11,13 @@ import { ProfileComponent } from './profile/profile.component';
 
 import { LoginGuardGuard } from '../services/guards/login-guard.guard';
 import { UsuariosComponent } from './usuarios/usuarios.component';
+import { MarcasComponent } from './marcas/marcas.component';
 
 const pagesRoutes: Routes = [
     {
         path: '',
         component: PagesComponent,
-        canActivate: [ LoginGuardGuard],
+        canActivate: [ LoginGuardGuard ],
         children: [
             { path: 'dashboard', component: DashboardComponent, data: { titulo: 'Dashboard' } },
             { path: 'progress', component: ProgressComponent, data: { titulo: 'Progress' } },
@@ -28,6 +29,7 @@ const pagesRoutes: Routes = [
 
             // Mantenimeintos
             { path: 'usuarios', component: UsuariosComponent, data: { titulo: 'Mantenimiento de usuarios' } },
+            { path: 'marcas',   component: MarcasComponent, data: { titulo: 'Mantenimiento de marcas' } },
             { path: '', pathMatch: 'full', redirectTo: '/dashboard' }
         ]
     }

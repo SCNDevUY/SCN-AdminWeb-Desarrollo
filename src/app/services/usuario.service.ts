@@ -130,6 +130,7 @@ export class UsuarioService {
               );
     }
 
+
     // Actualizar usuario
     actualizarUsuario( usuario: Usuario ) {
 
@@ -157,7 +158,6 @@ export class UsuarioService {
         );
 
     }
-
 
 
     // Cambiar Imagen
