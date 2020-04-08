@@ -11,10 +11,11 @@ export class ModalUploadService {
 
   public oculto: string = 'oculto';
 
+  public cargando: boolean = false;
+
   public notificacion = new EventEmitter<any>();
 
   constructor() {
-    console.log('Modal Upload Service Listo!');
    }
 
 

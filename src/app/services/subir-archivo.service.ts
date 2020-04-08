@@ -41,6 +41,7 @@ export class SubirArchivoService {
       // Nombre de archivo persolalizado
       const nombreArchivo = `${ usuario._id }-${ new Date().getMilliseconds() }.${extensionArchivo}`;
 
+      // Subo archivo a Firebase
       const storageRef = firebase.storage().ref();
 
       const uploadTask: firebase.storage.UploadTask =
@@ -57,11 +58,9 @@ export class SubirArchivoService {
                 usuario.img = URL;
                 usuario.imgNombre = nombreArchivo;
 
-                // Actualizo el usuario
+                // Actualizo el usuario en la DB
                 this.actualizarUsuario( usuario )
                 .subscribe( resp => {
-
-                  console.log(resp);
 
                   // Borro imagen vieja
                   if ( imagenVieja !== undefined ) {
@@ -76,6 +75,9 @@ export class SubirArchivoService {
                     confirmButtonText: 'OK'
                   });
 
+                  this._modalUploadService.notificacion.emit( usuario );
+
+                  this._modalUploadService.cargando = false;
                   this._modalUploadService.ocultarModal();
 
                 });

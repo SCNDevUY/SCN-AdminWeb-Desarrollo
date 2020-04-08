@@ -16,13 +16,13 @@ export class ModalUploadComponent implements OnInit {
   imagenTemp: string | ArrayBuffer;
   data: any;
 
+
   constructor( public _subirArchivoService: SubirArchivoService,
                public _modalUploadService: ModalUploadService ) {
 
    }
 
   ngOnInit(): void {
-
   }
 
   seleccionImagen( archivo: File ) {
@@ -52,18 +52,25 @@ export class ModalUploadComponent implements OnInit {
 
   }
 
+
+
   subirImagen( tipo: string, data: any ) {
+
+    this._modalUploadService.cargando = true;
 
     if ( tipo === 'usuarios' ) {
 
        this._subirArchivoService.subirArchivoUsuario( this.imagenSubir, data );
 
-      }
+    }
 
-
-    // this._modalUploadService.notificacion.emit( 'OK' );
+    this.imagenSubir = null;
+    this.imagenTemp = null;
+    this.data = null;
 
   }
+
+
 
   cerrarModal() {
 
