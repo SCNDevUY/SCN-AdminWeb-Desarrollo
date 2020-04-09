@@ -5,9 +5,11 @@ import { map } from 'rxjs/operators';
 // Modelo
 import { Marca } from '../models/marca.model';
 
-// configuraciones
+// Configuraciones
 import { URL_SERVICIOS } from '../config/config';
-import Swal from 'sweetalert2';
+
+// Firebase
+import * as firebase from 'firebase';
 
 
 @Injectable({
@@ -22,16 +24,26 @@ export class MarcaService {
 
   }
 
-
+    // Obtener marcas
     cargarMarcas( desde: number = 0, activo: boolean = true ) {
 
       this.token = localStorage.getItem('token');
-      const url = URL_SERVICIOS + '/marca?activo=' + activo + '&desde=' + desde + '&token=' + this.token;
+      const url = URL_SERVICIOS + '/marcas?activo=' + activo + '&desde=' + desde + '&token=' + this.token;
 
       return this.http.get( url );
 
     }
 
+    // Crear marca
+    crearMarca( marca: Marca) {
+
+      this.token = localStorage.getItem('token');
+
+      let url = URL_SERVICIOS + '/marcas';
+      url += '?token=' + this.token;
+
+      return this.http.post( url, marca );
+  }
 
 
      // Actualizar marca
@@ -39,13 +51,14 @@ export class MarcaService {
 
       this.token = localStorage.getItem('token');
 
-      let url = URL_SERVICIOS + '/marca/' + marca._id;
+      let url = URL_SERVICIOS + '/marcas/' + marca._id;
       url += '?token=' + this.token;
 
       return this.http.put( url, marca );
 
     }
 
+    // Buscar Marcas
     buscarMarcas( termino: string ) {
 
       const url = URL_SERVICIOS + '/busqueda/todo/' + termino;
@@ -57,11 +70,21 @@ export class MarcaService {
 
     }
 
-    borrarMarca( id: string ) {
+    // Borrar Marcas
+    borrarMarca( marca: Marca ) {
 
       this.token = localStorage.getItem('token');
+      const url = URL_SERVICIOS + '/marcas/' + marca._id + '?token=' + this.token;
 
-      const url = URL_SERVICIOS + '/marca/' + id + '?token=' + this.token;
+      // Borro imagen
+      const storageRef = firebase.storage().ref();
+
+      const imagen = marca.imgNombre;
+      if ( imagen !== undefined ) {
+          storageRef.child(`marcas/${ imagen }`)
+          .delete();
+      }
+
       return this.http.delete( url );
 
     }

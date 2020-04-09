@@ -32,23 +32,22 @@ export class SubirArchivoService {
   }
 
     // Cambiar Imagen
-    async subirArchivoUsuario( archivo: File, usuario: Usuario ) {
+    async subirArchivo( archivo: File, data: any, tipo: string ) {
 
-
-      const imagenVieja = usuario.imgNombre;
+      const imagenVieja = data.imgNombre;
 
       // Obtener nombre del archivo
       const nombreCortado = archivo.name.split('.');
       const extensionArchivo = nombreCortado[nombreCortado.length - 1];
 
       // Nombre de archivo persolalizado
-      const nombreArchivo = `${ usuario._id }-${ new Date().getMilliseconds() }.${extensionArchivo}`;
+      const nombreArchivo = `${ data._id }-${ new Date().getMilliseconds() }.${extensionArchivo}`;
 
       // Subo archivo a Firebase
       const storageRef = firebase.storage().ref();
 
       const uploadTask: firebase.storage.UploadTask =
-         storageRef.child(`usuarios/${ nombreArchivo }`)
+         storageRef.child(`${tipo}/${ nombreArchivo }`)
             .put( archivo );
 
       uploadTask.on( firebase.storage.TaskEvent.STATE_CHANGED,
@@ -58,16 +57,16 @@ export class SubirArchivoService {
 
             uploadTask.snapshot.ref.getDownloadURL().then( (URL) => {
 
-                usuario.img = URL;
-                usuario.imgNombre = nombreArchivo;
+                data.img = URL;
+                data.imgNombre = nombreArchivo;
 
                 // Actualizo el usuario en la DB
-                this.actualizarUsuario( usuario )
+                this.actualizarData( data, tipo )
                 .subscribe( resp => {
 
                   // Borro imagen vieja
                   if ( imagenVieja !== undefined ) {
-                      storageRef.child(`usuarios/${ imagenVieja }`)
+                      storageRef.child(`${tipo}/${ imagenVieja }`)
                       .delete();
                   }
 
@@ -78,13 +77,14 @@ export class SubirArchivoService {
                     confirmButtonText: 'OK'
                   });
 
-                  this._modalUploadService.notificacion.emit( usuario );
+                  if ( tipo === 'usuarios') {
+                    this._modalUploadService.notificacion.emit( data );
+                  }
 
                   this._modalUploadService.cargando = false;
                   this._modalUploadService.ocultarModal();
 
                 });
-
 
             });
         });
@@ -93,24 +93,26 @@ export class SubirArchivoService {
 
     }
 
-    // Actualizar usuario
-    actualizarUsuario( usuario: Usuario ) {
+    // Actualizar data
+    actualizarData( data: any, tipo: string ) {
 
       const token = localStorage.getItem('token');
       const id = localStorage.getItem('id');
 
-      let url = URL_SERVICIOS + '/usuario/' + usuario._id;
+      let url = URL_SERVICIOS + '/' + tipo + '/' + data._id;
       url += '?token=' + token;
 
-      return this.http.put( url, usuario )
+      return this.http.put( url, data )
         .pipe(
           map( (resp: any) => {
 
-              if ( id === usuario._id ) {
+            if ( tipo === 'usuarios' ) {
+              if ( id === data._id ) {
                 const usuarioDB: Usuario = resp.usuario;
                 this.usuarioService.guardarStorage( usuarioDB._id, token, usuarioDB );
               }
-              return true;
+            }
+            return true;
           })
         );
 

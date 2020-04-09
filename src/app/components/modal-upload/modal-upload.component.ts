@@ -58,11 +58,7 @@ export class ModalUploadComponent implements OnInit {
 
     this._modalUploadService.cargando = true;
 
-    if ( tipo === 'usuarios' ) {
-
-       this._subirArchivoService.subirArchivoUsuario( this.imagenSubir, data );
-
-    }
+    this._subirArchivoService.subirArchivo( this.imagenSubir, data, tipo );
 
     this.imagenSubir = null;
     this.imagenTemp = null;

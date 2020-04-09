@@ -1,63 +1,58 @@
 import { Component, OnInit } from '@angular/core';
 
 // Modelos
-import { Marca } from 'src/app/models/marca.model';
+import { SubCategoria } from 'src/app/models/subcategoria.model';
 import { Usuario } from '../../models/usuario.model';
 
 // Servicios
-import { MarcaService } from 'src/app/services/marca.service';
-import { ModalUploadService } from '../../components/modal-upload/modal-upload.service';
+import { SubcategoriaService } from 'src/app/services/subcategoria.service';
+
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-marcas',
-  templateUrl: './marcas.component.html',
-  styleUrls: ['./marcas.component.css']
+  selector: 'app-subcategorias',
+  templateUrl: './subcategorias.component.html',
+  styles: []
 })
-export class MarcasComponent implements OnInit {
+export class SubcategoriasComponent implements OnInit {
 
   usuario: Usuario;
-  marcas: Marca[] = [];
+  subcategorias: SubCategoria[] = [];
   desde: number = 0;
   totalRegistros: number = 0;
   cargando: boolean = true;
 
   activos: boolean = true;
 
-  constructor( public _marcasService: MarcaService,
-               public _modalUploadService: ModalUploadService ) { }
+  constructor( public _subCategoriaService: SubcategoriaService) { }
 
   ngOnInit(): void {
-    this.cargarMarcas();
+    this.cargarSubCategorias();
     this.usuario = JSON.parse( localStorage.getItem('usuario') );
   }
 
-  mostrarModal( marca: Marca ) {
-    this._modalUploadService.mostrarModal( 'marcas', marca );
-  }
-
-
-  buscarMarca( termino: string ) {
+  // Buscar
+  buscarSubCategorias( termino: string ) {
 
     if ( termino.length <= 0 ) {
-      this.cargarMarcas();
+      this.cargarSubCategorias();
       return;
     }
 
     this.cargando = true;
 
-    this._marcasService.buscarMarcas( termino )
-      .subscribe( (marcas: Marca[]) => {
+    this._subCategoriaService.buscarSubCategorias( termino )
+      .subscribe( (subcategorias: SubCategoria[]) => {
 
-        this.marcas = marcas;
+        this.subcategorias = subcategorias;
         this.cargando = false;
 
       });
 
   }
 
-
-  cargarMarcas( activo: boolean = true ) {
+  // Cargar
+  cargarSubCategorias( activo: boolean = true ) {
 
     this.cargando = true;
 
@@ -67,10 +62,10 @@ export class MarcasComponent implements OnInit {
       this.activos = false;
     }
 
-    this._marcasService.cargarMarcas( this.desde, activo )
+    this._subCategoriaService.cargarSubCategorias( this.desde, activo )
       .subscribe( (resp: any) => {
 
-        this.marcas = resp.marcas;
+        this.subcategorias = resp.subCategorias;
         this.totalRegistros = resp.total;
         this.cargando = false;
 
@@ -78,31 +73,33 @@ export class MarcasComponent implements OnInit {
 
   }
 
-  guardarMarca( marca: Marca) {
+  // Guardar
+  guardarSubCategoria( subcategoria: SubCategoria) {
 
-    this._marcasService.actualizarMarca( marca )
+    this._subCategoriaService.actualizarSubCategoria( subcategoria )
       .subscribe( (resp: any) => {
 
         Swal.fire({
-          title: 'Marca Modificada',
-          text: marca.nombre,
+          title: 'SubCategoria Modificada',
+          text: subcategoria.nombre,
           icon: 'success',
           confirmButtonText: 'Bien!'
         });
 
-        this.cargarMarcas();
+        this.cargarSubCategorias();
 
       });
 
   }
 
-  async agregarMarca() {
+  // Agregar
+  async agregarSubCategoria() {
 
     if ( this.usuario.role !== 'ADMIN_ROLE' ) {
 
       Swal.fire({
         title: 'Atencion!',
-        text: 'No puede agregar una marca porque no es Administrador',
+        text: 'No puede agregar una SubCategoria porque no es Administrador',
         icon: 'warning',
         confirmButtonText: 'OK'
       });
@@ -110,37 +107,37 @@ export class MarcasComponent implements OnInit {
 
     }
 
-    let { value: marca } = await Swal.fire({
-      title: 'Ingrese la marca a agregar',
+    let { value: subcategoria } = await Swal.fire({
+      title: 'Ingrese la SubCategoria a agregar',
       input: 'text',
-      inputPlaceholder: 'Ingrese la marca...',
+      inputPlaceholder: 'Ingrese la subcategoria...',
       showCancelButton: true,
       inputValidator: (value) => {
         if (!value) {
-          return 'Debe ingresar una marca';
+          return 'Debe ingresar una subcategoria';
         }
       }
     });
 
-    if (marca) {
+    if (subcategoria) {
 
-      marca = marca.toUpperCase();
+      subcategoria = subcategoria.toUpperCase();
 
-      const marcaNueva = new Marca(
-        marca,
+      const subcategoriaNueva = new SubCategoria(
+        subcategoria,
         true
       );
 
-      this._marcasService.crearMarca( marcaNueva )
+      this._subCategoriaService.crearSubCategoria( subcategoriaNueva )
         .subscribe( (resp: any) => {
 
           Swal.fire({
             title: 'Correcto!',
-            text: 'Se creo la marca correctamente',
+            text: 'Se creo la SubCategoria correctamente',
             icon: 'success',
             confirmButtonText: 'OK'
           });
-          this.cargarMarcas();
+          this.cargarSubCategorias();
 
       });
     }
@@ -148,7 +145,7 @@ export class MarcasComponent implements OnInit {
   }
 
 
-  borrarMarca( marca: Marca ) {
+  borrarSubCategoria( subcategoria: SubCategoria ) {
 
     // this.usuario = JSON.parse( localStorage.getItem('usuario') );
 
@@ -156,7 +153,7 @@ export class MarcasComponent implements OnInit {
 
       Swal.fire({
         title: 'Atencion!',
-        text: 'No puede borrar la marca porque no es Administrador',
+        text: 'No puede borrar la SubCategoria porque no es Administrador',
         icon: 'warning',
         confirmButtonText: 'OK'
       });
@@ -165,8 +162,8 @@ export class MarcasComponent implements OnInit {
     }
 
     Swal.fire({
-      title: 'Eliminar Marca',
-      text: 'Esta seguro que desea eliminar la marca: ' + marca.nombre,
+      title: 'Eliminar SubCategoria',
+      text: 'Esta seguro que desea eliminar la SubCategoria: ' + subcategoria.nombre,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -176,16 +173,16 @@ export class MarcasComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
 
-        this._marcasService.borrarMarca( marca )
+        this._subCategoriaService.borrarSubCategoria( subcategoria )
           .subscribe( (resp: any) => {
 
             Swal.fire(
               'Eliminado!',
-              'Se elimino la marca',
+              'Se elimino la SubCategoria',
               'success'
             );
 
-            this.cargarMarcas( false );
+            this.cargarSubCategorias( false );
 
           });
 
@@ -208,7 +205,10 @@ export class MarcasComponent implements OnInit {
     }
 
     this.desde += valor;
-    this.cargarMarcas();
+    this.cargarSubCategorias();
 
   }
+
+
+
 }

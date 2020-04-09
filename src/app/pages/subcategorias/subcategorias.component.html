@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-body">
 
-                <input #input (keyup)="buscarMarca( input.value )" type="text" class="form-control" placeholder="Buscar marca">
+                <input #input (keyup)="buscarSubCategorias( input.value )" type="text" class="form-control" placeholder="Buscar subcategoria">
 
             </div>
         </div>
@@ -30,13 +30,13 @@
 
                 <div class="row">
                     <div class="col-lg-5 col-md-5 col-sm-12">
-                        <h3 *ngIf="activos" class="card-title">Marcas activas ( <small>{{ totalRegistros }}</small> )</h3>
-                        <h3 *ngIf="!activos" class="card-title">Marcas inactivas ( <small>{{ totalRegistros }}</small> )</h3>
+                        <h3 *ngIf="activos" class="card-title">SubCategorias activas ( <small>{{ totalRegistros }}</small> )</h3>
+                        <h3 *ngIf="!activos" class="card-title">SubCategorias inactivas ( <small>{{ totalRegistros }}</small> )</h3>
                     </div>
                     <div class="col-lg-7 col-md-7 col-sm-12 button-group text-right">
-                        <button *ngIf="!activos" (click)="cargarMarcas()" type="button" class="btn btn-success btn-rounded"><i class="fa fa-check"></i> Ver activos</button>
-                        <button *ngIf="activos" (click)="cargarMarcas(false)" type="button" class="btn btn-danger btn-rounded"><i class="fa fa-close"></i> Ver inactivos</button>
-                        <button *ngIf="activos" (click)="agregarMarca()" type="button" class="btn btn-primary btn-rounded"><i class="fa fa-plus"></i> Agregar</button>
+                        <button *ngIf="!activos" (click)="cargarSubCategorias()" type="button" class="btn btn-success btn-rounded"><i class="fa fa-check"></i> Ver activos</button>
+                        <button *ngIf="activos" (click)="cargarSubCategorias(false)" type="button" class="btn btn-danger btn-rounded"><i class="fa fa-close"></i> Ver inactivos</button>
+                        <button *ngIf="activos" (click)="agregarSubCategoria()" type="button" class="btn btn-primary btn-rounded"><i class="fa fa-plus"></i> Agregar</button>
                     </div>
                 </div>
                 <div class="table-responsive">
@@ -44,29 +44,25 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>Imagen</th>
                                 <th>Nombre</th>
                                 <th>Estado</th>
                                 <th class="text-center">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let marca of marcas">
-                                <td class="w70">
-                                    <img (click)="mostrarModal( marca )" [src]="marca.img | imagen" class="img-50 pointer">
-                                </td>
-                                <td><input [(ngModel)]="marca.nombre" name="nombre" type="text" class="form-control" ></td>
+                            <tr *ngFor="let subcategoria of subcategorias">
+                                <td><input [(ngModel)]="subcategoria.nombre" name="nombre" type="text" class="form-control" ></td>
                                 <td>
-                                    <select [(ngModel)]="marca.activo" name="role" class="form-control">
+                                    <select [(ngModel)]="subcategoria.activo" name="role" class="form-control">
                                         <option value="true">ACTIVO</option>
                                         <option value="false">INACTIVO</option>
                                     </select>
                                 </td>
                                 <td class="button-group text-center">
-                                    <button (click)="guardarMarca( marca )" class="btn btn-primary">
+                                    <button (click)="guardarSubCategoria( subcategoria )" class="btn btn-primary">
                                         <i class="fa fa-save"></i>
                                     </button>
-                                    <button *ngIf="!activos" (click)="borrarMarca( marca )" class="btn btn-danger">
+                                    <button *ngIf="!activos" (click)="borrarSubCategoria( subcategoria )" class="btn btn-danger">
                                         <i class="fa fa-trash-o"></i>
                                     </button>
                                 </td>
@@ -86,10 +82,8 @@
                     </button>
                 </div>
 
-
-
-
             </div>
         </div>
     </div>
 </div> 
+

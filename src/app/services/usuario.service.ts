@@ -113,7 +113,7 @@ export class UsuarioService {
     // Crear usuario
     crearUsuario( usuario: Usuario ) {
 
-        const url = URL_SERVICIOS + '/usuario';
+        const url = URL_SERVICIOS + '/usuarios';
 
         return this.http.post( url, usuario )
               .pipe(
@@ -134,7 +134,7 @@ export class UsuarioService {
     // Actualizar usuario
     actualizarUsuario( usuario: Usuario ) {
 
-      let url = URL_SERVICIOS + '/usuario/' + usuario._id;
+      let url = URL_SERVICIOS + '/usuarios/' + usuario._id;
       url += '?token=' + this.token;
 
       return this.http.put( url, usuario )
@@ -208,7 +208,7 @@ export class UsuarioService {
     cargarUsuarios( desde: number = 0 ) {
 
       this.token = localStorage.getItem('token');
-      const url = URL_SERVICIOS + '/usuario?desde=' + desde + '&token=' + this.token;
+      const url = URL_SERVICIOS + '/usuarios?desde=' + desde + '&token=' + this.token;
 
       return this.http.get( url );
 
@@ -228,7 +228,7 @@ export class UsuarioService {
 
     borrarUsuario( id: string ) {
 
-      const url = URL_SERVICIOS + '/usuario/' + id + '?token=' + this.token;
+      const url = URL_SERVICIOS + '/usuarios/' + id + '?token=' + this.token;
       return this.http.delete( url );
 
     }
