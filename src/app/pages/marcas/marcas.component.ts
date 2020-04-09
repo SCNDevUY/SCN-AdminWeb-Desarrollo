@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 // Modelos
 import { Marca } from 'src/app/models/marca.model';
+import { Usuario } from '../../models/usuario.model';
 
 // Servicios
 import { MarcaService } from 'src/app/services/marca.service';
@@ -15,10 +16,13 @@ import Swal from 'sweetalert2';
 })
 export class MarcasComponent implements OnInit {
 
+  usuario: Usuario;
   marcas: Marca[] = [];
   desde: number = 0;
   totalRegistros: number = 0;
   cargando: boolean = true;
+
+  activos: boolean = true;
 
   constructor( public _marcasService: MarcaService,
                public _modalUploadService: ModalUploadService ) { }
@@ -52,11 +56,17 @@ export class MarcasComponent implements OnInit {
   }
 
 
-  cargarMarcas() {
+  cargarMarcas( activo: boolean = true ) {
 
     this.cargando = true;
 
-    this._marcasService.cargarMarcas( this.desde )
+    if ( activo === true ) {
+      this.activos = true;
+    } else {
+      this.activos = false;
+    }
+
+    this._marcasService.cargarMarcas( this.desde, activo )
       .subscribe( (resp: any) => {
 
         this.marcas = resp.marcas;
@@ -70,16 +80,68 @@ export class MarcasComponent implements OnInit {
   guardarMarca( marca: Marca) {
 
     this._marcasService.actualizarMarca( marca )
-      .subscribe();
+      .subscribe( (resp: any) => {
+
+        Swal.fire({
+          title: 'Marca Modificada',
+          text: marca.nombre,
+          icon: 'success',
+          confirmButtonText: 'Bien!'
+        });
+
+        this.cargarMarcas();
+
+      });
 
   }
 
   agregarMarca() {
-    
+
   }
 
 
-  borrarMarca( marca: Marca) {
+  borrarMarca( marca: Marca ) {
+
+    this.usuario = JSON.parse( localStorage.getItem('usuario') );
+
+    if ( this.usuario.role !== 'ADMIN_ROLE' ) {
+
+      Swal.fire({
+        title: 'Atencion!',
+        text: 'No puede borrar la marca porque no es Administrador',
+        icon: 'warning',
+        confirmButtonText: 'OK'
+      });
+      return;
+
+    }
+
+    Swal.fire({
+      title: 'Eliminar Marca',
+      text: 'Esta seguro que desea eliminar la marca: ' + marca.nombre,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Aceptar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.value) {
+
+        this._marcasService.borrarMarca( marca._id )
+          .subscribe( (resp: any) => {
+
+            Swal.fire(
+              'Eliminado!',
+              'Se elimino la marca',
+              'success'
+            );
+            this.cargarMarcas();
+
+          });
+
+      }
+    });
 
   }
 

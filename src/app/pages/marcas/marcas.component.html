@@ -29,13 +29,14 @@
             <div class="card-body">
 
                 <div class="row">
-                    <div class="col-10">
-                        <h3 class="card-title">Marcas registradas ( <small>{{ totalRegistros }}</small> )</h3>
+                    <div class="col-9">
+                        <h3 *ngIf="activos" class="card-title">Marcas activas ( <small>{{ totalRegistros }}</small> )</h3>
+                        <h3 *ngIf="!activos" class="card-title">Marcas inactivas ( <small>{{ totalRegistros }}</small> )</h3>
                     </div>
-                    <div class="col-2">
-                        <button (click)="agregarMarca()" class="btn btn-primary btn-block">
-                            Agregar
-                        </button>
+                    <div class="col-3 button-group">
+                        <button *ngIf="!activos" (click)="cargarMarcas()" type="button" class="btn btn-success btn-rounded"><i class="fa fa-check"></i> Ver activos</button>
+                        <button *ngIf="activos" (click)="cargarMarcas(false)" type="button" class="btn btn-danger btn-rounded"><i class="fa fa-close"></i> Ver inactivos</button>
+                        <button (click)="agregarMarca()" type="button" class="btn btn-primary btn-rounded"><i class="fa fa-plus"></i> Agregar</button>
                     </div>
                 </div>
                 <table class="table table-hover">
@@ -43,7 +44,8 @@
                         <tr>
                             <th>Imagen</th>
                             <th>Nombre</th>
-                            <th>Activo</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,7 +60,7 @@
                                     <option value="false">INACTIVO</option>
                                 </select>
                             </td>
-                            <td>
+                            <td class="button-group">
                                 <button (click)="guardarMarca( marca )" class="btn btn-primary">
                                     <i class="fa fa-save"></i>
                                 </button>
@@ -69,14 +71,16 @@
                         </tr>
                     </tbody>
                 </table>
-
-                <button (click)="cambiarDesde(-5)" class="btn btn-secondary">
-                    Anteriores
-                </button>
-
-                <button (click)="cambiarDesde(5)" class="btn btn-secondary">
-                    Siguientes
-                </button>
+                
+                <div *ngIf="totalRegistros > 5" class="button-group">
+                    <button (click)="cambiarDesde(-5)" class="btn btn-secondary">
+                        Anteriores
+                    </button>
+    
+                    <button (click)="cambiarDesde(5)" class="btn btn-secondary">
+                        Siguientes
+                    </button>
+                </div>
 
 
 

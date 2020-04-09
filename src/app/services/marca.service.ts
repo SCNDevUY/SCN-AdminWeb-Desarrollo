@@ -23,14 +23,15 @@ export class MarcaService {
   }
 
 
-  cargarMarcas( desde: number = 0 ) {
+    cargarMarcas( desde: number = 0, activo: boolean = true ) {
 
-    this.token = localStorage.getItem('token');
-    const url = URL_SERVICIOS + '/marca?desde=' + desde + '&token=' + this.token;
+      this.token = localStorage.getItem('token');
+      const url = URL_SERVICIOS + '/marca?activo=' + activo + '&desde=' + desde + '&token=' + this.token;
 
-    return this.http.get( url );
+      return this.http.get( url );
 
-  }
+    }
+
 
 
      // Actualizar marca
@@ -41,20 +42,7 @@ export class MarcaService {
       let url = URL_SERVICIOS + '/marca/' + marca._id;
       url += '?token=' + this.token;
 
-      return this.http.put( url, marca )
-        .pipe(
-          map( (resp: any) => {
-
-              Swal.fire({
-                title: 'Marca Modificada',
-                text: marca.nombre,
-                icon: 'success',
-                confirmButtonText: 'Bien!'
-              });
-
-              return true;
-          })
-        );
+      return this.http.put( url, marca );
 
     }
 
@@ -68,6 +56,16 @@ export class MarcaService {
           );
 
     }
+
+    borrarMarca( id: string ) {
+
+      this.token = localStorage.getItem('token');
+
+      const url = URL_SERVICIOS + '/marca/' + id + '?token=' + this.token;
+      return this.http.delete( url );
+
+    }
+
 
 
 
