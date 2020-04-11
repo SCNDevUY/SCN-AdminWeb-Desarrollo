@@ -1,0 +1,52 @@
+<div class="col-12">
+
+
+    <h3 class="text-right">TOTAL DE ARTICULOS <span class="badge badge-pill badge-primary">{{ totalCantidad }}</span></h3>
+    <hr>
+
+
+    <div class="row">
+        <div (click)="verActivosoInactivos( 'Activos', true )" class="col-lg-4 col-md-6 col-xlg-2 col-xs-12 pointer">
+            <div class="ribbon-wrapper card">
+                <div class="ribbon ribbon-default">ACTIVOS</div>
+                <h1 class="ribbon-content text-right"><span class="badge badge-pill badge-dark">{{ activosCantidad }}</span></h1>
+            </div>
+        </div>
+        <div (click)="verActivosoInactivos( 'Inactivos', false )" class="col-lg-4 col-md-6 col-xlg-2 col-xs-12 pointer">
+            <div class="ribbon-wrapper card">
+                <div class="ribbon ribbon-danger">INACTIVOS</div>
+                <h1 class="ribbon-content text-right"><span class="badge badge-pill badge-danger">{{ inactivosCantidad }}</span></h1>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-xlg-2 col-xs-12 pointer">
+            <div class="ribbon-wrapper card">
+                <div class="ribbon ribbon-success">NUEVOS</div>
+                <h1 class="ribbon-content text-right"><span class="badge badge-pill badge-success">{{ nuevosCantidad }}</span></h1>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-xlg-2 col-xs-12 pointer">
+            <div class="ribbon-wrapper card">
+                <div class="ribbon ribbon-primary">MAILING</div>
+                <h1 class="ribbon-content text-right"><span class="badge badge-pill badge-primary">{{ mailingCantidad }}</span></h1>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-xlg-2 col-xs-12 pointer">
+            <div class="ribbon-wrapper card">
+                <div class="ribbon ribbon-info">SLIDESHOW</div>
+                <h1 class="ribbon-content text-right"><span class="badge badge-pill badge-info">{{ slideshowCantidad }}</span></h1>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-xlg-2 col-xs-12 pointer">
+            <div class="ribbon-wrapper card">
+                <div class="ribbon ribbon-warning">OFERTAS</div>
+                <h1 class="ribbon-content text-right"><span class="badge badge-pill badge-warning">{{ ofertasCantidad }}</span></h1>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 col-xlg-2 col-xs-12 pointer">
+            <div class="ribbon-wrapper card">
+                <div class="ribbon ribbon-default">IMPRIMIR CARTELES</div>
+            </div>
+        </div>
+    </div>
+</div>

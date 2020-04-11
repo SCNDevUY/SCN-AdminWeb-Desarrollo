@@ -37,6 +37,9 @@ import { GraficoDonaComponent } from '../components/grafico-dona/grafico-dona.co
 
 // Rutas
 import { PAGES_ROUTES } from './pages.routes';
+import { ArticulosComponent } from './articulos/articulos.component';
+import { ArticulosActivosComponent } from './articulos/articulos-activos.component';
+import { ArticulosNuevosComponent } from './articulos/articulos-nuevos.component';
 
 @NgModule({
     declarations: [
@@ -55,7 +58,10 @@ import { PAGES_ROUTES } from './pages.routes';
         ModalSubcategoriasComponent,
         MarcasComponent,
         SubcategoriasComponent,
-        CategoriasComponent
+        CategoriasComponent,
+        ArticulosComponent,
+        ArticulosActivosComponent,
+        ArticulosNuevosComponent
     ],
     exports: [
         DashboardComponent,

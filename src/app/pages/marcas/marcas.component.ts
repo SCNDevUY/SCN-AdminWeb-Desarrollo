@@ -27,10 +27,12 @@ export class MarcasComponent implements OnInit {
   constructor( public _marcasService: MarcaService,
                public _modalUploadService: ModalUploadService ) { }
 
+
   ngOnInit(): void {
     this.cargarMarcas();
     this.usuario = JSON.parse( localStorage.getItem('usuario') );
   }
+
 
   mostrarModal( marca: Marca ) {
     this._modalUploadService.mostrarModal( 'marcas', marca );

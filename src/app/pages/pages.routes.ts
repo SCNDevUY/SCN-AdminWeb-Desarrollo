@@ -14,6 +14,9 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import { MarcasComponent } from './marcas/marcas.component';
 import { CategoriasComponent } from './categorias/categorias.component';
 import { SubcategoriasComponent } from './subcategorias/subcategorias.component';
+import { ArticulosComponent } from './articulos/articulos.component';
+import { ArticulosActivosComponent } from './articulos/articulos-activos.component';
+import { ArticulosNuevosComponent } from './articulos/articulos-nuevos.component';
 
 const pagesRoutes: Routes = [
     {
@@ -30,10 +33,13 @@ const pagesRoutes: Routes = [
             { path: 'perfil', component: ProfileComponent, data: { titulo: 'Perfil del usuario' } },
 
             // Mantenimeintos
-            { path: 'usuarios', component: UsuariosComponent, data: { titulo: 'Mantenimiento de usuarios' } },
-            { path: 'marcas',   component: MarcasComponent, data: { titulo: 'Mantenimiento de marcas' } },
-            { path: 'categorias',   component: CategoriasComponent, data: { titulo: 'Mantenimiento de Categorias' } },
-            { path: 'subcategorias',   component: SubcategoriasComponent, data: { titulo: 'Mantenimiento de SubCategorias' } },
+            { path: 'usuarios',         component: UsuariosComponent,         data: { titulo: 'Mantenimiento de usuarios' } },
+            { path: 'marcas',           component: MarcasComponent,           data: { titulo: 'Mantenimiento de marcas' } },
+            { path: 'categorias',       component: CategoriasComponent,       data: { titulo: 'Mantenimiento de Categorias' } },
+            { path: 'subcategorias',    component: SubcategoriasComponent,    data: { titulo: 'Mantenimiento de SubCategorias' } },
+            { path: 'articulos',        component: ArticulosComponent,        data: { titulo: 'Mantenimiento de Articulos' } },
+            { path: 'articulosActivos', component: ArticulosActivosComponent, data: { titulo: 'Mantenimiento de Articulos' } },
+            { path: 'articulosNuevos',  component: ArticulosNuevosComponent,  data: { titulo: 'Mantenimiento de Articulos' } },
             { path: '', pathMatch: 'full', redirectTo: '/dashboard' }
         ]
     }
