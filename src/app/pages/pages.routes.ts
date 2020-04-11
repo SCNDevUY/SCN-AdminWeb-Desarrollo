@@ -12,6 +12,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { LoginGuardGuard } from '../services/guards/login-guard.guard';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { MarcasComponent } from './marcas/marcas.component';
+import { CategoriasComponent } from './categorias/categorias.component';
 import { SubcategoriasComponent } from './subcategorias/subcategorias.component';
 
 const pagesRoutes: Routes = [
@@ -31,6 +32,7 @@ const pagesRoutes: Routes = [
             // Mantenimeintos
             { path: 'usuarios', component: UsuariosComponent, data: { titulo: 'Mantenimiento de usuarios' } },
             { path: 'marcas',   component: MarcasComponent, data: { titulo: 'Mantenimiento de marcas' } },
+            { path: 'categorias',   component: CategoriasComponent, data: { titulo: 'Mantenimiento de Categorias' } },
             { path: 'subcategorias',   component: SubcategoriasComponent, data: { titulo: 'Mantenimiento de SubCategorias' } },
             { path: '', pathMatch: 'full', redirectTo: '/dashboard' }
         ]

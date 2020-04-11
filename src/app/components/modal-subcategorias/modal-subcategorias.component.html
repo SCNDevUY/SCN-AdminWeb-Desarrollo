@@ -1,0 +1,62 @@
+
+<div class="fondo-negro animated fadeIn" [ngClass]="_modalSubcategoriasService.oculto">
+    
+    <div class="modal" style="display: block" tabindex="-1" role="dialog">
+               
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Categorias - <small class="text-muted">Seleccion de SubCategorias</small></h5>
+                  <button (click)="cerrarModal()" type="button" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <h3>CATEGORIA <span class="badge badge-purple">{{ _modalSubcategoriasService.categoria.nombre }}</span> </h3>
+                    <br>
+                    <h4 class="text-center">SUBCATEGORIAS</h4>
+                    <hr>
+                    
+                    <div *ngIf="this._modalSubcategoriasService.subcategorias.length <= 0" class="container">
+                        <div class="alert alert-danger" role="alert">
+                            <i class="fa fa-warning"></i> NO HAY <a href="#" class="alert-link">SUBCATEGORIAS</a> EN USO
+                          </div>
+                    </div>
+                    
+                    <div *ngIf="this._modalSubcategoriasService.subcategorias.length > 0" class="container">
+                        <h4>EN USO <small class="text-muted">(click para quitar)</small></h4>
+                        <div class=row>
+                            <div *ngFor="let subcategoria of this._modalSubcategoriasService.subcategorias">
+                                <h3><span (click)="quitar( subcategoria )" class="badge badge-success ml-1 pointer"><i class="fa fa-minus-square"></i> {{ subcategoria.nombre }}</span></h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br>
+                    
+                    <div *ngIf="this._modalSubcategoriasService.subcategoriasdeSubcategorias.length > 0" class="container">
+                        <h4>USAR <small class="text-muted">(click para agregar)</small></h4>
+                        <div class=row>
+                            <div *ngFor="let subcategoriadesubCategoria of this._modalSubcategoriasService.subcategoriasdeSubcategorias">
+                                <h3><span (click)="agregar( subcategoriadesubCategoria )" class="badge badge-warning ml-1 pointer"><i class="fa fa-plus-square"></i> {{ subcategoriadesubCategoria.nombre }}</span></h3>
+                            </div>
+                        </div>
+                    </div>                   
+
+    
+                </div>
+                <!-- <div class="modal-footer">                   
+                    <button (click)="guardar( _modalSubcategoriasService.categoria._id )" type="button" class="btn btn-secondary">Guardar</button>
+                </div> -->
+                <div class="modal-footer">                   
+                    <button (click)="cerrarModal()" type="button" class="btn btn-secondary">Cerrar</button>
+                </div>
+              </div>
+            </div>
+
+    </div>
+
+</div>
+
+
+

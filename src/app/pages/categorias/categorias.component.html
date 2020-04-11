@@ -1,0 +1,92 @@
+
+<div class="row animated fadeIn">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <input #input (keyup)="buscarCategorias( input.value )" type="text" class="form-control" placeholder="Buscar categoria">
+
+            </div>
+        </div>
+    </div>
+</div> 
+
+<div class="row animated fadeIn" *ngIf="cargando">
+    <div class="col-sm-12">
+        <div class="alert alert-warning text-center">
+            <strong>Cargando</strong>
+            <br>
+            <i class="fa fa-refresh fa-spin fa-2x"></i>
+            <br>
+            <span>Espere por favor</span>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn" *ngIf="!cargando">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-lg-5 col-md-5 col-sm-12">
+                        <h3 *ngIf="activos" class="card-title">Categorias activas ( <small>{{ totalRegistros }}</small> )</h3>
+                        <h3 *ngIf="!activos" class="card-title">Categorias inactivas ( <small>{{ totalRegistros }}</small> )</h3>
+                    </div>
+                    <div class="col-lg-7 col-md-7 col-sm-12 button-group text-right">
+                        <button *ngIf="!activos" (click)="cargarCategorias()" type="button" class="btn btn-success btn-rounded"><i class="fa fa-check"></i> Ver activos</button>
+                        <button *ngIf="activos" (click)="cargarCategorias(false)" type="button" class="btn btn-danger btn-rounded"><i class="fa fa-close"></i> Ver inactivos</button>
+                        <button *ngIf="activos" (click)="agregarCategoria()" type="button" class="btn btn-primary btn-rounded"><i class="fa fa-plus"></i> Agregar</button>
+                    </div>
+                </div>
+                <div class="table-responsive">
+
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Estado</th>
+                                <th class="text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let categoria of categorias">
+                                <td><input [(ngModel)]="categoria.nombre" name="nombre" type="text" class="form-control" ></td>
+                                <td>
+                                    <select [(ngModel)]="categoria.activo" name="role" class="form-control">
+                                        <option value="true">ACTIVO</option>
+                                        <option value="false">INACTIVO</option>
+                                    </select>
+                                </td>
+                                <td class="button-group text-center">
+                                    <button (click)="guardarCategoria( categoria )" class="btn btn-primary">
+                                        <i class="fa fa-save"></i>
+                                    </button>
+                                    <button *ngIf="activos" (click)="mostrarModal( categoria )" class="btn btn-dark">
+                                        <i class="fa fa-list"></i> SubCategorias
+                                    </button>                                    
+                                    <button *ngIf="!activos" (click)="borrarCategoria( categoria )" class="btn btn-danger">
+                                        <i class="fa fa-trash-o"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                
+                <div *ngIf="totalRegistros > 5" class="button-group">
+                    <button (click)="cambiarDesde(-5)" class="btn btn-secondary">
+                        Anteriores
+                    </button>
+    
+                    <button (click)="cambiarDesde(5)" class="btn btn-secondary">
+                        Siguientes
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div> 
+

@@ -16,8 +16,11 @@ import { PagesComponent } from './pages.component';
 
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { MarcasComponent } from './marcas/marcas.component';
+import { CategoriasComponent } from './categorias/categorias.component';
+import { SubcategoriasComponent } from './subcategorias/subcategorias.component';
 
 import { ModalUploadComponent } from '../components/modal-upload/modal-upload.component';
+import { ModalSubcategoriasComponent } from '../components/modal-subcategorias/modal-subcategorias.component';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProgressComponent } from './progress/progress.component';
@@ -34,7 +37,6 @@ import { GraficoDonaComponent } from '../components/grafico-dona/grafico-dona.co
 
 // Rutas
 import { PAGES_ROUTES } from './pages.routes';
-import { SubcategoriasComponent } from './subcategorias/subcategorias.component';
 
 @NgModule({
     declarations: [
@@ -50,8 +52,10 @@ import { SubcategoriasComponent } from './subcategorias/subcategorias.component'
         ProfileComponent,
         UsuariosComponent,
         ModalUploadComponent,
+        ModalSubcategoriasComponent,
         MarcasComponent,
-        SubcategoriasComponent
+        SubcategoriasComponent,
+        CategoriasComponent
     ],
     exports: [
         DashboardComponent,
