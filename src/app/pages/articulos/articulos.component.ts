@@ -18,6 +18,9 @@ export class ArticulosComponent implements OnInit {
   slideshowCantidad: number = 0;
   ofertasCantidad: number = 0;
 
+
+
+
   constructor( public _articulosService: ArticuloService,
                public router: Router ) { }
 
@@ -45,15 +48,11 @@ export class ArticulosComponent implements OnInit {
   }
 
   verActivosoInactivos( titulo: string, valor: boolean ) {
-
     this.router.navigate([ '/articulosActivos', { titulo, activo: valor} ]);
-
   }
 
   verNuevos() {
-
     this.router.navigate([ '/articulosNuevos' ]);
-
   }
 
 

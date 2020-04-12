@@ -40,6 +40,7 @@ import { PAGES_ROUTES } from './pages.routes';
 import { ArticulosComponent } from './articulos/articulos.component';
 import { ArticulosActivosComponent } from './articulos/articulos-activos.component';
 import { ArticulosNuevosComponent } from './articulos/articulos-nuevos.component';
+import { ArticulosEditarComponent } from './articulos/articulos-editar.component';
 
 @NgModule({
     declarations: [
@@ -61,7 +62,8 @@ import { ArticulosNuevosComponent } from './articulos/articulos-nuevos.component
         CategoriasComponent,
         ArticulosComponent,
         ArticulosActivosComponent,
-        ArticulosNuevosComponent
+        ArticulosNuevosComponent,
+        ArticulosEditarComponent
     ],
     exports: [
         DashboardComponent,

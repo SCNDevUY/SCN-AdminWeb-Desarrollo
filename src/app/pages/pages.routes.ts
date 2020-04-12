@@ -17,6 +17,7 @@ import { SubcategoriasComponent } from './subcategorias/subcategorias.component'
 import { ArticulosComponent } from './articulos/articulos.component';
 import { ArticulosActivosComponent } from './articulos/articulos-activos.component';
 import { ArticulosNuevosComponent } from './articulos/articulos-nuevos.component';
+import { ArticulosEditarComponent } from './articulos/articulos-editar.component';
 
 const pagesRoutes: Routes = [
     {
@@ -39,7 +40,8 @@ const pagesRoutes: Routes = [
             { path: 'subcategorias',    component: SubcategoriasComponent,    data: { titulo: 'Mantenimiento de SubCategorias' } },
             { path: 'articulos',        component: ArticulosComponent,        data: { titulo: 'Mantenimiento de Articulos' } },
             { path: 'articulosActivos', component: ArticulosActivosComponent, data: { titulo: 'Mantenimiento de Articulos' } },
-            { path: 'articulosNuevos',  component: ArticulosNuevosComponent,  data: { titulo: 'Mantenimiento de Articulos' } },
+            { path: 'articulosNuevos',  component: ArticulosNuevosComponent,  data: { titulo: 'Mantenimiento de Articulos - Nuevos' } },
+            { path: 'articulosEditar/:id',  component: ArticulosEditarComponent,  data: { titulo: 'Mantenimiento de Articulos - Editar' } },
             { path: '', pathMatch: 'full', redirectTo: '/dashboard' }
         ]
     }

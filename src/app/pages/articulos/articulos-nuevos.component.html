@@ -1,1 +1,108 @@
-<p>articulos-nuevos works!</p>
+
+<div class="row animated fadeIn">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <input #input (keyup)="buscarArticulo( input.value )" type="text" class="form-control" placeholder="Buscar articulo">
+
+            </div>
+        </div>
+    </div>
+</div> 
+
+<div class="row animated fadeIn" *ngIf="cargando">
+    <div class="col-sm-12">
+        <div class="alert alert-warning text-center">
+            <strong>Cargando</strong>
+            <br>
+            <i class="fa fa-refresh fa-spin fa-2x"></i>
+            <br>
+            <span>Espere por favor</span>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn" *ngIf="!cargando">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-lg-5 col-md-5 col-sm-12">
+                        <h3 class="card-title">Articulos Nuevos ( <small>{{ totalRegistros }}</small> )</h3>
+                    </div>
+                    <div class="col-lg-7 col-md-7 col-sm-12 button-group text-right">
+                        <button (click)="volver()" type="button" class="btn btn-primary btn-rounded"><i class="fa fa-chevron-circle-left"></i> Volver</button>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Imagen</th>
+                                <th>Codigo</th>
+                                <th>Nombre</th>
+                                <th>Precio</th>
+                                <th>Oferta</th>
+                                <th>Costo</th>
+                                <th>Marca</th>
+                                <th>Categoria</th>
+                                <th class="text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let articulo of articulos">
+                                <td class="w70">
+                                    <img (click)="mostrarModal( articulo )" [src]="articulo.img | imagen" class="img-50 pointer">
+                                </td>
+                                <td>
+                                    <p>{{ articulo.codigoInterno }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ articulo.nombre }}</p>
+                                </td>
+                                <td>
+                                    <p>u$s {{ articulo.precio }}</p>
+                                </td>
+                                <td>
+                                    <p>u$s {{ articulo.precioOferta }}</p>
+                                </td>
+                                <td>
+                                    <p>u$s {{ articulo.costo }}</p>
+                                </td>
+                                <td>
+                                    <img [src]="articulo.marca.img | imagen" class="img-50 pointer">
+                                </td>
+                                <td>
+                                    <p>{{ articulo.categoria.nombre }}</p>
+                                </td>
+                                <td class="button-group text-center">
+                                    <button (click)="editarArticulo( articulo._id )" class="btn btn-primary">
+                                        <i class="fa fa-save"></i> EDITAR
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                
+                <div *ngIf="totalRegistros > 5" class="button-group">
+                    <button (click)="cambiarDesde(-5)" class="btn btn-secondary">
+                        Anteriores
+                    </button>
+    
+                    <button (click)="cambiarDesde(5)" class="btn btn-secondary">
+                        Siguientes
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div> 
+
+

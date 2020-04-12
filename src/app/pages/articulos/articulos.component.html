@@ -6,6 +6,12 @@
 
 
     <div class="row">
+        <div (click)="verNuevos()" class="col-lg-4 col-md-6 col-xlg-2 col-xs-12 pointer">
+            <div class="ribbon-wrapper card">
+                <div class="ribbon ribbon-success">NUEVOS</div>
+                <h1 class="ribbon-content text-right"><span class="badge badge-pill badge-success">{{ nuevosCantidad }}</span></h1>
+            </div>
+        </div>
         <div (click)="verActivosoInactivos( 'Activos', true )" class="col-lg-4 col-md-6 col-xlg-2 col-xs-12 pointer">
             <div class="ribbon-wrapper card">
                 <div class="ribbon ribbon-default">ACTIVOS</div>
@@ -16,12 +22,6 @@
             <div class="ribbon-wrapper card">
                 <div class="ribbon ribbon-danger">INACTIVOS</div>
                 <h1 class="ribbon-content text-right"><span class="badge badge-pill badge-danger">{{ inactivosCantidad }}</span></h1>
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-6 col-xlg-2 col-xs-12 pointer">
-            <div class="ribbon-wrapper card">
-                <div class="ribbon ribbon-success">NUEVOS</div>
-                <h1 class="ribbon-content text-right"><span class="badge badge-pill badge-success">{{ nuevosCantidad }}</span></h1>
             </div>
         </div>
         <div class="col-lg-4 col-md-6 col-xlg-2 col-xs-12 pointer">
