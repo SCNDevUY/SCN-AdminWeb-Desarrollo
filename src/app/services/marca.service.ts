@@ -90,6 +90,16 @@ export class MarcaService {
     }
 
 
+    // Buscar 1 marca por ID
+    buscarunaMarca( id: string ) {
 
+      const url = URL_SERVICIOS + '/marcas/' + id ;
+
+      return this.http.get( url )
+          .pipe(
+            map( (resp: any) => resp.marca )
+          );
+
+    }
 
 }

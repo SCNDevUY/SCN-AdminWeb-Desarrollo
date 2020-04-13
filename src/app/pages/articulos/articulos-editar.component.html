@@ -11,15 +11,7 @@
                     <div class="form-body">
                         <h3 class="box-title">Datos Principales</h3>
                         <hr class="m-t-0 m-b-40">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group row custom-control custom-switch">
-                                    <input type="checkbox" [(ngModel)]="articulo.activo" name="activo" class="custom-control-input" id="customSwitch1">
-                                    <label class="custom-control-label" for="customSwitch1">ACTIVO</label>
-                                </div>
-                            </div>
-                            <!--/span-->
-                        </div>
+
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">
@@ -28,43 +20,49 @@
                                         <input type="text" [(ngModel)]="articulo.nombre" name="nombre" class="form-control">
                                     </div>
                                 </div>
-                            </div>
-                            <!--/span-->
-                            <div class="col-md-6">
+
                                 <div class="form-group row">
                                     <label class="control-label text-right col-md-3">Precio</label>
                                     <div class="col-md-9">
                                         <input type="text" [(ngModel)]="articulo.precio" name="precio" class="form-control">
                                     </div>
                                 </div>
-                            </div>
-                            <!--/span-->
-                        </div>
-                        <!--/row-->
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="control-label text-right col-md-3">Descripcion</label>
-                                    <div class="col-md-9">
-                                        <textarea class="form-control" [(ngModel)]="articulo.descripcion" name="descripcion" rows="10"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--/span-->
-                            <div class="col-md-6">
+
                                 <div class="form-group row">
                                     <label class="control-label text-right col-md-3">Costo</label>
                                     <div class="col-md-9">
                                         <input type="text" [(ngModel)]="articulo.costo" name="costo" class="form-control">
                                     </div>
                                 </div>
+
+                                <div class="form-group row">
+                                    <label class="control-label text-right col-md-3">Stock</label>
+                                    <div class="col-md-9">
+                                        <input type="text" [(ngModel)]="articulo.stock" name="stock" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group row custom-control custom-switch">
+                                        <input type="checkbox" [(ngModel)]="articulo.activo" name="activo" class="custom-control-input" id="customSwitch1">
+                                        <label class="custom-control-label" for="customSwitch1">ACTIVO</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!--/span-->
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="control-label text-right col-md-3">Info</label>
+                                    <div class="col-md-9">
+                                        <textarea class="form-control" [(ngModel)]="articulo.descripcion" name="descripcion" rows="10"></textarea>
+                                    </div>
+                                </div>
                             </div>
                             <!--/span-->
                         </div>
-
-                        <h3 class="box-title">MARCA</h3>
-                        <!-- <img [src]="articulo.img | imagen" class="img-50 pointer"> -->
-                        <h4 class="m-b-0">{{ articulo.marca.nombre }} </h4>
+                        
+                        <h3 class="box-title">Marca: <img [src]="articulo.marca.img | imagen" class="img-100"></h3>
                         <hr class="m-t-0 m-b-40">
                         <!--/row-->
                         <div class="row">
@@ -72,66 +70,30 @@
                                 <div class="form-group row">
                                     <label class="control-label text-right col-md-3">Marcas</label>
                                     <div class="col-md-9">
-                                        <select class="form-control custom-select">
-                                            <option>Country 1</option>
+                                        <select [(ngModel)]="marca" name="marca" class="form-control custom-select">
+                                            <option *ngFor="let marca of marcas.marcas" [ngValue]="marca._id">{{ marca.nombre }}</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="control-label text-right col-md-3">Address 2</label>
-                                    <div class="col-md-9">
-                                        <input type="text" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="control-label text-right col-md-3">City</label>
-                                    <div class="col-md-9">
-                                        <input type="text" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                            <!--/span-->
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="control-label text-right col-md-3">State</label>
-                                    <div class="col-md-9">
-                                        <input type="text" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                            <!--/span-->
-                        </div>
+
+                        <h3 class="box-title">Categoria: <img [src]="articulo.marca.img | imagen" class="img-100"></h3>
+                        <hr class="m-t-0 m-b-40">
                         <!--/row-->
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label class="control-label text-right col-md-3">Post Code</label>
+                                    <label class="control-label text-right col-md-3">Marcas</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                            <!--/span-->
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="control-label text-right col-md-3">Country</label>
-                                    <div class="col-md-9">
-                                        <select class="form-control custom-select">
-                                            <option>Country 1</option>
-                                            <option>Country 2</option>
+                                        <select [(ngModel)]="marca" name="marca" class="form-control custom-select">
+                                            <option *ngFor="let marca of marcas.marcas" [ngValue]="marca._id">{{ marca.nombre }}</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
-                            <!--/span-->
                         </div>
-                        <!--/row-->
+
                     </div>
                     <hr>
                     <div class="form-actions">
@@ -139,8 +101,8 @@
                             <div class="col-md-6">
                                 <div class="row">
                                     <div class="col-md-offset-3 col-md-9">
-                                        <button type="submit" class="btn btn-success">Submit</button>
-                                        <button type="button" class="btn btn-inverse">Cancel</button>
+                                        <button type="submit" class="btn btn-success">Guardar</button>
+                                        <button type="button" class="btn btn-inverse">Cancelar</button>
                                     </div>
                                 </div>
                             </div>

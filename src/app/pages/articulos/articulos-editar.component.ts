@@ -1,9 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-
-import { ActivatedRoute } from '@angular/router';
-import { ArticuloService } from '../../services/articulo.service';
-import { Articulo } from '../../models/articulo.model';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+
+// Modelos
+import { Articulo } from '../../models/articulo.model';
+import { Marca } from '../../models/marca.model';
+import { Categoria } from '../../models/categoria.model';
+
+// Servicios
+import { ArticuloService } from '../../services/articulo.service';
+import { MarcaService } from '../../services/marca.service';
 
 @Component({
   selector: 'app-articulos-editar',
@@ -14,9 +20,37 @@ export class ArticulosEditarComponent implements OnInit {
 
   id: string;
 
-  articulo: any = {};
+  articulo: any = {
+      codigoInterno: 0,
+      nombre: '',
+      precio: 0,
+      stock: 0,
+      costo: 0,
+      usuario: {
+        nombre: ''
+      },
+      marca: {
+          nombre: '',
+          img: '',
+          imgNombre: '',
+          _id: ''
+      },
+      categoria: {
+          nombre: '',
+          _id: ''
+      },
+      subcategoria: [{
+        nombre: '',
+        _id: ''
+      }],
+      descripcion: '',
+      nuevo: true
+  };
+
+  marcas: any = {};
 
   constructor( public _articulosService: ArticuloService,
+               public _marcasService: MarcaService,
                public activatedRoute: ActivatedRoute ) {
 
     this.activatedRoute.params.subscribe( params => {
@@ -24,6 +58,7 @@ export class ArticulosEditarComponent implements OnInit {
     });
 
     this.obtenerArticulo();
+    this.cargarMarcas();
 
   }
 
@@ -41,6 +76,33 @@ export class ArticulosEditarComponent implements OnInit {
         console.log(this.articulo);
 
       });
+
+  }
+
+  // obtenerMarca( id: string ) {
+
+  //   this._marcasService.buscarunaMarca( id )
+  //     .subscribe( resp => {
+
+  //       this.marca = resp;
+
+  //       console.log(this.marca);
+
+  //     });
+
+  // }
+
+
+  cargarMarcas() {
+
+    this._marcasService.cargarMarcas(0,true)
+        .subscribe( resp => {
+
+          this.marcas = resp;
+
+          console.log(this.marcas.marcas);
+
+        });
 
   }
 

@@ -13,6 +13,7 @@
         public descripcion: string,
         public nuevo: boolean,
         public oferta?: boolean,
+        public stock?: number,
         public precioOferta?: number,
         public fechaIniPrecioOferta?: string,
         public fechaFinPrecioOferta?: string,
