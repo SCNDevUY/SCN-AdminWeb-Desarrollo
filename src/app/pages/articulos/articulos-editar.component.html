@@ -42,13 +42,6 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-6">
-                                    <div class="form-group row custom-control custom-switch">
-                                        <input type="checkbox" [(ngModel)]="articulo.activo" name="activo" class="custom-control-input" id="customSwitch1">
-                                        <label class="custom-control-label" for="customSwitch1">ACTIVO</label>
-                                    </div>
-                                </div>
-
                             </div>
                             <!--/span-->
                             <div class="col-md-6">
@@ -62,35 +55,25 @@
                             <!--/span-->
                         </div>
                         
-                        <h3 class="box-title">Marca: <img [src]="articulo.marca.img | imagen" class="img-100"></h3>
+                        <h3 class="box-title">Marcas</h3>
                         <hr class="m-t-0 m-b-40">
                         <!--/row-->
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="control-label text-right col-md-3">Marcas</label>
-                                    <div class="col-md-9">
-                                        <select [(ngModel)]="marca" name="marca" class="form-control custom-select">
-                                            <option *ngFor="let marca of marcas.marcas" [ngValue]="marca._id">{{ marca.nombre }}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
-                        <h3 class="box-title">Categoria: <img [src]="articulo.marca.img | imagen" class="img-100"></h3>
-                        <hr class="m-t-0 m-b-40">
-                        <!--/row-->
-                        <div class="row">
-                            <div class="col-md-6">
                                 <div class="form-group row">
-                                    <label class="control-label text-right col-md-3">Marcas</label>
-                                    <div class="col-md-9">
-                                        <select [(ngModel)]="marca" name="marca" class="form-control custom-select">
-                                            <option *ngFor="let marca of marcas.marcas" [ngValue]="marca._id">{{ marca.nombre }}</option>
-                                        </select>
+                                    
+                                    <div class="mr-3" *ngFor="let marca of marcas.marcas">
+                                        <input [(ngModel)]="marca._id" name="marca" type="radio" id="{{ marca.nombre }}" *ngIf="articulo.marca.nombre !== marca.nombre" [value]="marca._id"/>
+                                        <label for="{{ marca.nombre }}" *ngIf="articulo.marca.nombre !== marca.nombre">{{ marca.nombre }}</label>
                                     </div>
+                                    <div>
+                                        <input [(ngModel)]="articulo.marca._id" name="marca" type="radio" id="{{ articulo.marca.nombre }}" [value]="articulo.marca._id"/>
+                                        <label for="{{ articulo.marca.nombre }}">{{ articulo.marca.nombre }}</label>
+                                    </div>
+
                                 </div>
+
                             </div>
                         </div>
 
@@ -100,7 +83,13 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="row">
-                                    <div class="col-md-offset-3 col-md-9">
+                                    <!-- <div class="col-md-6">
+                                        <div class="form-group row custom-control custom-switch">
+                                            <input type="checkbox" [(ngModel)]="articulo.activo" name="activo" class="custom-control-input" id="customSwitch1">
+                                            <label class="custom-control-label" for="customSwitch1">ACTIVO</label>
+                                        </div>
+                                    </div> -->
+                                    <div class="col-md-offset-3 col-md-9 button-group">
                                         <button type="submit" class="btn btn-success">Guardar</button>
                                         <button type="button" class="btn btn-inverse">Cancelar</button>
                                     </div>
