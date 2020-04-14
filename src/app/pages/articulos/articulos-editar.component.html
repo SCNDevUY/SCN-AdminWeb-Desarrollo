@@ -55,28 +55,41 @@
                             <!--/span-->
                         </div>
                         
-                        <h3 class="box-title">Marcas</h3>
+                        <h3 class="box-title">Marca</h3>
                         <hr class="m-t-0 m-b-40">
-                        <!--/row-->
                         <div class="row">
                             <div class="col-md-6">
-
-                                <div class="form-group row">
-                                    
-                                    <div class="mr-3" *ngFor="let marca of marcas.marcas">
-                                        <input [(ngModel)]="marca._id" name="marca" type="radio" id="{{ marca.nombre }}" *ngIf="articulo.marca.nombre !== marca.nombre" [value]="marca._id"/>
-                                        <label for="{{ marca.nombre }}" *ngIf="articulo.marca.nombre !== marca.nombre">{{ marca.nombre }}</label>
-                                    </div>
-                                    <div>
-                                        <input [(ngModel)]="articulo.marca._id" name="marca" type="radio" id="{{ articulo.marca.nombre }}" [value]="articulo.marca._id"/>
-                                        <label for="{{ articulo.marca.nombre }}">{{ articulo.marca.nombre }}</label>
-                                    </div>
-
+                                <div class="form-group">
+                                    <label class="control-label">Seleccione la Marca</label>
+                                    <select (change)='cambiarImagen($event.target.selectedOptions)' class="form-control custom-select" name="marca" [(ngModel)]="articulo.marca._id">
+                                        <option [value]="marca._id" id="{{marca.img}}" *ngFor="let marca of marcas.marcas" >{{marca.nombre}}</option>
+                                    </select>
                                 </div>
-
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <img [src]="imgArticulo | imagen" class="img-thumbnail img-100">
+                                </div>
                             </div>
                         </div>
-
+                        
+                        <h3 class="box-title">Categoria</h3>
+                        <hr class="m-t-0 m-b-40">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Seleccione la Categoria</label>
+                                    <select (change)='cambiarSubCategorias($event.target.value)' class="form-control custom-select" name="categoria" [(ngModel)]="articulo.categoria._id">
+                                        <option [value]="categoria._id" *ngFor="let categoria of categorias.categorias" >{{categoria.nombre}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ subcategorias }}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <hr>
                     <div class="form-actions">

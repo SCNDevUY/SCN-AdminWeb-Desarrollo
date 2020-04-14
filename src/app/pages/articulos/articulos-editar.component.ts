@@ -10,6 +10,7 @@ import { Categoria } from '../../models/categoria.model';
 // Servicios
 import { ArticuloService } from '../../services/articulo.service';
 import { MarcaService } from '../../services/marca.service';
+import { CategoriaService } from '../../services/categoria.service';
 
 @Component({
   selector: 'app-articulos-editar',
@@ -19,6 +20,9 @@ import { MarcaService } from '../../services/marca.service';
 export class ArticulosEditarComponent implements OnInit {
 
   id: string;
+
+  imgArticulo: string;
+  subcategorias: string;
 
   articulo: any = {
       codigoInterno: 0,
@@ -49,8 +53,16 @@ export class ArticulosEditarComponent implements OnInit {
 
   marcas: any = {};
 
+  categorias: any = {
+    ok: true,
+    total: 0,
+    categorias: []
+  };
+
+
   constructor( public _articulosService: ArticuloService,
                public _marcasService: MarcaService,
+               public _categoriasService: CategoriaService,
                public activatedRoute: ActivatedRoute ) {
 
     this.activatedRoute.params.subscribe( params => {
@@ -59,6 +71,7 @@ export class ArticulosEditarComponent implements OnInit {
 
     this.obtenerArticulo();
     this.cargarMarcas();
+    this.cargarCategorias();
 
   }
 
@@ -73,44 +86,50 @@ export class ArticulosEditarComponent implements OnInit {
 
         this.articulo = resp;
 
-        console.log(this.articulo);
+        this.imgArticulo = this.articulo.marca.img;
+        // console.log(this.articulo);
 
       });
 
   }
 
-  // obtenerMarca( id: string ) {
-
-  //   this._marcasService.buscarunaMarca( id )
-  //     .subscribe( resp => {
-
-  //       this.marca = resp;
-
-  //       console.log(this.marca);
-
-  //     });
-
-  // }
-
 
   cargarMarcas() {
 
     this._marcasService.cargarMarcas(0,true)
-        .subscribe( resp => {
+    .subscribe( resp => {
+        this.marcas = resp;
+    });
+  }
 
-          this.marcas = resp;
 
-          console.log(this.marcas.marcas);
+  cargarCategorias() {
 
-        });
+    this._categoriasService.cargarCategorias(0, true)
+    .subscribe( resp => {
 
+      this.categorias = resp;
+
+      console.log(this.categorias.categorias);
+
+    });
+  }
+
+  cambiarSubCategorias( event ) {
+
+   // this.categorias.categorias.includes(event)
+
+    console.log(event);
+
+  }
+
+  cambiarImagen( event ) {
+    this.imgArticulo = event[0].id;
   }
 
 
   editar( forma: NgForm ) {
-
     console.log(forma.form.value);
-
   }
 
 
