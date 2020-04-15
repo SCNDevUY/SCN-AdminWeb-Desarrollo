@@ -70,9 +70,9 @@ export class ArticulosActivosComponent implements OnInit {
   }
 
 
-  editarArticulo( articulo: Articulo ) {
+  editarArticulo( id: string ) {
 
-    console.log(articulo);
+    this.router.navigate([ '/articulosEditar', id ]);
 
   }
 

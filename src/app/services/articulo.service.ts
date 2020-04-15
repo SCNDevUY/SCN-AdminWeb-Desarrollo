@@ -93,4 +93,17 @@ export class ArticuloService {
 
     }
 
+
+     // Actualizar articulo
+     actualizarArticulo( articulo: Articulo ) {
+
+      this.token = localStorage.getItem('token');
+
+      let url = URL_SERVICIOS + '/articulos/' + articulo._id;
+      url += '?token=' + this.token;
+
+      return this.http.put( url, articulo );
+
+    }
+
 }

@@ -4,12 +4,11 @@
             <div class="card-header bg-info">
                 <h6 class="text-white">CODIGO {{ articulo.codigoInterno }} </h6>
                 <h4 class="m-b-0 text-white">{{ articulo.nombre }} </h4>
-                <h6 class="card-subtitle text-white text-right"> Creado por: {{ articulo.usuario.nombre }} </h6>
             </div>
             <div class="card-body">
-                <form #f="ngForm" (ngSubmit)="editar( f )" class="form-horizontal">
+                <form #f="ngForm" (ngSubmit)="guardar( f )" class="form-horizontal">
                     <div class="form-body">
-                        <h3 class="box-title">Datos Principales</h3>
+                        <h3 class="box-title">GENERALES</h3>
                         <hr class="m-t-0 m-b-40">
 
                         <div class="row">
@@ -55,53 +54,69 @@
                             <!--/span-->
                         </div>
                         
-                        <h3 class="box-title">Marca</h3>
+                        <h3 class="box-title">MARCA</h3>
                         <hr class="m-t-0 m-b-40">
+                        <h2 *ngIf="!articulo.nuevo"><span class="badge badge-primary">{{ articulo.marca.nombre }}</span></h2>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Seleccione la Marca</label>
-                                    <select (change)='cambiarImagen($event.target.selectedOptions)' class="form-control custom-select" name="marca" [(ngModel)]="articulo.marca._id">
+                                    <select (change)='cambiarImagen($event.target.selectedOptions)' class="form-control custom-select" name="marca" [(ngModel)]="articulo.marca"> 
                                         <option [value]="marca._id" id="{{marca.img}}" *ngFor="let marca of marcas.marcas" >{{marca.nombre}}</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
+                            <div class="col-md-6" *ngIf="eligioMarca">
+                                <div class="form-group text-center">
                                     <img [src]="imgArticulo | imagen" class="img-thumbnail img-100">
                                 </div>
                             </div>
                         </div>
                         
-                        <h3 class="box-title">Categoria</h3>
-                        <hr class="m-t-0 m-b-40">
                         <div class="row">
                             <div class="col-md-6">
+                                <h3 class="box-title">CATEGORIAS</h3>
+                                <hr class="m-t-0 m-b-40">
+                                <h2 *ngIf="!articulo.nuevo"><span class="badge badge-primary">{{ articulo.categoria.nombre }}</span></h2>
                                 <div class="form-group">
                                     <label class="control-label">Seleccione la Categoria</label>
-                                    <select (change)='cambiarSubCategorias($event.target.value)' class="form-control custom-select" name="categoria" [(ngModel)]="articulo.categoria._id">
+                                    <select (change)='cargarSubCategorias($event.target.value)' class="form-control custom-select" name="categoria" [(ngModel)]="articulo.categoria">
                                         <option [value]="categoria._id" *ngFor="let categoria of categorias.categorias" >{{categoria.nombre}}</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-6">
+                                <h3 class="box-title">SUBCATEGORIAS</h3>
+                                <hr class="m-t-0 m-b-40">
+                                <h2 *ngIf="!articulo.nuevo"><span *ngFor="let subcategoria of articulo.subcategoria" class="badge badge-primary">{{ subcategoria.nombre }}</span></h2>
                                 <div class="form-group">
-                                    {{ subcategorias }}
+                                    <label class="control-label">Seleccione las SubCategorias</label>
+                                    <div class="controls">
+                                        <fieldset *ngFor="let subcategoria of subcategorias" >
+                                            <label class="custom-control custom-checkbox">
+                                                <input (change)="subCat($event.target.value)" type="checkbox" value="{{ subcategoria._id }}" name="subcategorias" class="custom-control-input"> <span class="custom-control-indicator"></span> <span class="custom-control-description">{{ subcategoria.nombre }}</span> </label>
+                                        </fieldset>
+                                    </div>
                                 </div>
-                            </div>
+                            </div>                            
+                        </div>
+                        <div class="row" *ngIf="muestroActivo">
+                            <div class="col-md-12">
+                                <h3 class="box-title">ACTIVO</h3>
+                                <hr class="m-t-0 m-b-40">
+                                <div class="switch js-switch">
+                                    <label>NO
+                                        <input [(ngModel)]="articulo.activo" name="activo" type="checkbox"><span class="lever"></span>SI</label>
+                                </div>
+                            </div>                           
                         </div>
                     </div>
+                    <br>
                     <hr>
                     <div class="form-actions">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="row">
-                                    <!-- <div class="col-md-6">
-                                        <div class="form-group row custom-control custom-switch">
-                                            <input type="checkbox" [(ngModel)]="articulo.activo" name="activo" class="custom-control-input" id="customSwitch1">
-                                            <label class="custom-control-label" for="customSwitch1">ACTIVO</label>
-                                        </div>
-                                    </div> -->
                                     <div class="col-md-offset-3 col-md-9 button-group">
                                         <button type="submit" class="btn btn-success">Guardar</button>
                                         <button type="button" class="btn btn-inverse">Cancelar</button>

@@ -42,22 +42,22 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>Imagen</th>
+                                <!-- <th>Imagen</th> -->
                                 <th>Codigo</th>
                                 <th>Nombre</th>
                                 <th>Precio</th>
-                                <th>Oferta</th>
+                                <!-- <th>Oferta</th> -->
                                 <th>Costo</th>
-                                <th>Marca</th>
-                                <th>Categoria</th>
+                                <!-- <th>Marca</th>
+                                <th>Categoria</th> -->
                                 <th class="text-center">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let articulo of articulos">
-                                <td class="w70">
+                                <!-- <td class="w70">
                                     <img (click)="mostrarModal( articulo )" [src]="articulo.img | imagen" class="img-50 pointer">
-                                </td>
+                                </td> -->
                                 <td>
                                     <p>{{ articulo.codigoInterno }}</p>
                                 </td>
@@ -67,18 +67,18 @@
                                 <td>
                                     <p>u$s {{ articulo.precio }}</p>
                                 </td>
-                                <td>
+                                <!-- <td>
                                     <p>u$s {{ articulo.precioOferta }}</p>
-                                </td>
+                                </td> -->
                                 <td>
                                     <p>u$s {{ articulo.costo }}</p>
                                 </td>
-                                <td>
+                                <!-- <td>
                                     <img [src]="articulo.marca.img | imagen" class="img-50 pointer">
                                 </td>
                                 <td>
                                     <p>{{ articulo.categoria.nombre }}</p>
-                                </td>
+                                </td> -->
                                 <td class="button-group text-center">
                                     <button (click)="editarArticulo( articulo._id )" class="btn btn-primary">
                                         <i class="fa fa-save"></i> EDITAR

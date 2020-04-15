@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { NgForm, Form } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+
+import Swal from 'sweetalert2';
 
 // Modelos
 import { Articulo } from '../../models/articulo.model';
@@ -21,49 +23,39 @@ export class ArticulosEditarComponent implements OnInit {
 
   id: string;
 
-  imgArticulo: string;
-  subcategorias: string;
+  imgArticulo: string = '';
+  eligioMarca: boolean = false;
+
+  muestroActivo: boolean = false;
 
   articulo: any = {
-      codigoInterno: 0,
+    codigoInterno: 0,
+    nombre: '',
+    precio: 0,
+    stock: 0,
+    costo: 0,
+    marca: {
       nombre: '',
-      precio: 0,
-      stock: 0,
-      costo: 0,
-      usuario: {
-        nombre: ''
-      },
-      marca: {
-          nombre: '',
-          img: '',
-          imgNombre: '',
-          _id: ''
-      },
-      categoria: {
-          nombre: '',
-          _id: ''
-      },
-      subcategoria: [{
-        nombre: '',
-        _id: ''
-      }],
-      descripcion: '',
-      nuevo: true
+      img: ''
+    },
+    subcategoria: [],
+    categoria: {
+      nombre: ''
+    }
   };
 
   marcas: any = {};
+  categorias: any = {};
+  subcategorias = [];
+  subcategoriasTemp = [];
 
-  categorias: any = {
-    ok: true,
-    total: 0,
-    categorias: []
-  };
 
 
   constructor( public _articulosService: ArticuloService,
                public _marcasService: MarcaService,
                public _categoriasService: CategoriaService,
-               public activatedRoute: ActivatedRoute ) {
+               public activatedRoute: ActivatedRoute,
+               public router: Router, ) {
 
     this.activatedRoute.params.subscribe( params => {
       this.id = params.id;
@@ -86,8 +78,12 @@ export class ArticulosEditarComponent implements OnInit {
 
         this.articulo = resp;
 
-        this.imgArticulo = this.articulo.marca.img;
-        // console.log(this.articulo);
+        if ( this.articulo.nuevo === false ) {
+
+            this.muestroActivo = true;
+
+        }
+        console.log('Articulo: ', this.articulo);
 
       });
 
@@ -96,7 +92,7 @@ export class ArticulosEditarComponent implements OnInit {
 
   cargarMarcas() {
 
-    this._marcasService.cargarMarcas(0,true)
+    this._marcasService.cargarMarcas( 0, true )
     .subscribe( resp => {
         this.marcas = resp;
     });
@@ -110,26 +106,73 @@ export class ArticulosEditarComponent implements OnInit {
 
       this.categorias = resp;
 
-      console.log(this.categorias.categorias);
+      // console.log(this.categorias.categorias);
 
     });
   }
 
-  cambiarSubCategorias( event ) {
+  cargarSubCategorias( idCategoria: string ) {
 
-   // this.categorias.categorias.includes(event)
+    for ( const categoria of this.categorias.categorias ) {
 
-    console.log(event);
+      if ( categoria._id === idCategoria ) {
+        this.subcategorias = categoria.subcategorias;
+      }
+
+    }
+
+    this.subcategoriasTemp = [];
+
+  }
+
+  subCat( idSubCat: string ) {
+
+    if ( !this.subcategoriasTemp.includes( idSubCat ) ) {
+
+      this.subcategoriasTemp.push( idSubCat );
+      // console.log(this.subcategoriasTemp);
+
+    } else {
+
+      // Borrar
+      const index = this.subcategoriasTemp.map( item => item).indexOf(idSubCat);
+
+      this.subcategoriasTemp.splice(index, 1);
+      // console.log(this.subcategoriasTemp);
+    }
+
+    this.articulo.subcategoria = this.subcategoriasTemp;
+    // console.log(this.articulo);
 
   }
 
   cambiarImagen( event ) {
+    this.eligioMarca = true;
     this.imgArticulo = event[0].id;
   }
 
 
-  editar( forma: NgForm ) {
-    console.log(forma.form.value);
+  guardar( forma: Form ) {
+
+    if ( this.articulo.nuevo === true ) {
+      this.articulo.nuevo = false;
+      this.articulo.activo = true;
+    }
+
+    // console.log(this.articulo);
+    this._articulosService.actualizarArticulo( this.articulo )
+      .subscribe( resp => {
+
+        Swal.fire({
+          title: 'Articulo Actualizado',
+          text: this.articulo.nombre,
+          icon: 'success',
+          confirmButtonText: 'Bien!'
+        });
+
+        this.router.navigate([ '/articulos' ]);
+
+      });
   }
 
 
