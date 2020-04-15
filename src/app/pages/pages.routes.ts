@@ -18,6 +18,7 @@ import { ArticulosComponent } from './articulos/articulos.component';
 import { ArticulosActivosComponent } from './articulos/articulos-activos.component';
 import { ArticulosNuevosComponent } from './articulos/articulos-nuevos.component';
 import { ArticulosEditarComponent } from './articulos/articulos-editar.component';
+import { ArticulosMailingComponent } from './articulos/articulos-mailing.component';
 
 const pagesRoutes: Routes = [
     {
@@ -42,6 +43,7 @@ const pagesRoutes: Routes = [
             { path: 'articulosActivos', component: ArticulosActivosComponent, data: { titulo: 'Mantenimiento de Articulos' } },
             { path: 'articulosNuevos',  component: ArticulosNuevosComponent,  data: { titulo: 'Mantenimiento de Articulos - Nuevos' } },
             { path: 'articulosEditar/:id',  component: ArticulosEditarComponent,  data: { titulo: 'Mantenimiento de Articulos - Editar' } },
+            { path: 'articulosMailing', component: ArticulosMailingComponent, data: { titulo: 'Mantenimiento de Articulos - Mailing' } },
             { path: '', pathMatch: 'full', redirectTo: '/dashboard' }
         ]
     }

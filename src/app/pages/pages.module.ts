@@ -41,6 +41,7 @@ import { ArticulosComponent } from './articulos/articulos.component';
 import { ArticulosActivosComponent } from './articulos/articulos-activos.component';
 import { ArticulosNuevosComponent } from './articulos/articulos-nuevos.component';
 import { ArticulosEditarComponent } from './articulos/articulos-editar.component';
+import { ArticulosMailingComponent } from './articulos/articulos-mailing.component';
 
 @NgModule({
     declarations: [
@@ -63,7 +64,8 @@ import { ArticulosEditarComponent } from './articulos/articulos-editar.component
         ArticulosComponent,
         ArticulosActivosComponent,
         ArticulosNuevosComponent,
-        ArticulosEditarComponent
+        ArticulosEditarComponent,
+        ArticulosMailingComponent
     ],
     exports: [
         DashboardComponent,

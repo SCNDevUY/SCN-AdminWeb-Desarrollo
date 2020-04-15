@@ -55,5 +55,9 @@ export class ArticulosComponent implements OnInit {
     this.router.navigate([ '/articulosNuevos' ]);
   }
 
+  verMailing() {
+    this.router.navigate([ '/articulosMailing' ]);
+  }
+
 
 }

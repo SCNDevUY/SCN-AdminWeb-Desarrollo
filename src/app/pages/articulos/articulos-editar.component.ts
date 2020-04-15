@@ -176,4 +176,9 @@ export class ArticulosEditarComponent implements OnInit {
   }
 
 
+  cancelar() {
+    this.router.navigate([ '/articulos' ]);
+  }
+
+
 }
