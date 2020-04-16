@@ -59,7 +59,7 @@
                                 <td>
                                     <p>u$s {{ articulo.precio }}</p>
                                 </td>
-                                <td class="button-group text-center">
+                                <td *ngIf="!articulo.mailing" class="button-group text-center">
                                     <button (click)="agregar( articulo )" class="btn btn-success">
                                         <i class="fa fa-plus"></i>
                                     </button>
@@ -70,7 +70,7 @@
 
                 </div>
                 
-                <div *ngIf="totalRegistros > 5" class="button-group">
+                <div class="button-group">
                     <button (click)="cambiarDesde(-5)" class="btn btn-secondary">
                         Anteriores
                     </button>
@@ -105,7 +105,7 @@
                                 <th>Precio</th>
                             </tr>
                         </thead>
-                        <tbody *ngIf="totalRegistrosMailing > 0">
+                        <tbody>
                             <tr *ngFor="let articulo of mailing">
                                 <td class="button-group text-center">
                                     <button (click)="quitar( articulo )" class="btn btn-danger">

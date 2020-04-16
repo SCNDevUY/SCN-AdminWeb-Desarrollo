@@ -10,6 +10,7 @@ import { ArticuloService } from '../../services/articulo.service';
 
 import Swal from 'sweetalert2';
 
+
 @Component({
   selector: 'app-articulos-mailing',
   templateUrl: './articulos-mailing.component.html',
@@ -18,14 +19,14 @@ import Swal from 'sweetalert2';
 export class ArticulosMailingComponent implements OnInit {
 
   usuario: Usuario;
-  articulos: any[];
+  articulos: any;
 
   desde: number = 0;
   totalRegistros: number = 0;
   cargando: boolean = true;
   activo: boolean = true;
 
-  mailing: any[] = [];
+  mailing: any;
   totalRegistrosMailing: number = 0;
 
   constructor( public _articulosService: ArticuloService,
@@ -33,8 +34,12 @@ export class ArticulosMailingComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarArticulos( this.activo );
+    this.cargarMailing();
     this.usuario = JSON.parse( localStorage.getItem('usuario') );
+
   }
+
+
 
   cargarArticulos( activo: boolean = true ) {
 
@@ -51,28 +56,84 @@ export class ArticulosMailingComponent implements OnInit {
 
   }
 
+  cargarMailing() {
+
+    this.cargando = true;
+    this._articulosService.cargarArticulosMailing()
+      .subscribe( (resp: any) => {
+
+        this.mailing = resp.articulos;
+        this.cargando = false;
+
+      });
+
+  }
+
   agregar( articulo: Articulo ) {
 
     this.mailing.push( articulo );
     this.totalRegistrosMailing = this.mailing.length;
 
-    const index = this.articulos.map( item => item._id).indexOf(articulo._id);
-    this.articulos.splice(index, 1);
-    this.totalRegistros = this.articulos.length;
+    articulo.mailing = true;
+    this._articulosService.actualizarArticulo( articulo )
+      .subscribe();
 
   }
 
+
   quitar( articulo: Articulo ) {
-
-
-    this.articulos.push( articulo );
-    this.totalRegistros = this.articulos.length;
 
     const index = this.mailing.map( item => item._id).indexOf(articulo._id);
     this.mailing.splice(index, 1);
     this.totalRegistrosMailing = this.mailing.length;
 
+    articulo.mailing = false;
+    this._articulosService.actualizarArticulo( articulo )
+      .subscribe();
+
   }
 
+
+  buscarArticulo( termino: string ) {
+
+    if ( termino.length <= 0 ) {
+      this.cargarArticulos();
+      return;
+    }
+
+    this.cargando = true;
+
+    this._articulosService.buscarArticulos( termino, this.activo )
+      .subscribe( resp => {
+
+        this.articulos = resp;
+        this.cargando = false;
+
+      });
+
+  }
+
+
+  cambiarDesde( valor: number ) {
+
+    const desde = this.desde + valor;
+
+    if ( desde >= this.totalRegistros ) {
+      return;
+    }
+
+    if ( desde < 0 ) {
+      return;
+    }
+
+    this.desde += valor;
+    this.cargarArticulos( this.activo );
+
+  }
+
+
+  volver() {
+    this.router.navigate([ '/articulos' ]);
+  }
 
 }

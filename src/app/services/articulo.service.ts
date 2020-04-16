@@ -45,6 +45,17 @@ export class ArticuloService {
 
     }
 
+        // Obtener articulos
+        cargarArticulosMailing() {
+
+          this.token = localStorage.getItem('token');
+          const url = URL_SERVICIOS + '/articulos/mailing?token=' + this.token;
+
+          return this.http.get( url );
+
+        }
+
+
     // Obtener articulos Nuevos
     cargarArticulosNuevos( desde: number = 0 ) {
 
