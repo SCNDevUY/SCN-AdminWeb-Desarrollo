@@ -89,7 +89,12 @@ export class ArticulosMailingComponent implements OnInit {
 
     articulo.mailing = false;
     this._articulosService.actualizarArticulo( articulo )
-      .subscribe();
+      .subscribe( resp => {
+
+        this.cargarArticulos();
+
+      });
+
 
   }
 
