@@ -10,13 +10,12 @@ import { ArticuloService } from '../../services/articulo.service';
 
 import Swal from 'sweetalert2';
 
-
 @Component({
-  selector: 'app-articulos-mailing',
-  templateUrl: './articulos-mailing.component.html',
+  selector: 'app-articulos-ofertas',
+  templateUrl: './articulos-ofertas.component.html',
   styles: []
 })
-export class ArticulosMailingComponent implements OnInit {
+export class ArticulosOfertasComponent implements OnInit {
 
   usuario: Usuario;
   articulos: any;
@@ -26,15 +25,15 @@ export class ArticulosMailingComponent implements OnInit {
   cargando: boolean = true;
   activo: boolean = true;
 
-  mailing: any;
-  totalRegistrosMailing: number = 0;
+  ofertas: any;
+  totalRegistrosOfertas: number = 0;
 
   constructor( public _articulosService: ArticuloService,
                public router: Router ) { }
 
   ngOnInit(): void {
     this.cargarArticulos( this.activo );
-    this.cargarMailing();
+    this.cargarOfertas();
     this.usuario = JSON.parse( localStorage.getItem('usuario') );
 
   }
@@ -56,14 +55,14 @@ export class ArticulosMailingComponent implements OnInit {
 
   }
 
-  cargarMailing() {
+  cargarOfertas() {
 
     this.cargando = true;
-    this._articulosService.cargarArticulosMailing()
+    this._articulosService.cargarArticulosOfertas()
       .subscribe( (resp: any) => {
 
-        this.mailing = resp.articulos;
-        this.totalRegistrosMailing = resp.total;
+        this.ofertas = resp.articulos;
+        this.totalRegistrosOfertas = resp.total;
         this.cargando = false;
 
       });
@@ -74,10 +73,10 @@ export class ArticulosMailingComponent implements OnInit {
 
     let valor: number;
 
-    let { value: precioMailing } = await Swal.fire({
-      title: 'Ingrese el precio del Mailing',
-      html: '<h3><strong>PRECIO: </strong>u$s ' + articulo.precio + '</h3>' +
-      '<h3><strong>COSTO : </strong>u$s ' + articulo.costo + '</h3>',
+    let { value: precioOferta } = await Swal.fire({
+      title: 'Ingrese el precio para la Oferta',
+      html: '<h3><strong>PRECIO: </strong>u$s ' + articulo.precio + '.00 iva inc</h3>' +
+      '<h3><strong>COSTO : </strong>u$s ' + articulo.costo + ' + iva</h3>',
       input: 'number',
       inputPlaceholder: 'Ingrese el precio...',
       showCancelButton: true,
@@ -93,14 +92,14 @@ export class ArticulosMailingComponent implements OnInit {
     });
 
 
-    if (precioMailing) {
+    if (precioOferta) {
 
-      this.mailing.push( articulo );
-      this.totalRegistrosMailing = this.mailing.length;
+      this.ofertas.push( articulo );
+      this.totalRegistrosOfertas = this.ofertas.length;
 
-      precioMailing = Number(precioMailing);
-      articulo.mailing = true;
-      articulo.precioMailing = precioMailing;
+      precioOferta = Number(precioOferta);
+      articulo.oferta = true;
+      articulo.precioOferta = precioOferta;
 
       this._articulosService.actualizarArticulo( articulo )
         .subscribe();
@@ -112,11 +111,11 @@ export class ArticulosMailingComponent implements OnInit {
 
   quitar( articulo: Articulo ) {
 
-    const index = this.mailing.map( item => item._id).indexOf(articulo._id);
-    this.mailing.splice(index, 1);
-    this.totalRegistrosMailing = this.mailing.length;
+    const index = this.ofertas.map( item => item._id).indexOf(articulo._id);
+    this.ofertas.splice(index, 1);
+    this.totalRegistrosOfertas = this.ofertas.length;
 
-    articulo.mailing = false;
+    articulo.oferta = false;
 
     this._articulosService.actualizarArticulo( articulo )
       .subscribe( resp => {

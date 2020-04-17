@@ -19,6 +19,12 @@ import { MarcasComponent } from './marcas/marcas.component';
 import { CategoriasComponent } from './categorias/categorias.component';
 import { SubcategoriasComponent } from './subcategorias/subcategorias.component';
 
+import { ArticulosComponent } from './articulos/articulos.component';
+import { ArticulosActivosComponent } from './articulos/articulos-activos.component';
+import { ArticulosNuevosComponent } from './articulos/articulos-nuevos.component';
+import { ArticulosEditarComponent } from './articulos/articulos-editar.component';
+import { ArticulosMailingComponent } from './articulos/articulos-mailing.component';
+
 import { ModalUploadComponent } from '../components/modal-upload/modal-upload.component';
 import { ModalSubcategoriasComponent } from '../components/modal-subcategorias/modal-subcategorias.component';
 
@@ -37,11 +43,8 @@ import { GraficoDonaComponent } from '../components/grafico-dona/grafico-dona.co
 
 // Rutas
 import { PAGES_ROUTES } from './pages.routes';
-import { ArticulosComponent } from './articulos/articulos.component';
-import { ArticulosActivosComponent } from './articulos/articulos-activos.component';
-import { ArticulosNuevosComponent } from './articulos/articulos-nuevos.component';
-import { ArticulosEditarComponent } from './articulos/articulos-editar.component';
-import { ArticulosMailingComponent } from './articulos/articulos-mailing.component';
+import { ArticulosOfertasComponent } from './articulos/articulos-ofertas.component';
+import { ArticulosSlideshowComponent } from './articulos/articulos-slideshow.component';
 
 @NgModule({
     declarations: [
@@ -65,7 +68,9 @@ import { ArticulosMailingComponent } from './articulos/articulos-mailing.compone
         ArticulosActivosComponent,
         ArticulosNuevosComponent,
         ArticulosEditarComponent,
-        ArticulosMailingComponent
+        ArticulosMailingComponent,
+        ArticulosOfertasComponent,
+        ArticulosSlideshowComponent
     ],
     exports: [
         DashboardComponent,

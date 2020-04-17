@@ -19,6 +19,8 @@ import { ArticulosActivosComponent } from './articulos/articulos-activos.compone
 import { ArticulosNuevosComponent } from './articulos/articulos-nuevos.component';
 import { ArticulosEditarComponent } from './articulos/articulos-editar.component';
 import { ArticulosMailingComponent } from './articulos/articulos-mailing.component';
+import { ArticulosOfertasComponent } from './articulos/articulos-ofertas.component';
+import { ArticulosSlideshowComponent } from './articulos/articulos-slideshow.component';
 
 const pagesRoutes: Routes = [
     {
@@ -44,6 +46,8 @@ const pagesRoutes: Routes = [
             { path: 'articulosNuevos',  component: ArticulosNuevosComponent,  data: { titulo: 'Mantenimiento de Articulos - Nuevos' } },
             { path: 'articulosEditar/:id',  component: ArticulosEditarComponent,  data: { titulo: 'Mantenimiento de Articulos - Editar' } },
             { path: 'articulosMailing', component: ArticulosMailingComponent, data: { titulo: 'Mantenimiento de Articulos - Mailing' } },
+            { path: 'articulosOfertas', component: ArticulosOfertasComponent, data: { titulo: 'Mantenimiento de Articulos - Ofertas' } },
+            { path: 'articulosSlideshow', component: ArticulosSlideshowComponent, data: {titulo: 'Mantenimiento de Articulos - SlideShow'}},
             { path: '', pathMatch: 'full', redirectTo: '/dashboard' }
         ]
     }

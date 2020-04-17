@@ -37,11 +37,25 @@ export class ArticulosComponent implements OnInit {
         this.totalCantidad = resp.length;
 
         this.activosCantidad = resp.filter( articulo => articulo.activo === true && articulo.nuevo === false).length;
+
         this.inactivosCantidad = resp.filter( articulo => articulo.activo === false && articulo.nuevo === false ).length;
+
         this.nuevosCantidad = resp.filter( articulo => articulo.nuevo === true ).length;
-        this.mailingCantidad = resp.filter( articulo => articulo.mailing === true && articulo.nuevo === false).length;
-        this.slideshowCantidad = resp.filter( articulo => articulo.slideShow === true && articulo.nuevo === false).length;
-        this.ofertasCantidad = resp.filter( articulo => articulo.oferta === true && articulo.nuevo === false).length;
+
+        this.mailingCantidad = resp.filter( articulo => articulo.mailing === true &&
+                                                        articulo.nuevo === false &&
+                                                        articulo.activo === true
+                                          ).length;
+
+        this.slideshowCantidad = resp.filter( articulo => articulo.slideShow === true &&
+                                                          articulo.nuevo === false &&
+                                                          articulo.activo === true
+                                            ).length;
+
+        this.ofertasCantidad = resp.filter( articulo => articulo.oferta === true &&
+                                                        articulo.nuevo === false &&
+                                                        articulo.activo === true
+                                          ).length;
 
       });
 
@@ -59,5 +73,12 @@ export class ArticulosComponent implements OnInit {
     this.router.navigate([ '/articulosMailing' ]);
   }
 
+  verOfertas() {
+    this.router.navigate([ '/articulosOfertas' ]);
+  }
+
+  verSlideshow() {
+    this.router.navigate([ '/articulosSlideshow' ]);
+  }
 
 }
