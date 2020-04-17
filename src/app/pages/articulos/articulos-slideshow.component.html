@@ -1,1 +1,137 @@
-<p>articulos-slideshow works!</p>
+
+<div class="row animated fadeIn">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <input #input (keyup)="buscarArticulo( input.value )" type="text" class="form-control" placeholder="Buscar articulo">
+
+            </div>
+        </div>
+    </div>
+</div> 
+
+<div class="row animated fadeIn" *ngIf="cargando">
+    <div class="col-sm-12">
+        <div class="alert alert-warning text-center">
+            <strong>Cargando</strong>
+            <br>
+            <i class="fa fa-refresh fa-spin fa-2x"></i>
+            <br>
+            <span>Espere por favor</span>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn" *ngIf="!cargando">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-lg-5 col-md-5 col-sm-12">
+                        <h3 class="card-title">Articulos ( <small>{{ totalRegistros }}</small> )</h3>
+                    </div>
+                    <div class="col-lg-7 col-md-7 col-sm-12 button-group text-right">
+                        <button (click)="volver()" type="button" class="btn btn-primary btn-rounded"><i class="fa fa-chevron-circle-left"></i> Volver</button>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Codigo</th>
+                                <th>Nombre</th>
+                                <th>Precio</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let articulo of articulos">
+                                <td>
+                                    <p>{{ articulo.codigoInterno }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ articulo.nombre }}</p>
+                                </td>
+                                <td>
+                                    <p>u$s {{ articulo.precio }}</p>
+                                </td>
+                                <td *ngIf="!articulo.slideShow" class="button-group text-center">
+                                    <button (click)="agregar( articulo )" class="btn btn-success">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                
+                <div class="button-group">
+                    <button (click)="cambiarDesde(-5)" class="btn btn-secondary">
+                        Anteriores
+                    </button>
+    
+                    <button (click)="cambiarDesde(5)" class="btn btn-secondary">
+                        Siguientes
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-lg-5 col-md-5 col-sm-12">
+                        <h3 class="card-title">SlideShow ( <small>{{ totalRegistrosSlideshow }}</small> )</h3>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+
+                    <table class="table table-hover table-sm">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Codigo</th>
+                                <th>Nombre</th>
+                                <th>Precio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let articulo of slideshow">
+                                <td class="button-group text-center">
+                                    <button (click)="quitar( articulo )" class="btn btn-danger">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </td>
+                                <td>
+                                    <p>{{ articulo.codigoInterno }}</p>
+                                </td>
+                                <td>
+                                    <p>{{ articulo.nombre }}</p>
+                                </td>
+                                <td>
+                                    <p>u$s {{ articulo.precio }}</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div> 
+
+
+
+

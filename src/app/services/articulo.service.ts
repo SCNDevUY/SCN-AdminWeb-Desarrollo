@@ -56,7 +56,7 @@ export class ArticuloService {
     }
 
 
-    // Obtener articulos
+    // Obtener articulos Ofertas
     cargarArticulosOfertas() {
 
           this.token = localStorage.getItem('token');
@@ -65,6 +65,18 @@ export class ArticuloService {
           return this.http.get( url );
 
     }
+
+
+    // Obtener articulos SlideShow
+    cargarArticulosSlideshow() {
+
+      this.token = localStorage.getItem('token');
+      const url = URL_SERVICIOS + '/articulos/slideshow?token=' + this.token;
+
+      return this.http.get( url );
+
+}
+
 
 
     // Obtener articulos Nuevos
