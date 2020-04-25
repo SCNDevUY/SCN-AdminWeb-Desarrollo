@@ -22,6 +22,7 @@ export class ArticulosMailingComponent implements OnInit {
   articulos: any;
 
   desde: number = 0;
+  limite: number = 5;
   totalRegistros: number = 0;
   cargando: boolean = true;
   activo: boolean = true;
@@ -45,7 +46,7 @@ export class ArticulosMailingComponent implements OnInit {
 
     this.cargando = true;
 
-    this._articulosService.cargarArticulos( this.desde, activo )
+    this._articulosService.cargarArticulos( this.desde, this.limite, activo )
       .subscribe( (resp: any) => {
 
         this.articulos = resp.articulos;

@@ -36,10 +36,10 @@ export class ArticuloService {
 
 
     // Obtener articulos
-    cargarArticulos( desde: number = 0, activo: boolean = true ) {
+    cargarArticulos( desde: number = 0, limite: number = 5, activo: boolean = true ) {
 
       this.token = localStorage.getItem('token');
-      const url = URL_SERVICIOS + '/articulos?activo=' + activo + '&desde=' + desde + '&token=' + this.token;
+      const url = URL_SERVICIOS + '/articulos?activo=' + activo + '&desde=' + desde + '&token=' + this.token + '&limite=' + limite;
 
       return this.http.get( url );
 
