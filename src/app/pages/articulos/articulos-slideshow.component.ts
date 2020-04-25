@@ -8,6 +8,7 @@ import { Usuario } from '../../models/usuario.model';
 
 // Servicios
 import { ArticuloService } from '../../services/articulo.service';
+import { ModalUploadService } from '../../components/modal-upload/modal-upload.service';
 
 @Component({
   selector: 'app-articulos-slideshow',
@@ -20,6 +21,8 @@ export class ArticulosSlideshowComponent implements OnInit {
   articulos: any;
 
   desde: number = 0;
+  limite: number = 5;
+
   totalRegistros: number = 0;
   cargando: boolean = true;
   activo: boolean = true;
@@ -28,6 +31,7 @@ export class ArticulosSlideshowComponent implements OnInit {
   totalRegistrosSlideshow: number = 0;
 
   constructor( public _articulosService: ArticuloService,
+               public _modalUploadService: ModalUploadService,
                public router: Router ) { }
 
   ngOnInit(): void {
@@ -43,7 +47,7 @@ export class ArticulosSlideshowComponent implements OnInit {
 
     this.cargando = true;
 
-    this._articulosService.cargarArticulos( this.desde, activo )
+    this._articulosService.cargarArticulos( this.desde, this.limite, activo )
       .subscribe( (resp: any) => {
 
         this.articulos = resp.articulos;
@@ -69,6 +73,9 @@ export class ArticulosSlideshowComponent implements OnInit {
   }
 
   async agregar( articulo: Articulo ) {
+
+
+      this._modalUploadService.mostrarModal( 'slideshow', articulo );
 
       this.slideshow.push( articulo );
       this.totalRegistrosSlideshow = this.slideshow.length;

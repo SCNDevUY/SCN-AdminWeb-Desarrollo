@@ -20,6 +20,8 @@
         public slideShow?: boolean,
         public img?: string[],
         public imgNombre?: string[],
+        public imgSlideshow?: string[],
+        public imgNombreSlideshow?: string[],
         public _id?: string
     ) { }
 

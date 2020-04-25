@@ -57,8 +57,13 @@ export class SubirArchivoService {
 
             uploadTask.snapshot.ref.getDownloadURL().then( (URL) => {
 
-                data.img = URL;
-                data.imgNombre = nombreArchivo;
+                if ( tipo === 'slideshow' ) {
+                  data.imgSlideshow = URL;
+                  data.imgNombreSlideshow = nombreArchivo;
+                } else {
+                  data.img = URL;
+                  data.imgNombre = nombreArchivo;
+                }
 
                 // Actualizo el usuario en la DB
                 this.actualizarData( data, tipo )
@@ -98,8 +103,14 @@ export class SubirArchivoService {
 
       const token = localStorage.getItem('token');
       const id = localStorage.getItem('id');
+      let url: string;
 
-      let url = URL_SERVICIOS + '/' + tipo + '/' + data._id;
+      if ( tipo === 'slideshow' ) {
+         url = URL_SERVICIOS + '/articulos/' + data._id;
+      } else {
+         url = URL_SERVICIOS + '/' + tipo + '/' + data._id;
+      }
+
       url += '?token=' + token;
 
       return this.http.put( url, data )
