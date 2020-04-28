@@ -132,6 +132,8 @@ export class CategoriasComponent implements OnInit {
 
       const categoriaNueva = new Categoria(
         categoria,
+        true,
+        true,
         true
       );
 

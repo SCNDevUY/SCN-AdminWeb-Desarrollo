@@ -45,6 +45,8 @@
                         <thead>
                             <tr>
                                 <th>Nombre</th>
+                                <th>Menu Horizontal</th>
+                                <th>Menu Vertical</th>
                                 <th>Estado</th>
                                 <th class="text-center">Acciones</th>
                             </tr>
@@ -53,18 +55,30 @@
                             <tr *ngFor="let categoria of categorias">
                                 <td><input [(ngModel)]="categoria.nombre" name="nombre" type="text" class="form-control" ></td>
                                 <td>
+                                    <select [(ngModel)]="categoria.menuHorizontal" name="role" class="form-control">
+                                        <option value="true">SI</option>
+                                        <option value="false">NO</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select [(ngModel)]="categoria.menuVertical" name="role" class="form-control">
+                                        <option value="true">SI</option>
+                                        <option value="false">NO</option>
+                                    </select>
+                                </td>
+                                <td>
                                     <select [(ngModel)]="categoria.activo" name="role" class="form-control">
                                         <option value="true">ACTIVO</option>
                                         <option value="false">INACTIVO</option>
                                     </select>
                                 </td>
                                 <td class="button-group text-center">
-                                    <button (click)="guardarCategoria( categoria )" class="btn btn-primary">
-                                        <i class="fa fa-save"></i>
-                                    </button>
                                     <button *ngIf="activos" (click)="mostrarModal( categoria )" class="btn btn-dark">
                                         <i class="fa fa-list"></i> SubCategorias
                                     </button>                                    
+                                    <button (click)="guardarCategoria( categoria )" class="btn btn-primary">
+                                        <i class="fa fa-save"></i>
+                                    </button>
                                     <button *ngIf="!activos" (click)="borrarCategoria( categoria )" class="btn btn-danger">
                                         <i class="fa fa-trash-o"></i>
                                     </button>

@@ -14,7 +14,13 @@ import { SubcategoriaService } from '../../services/subcategoria.service';
 })
 export class ModalSubcategoriasService {
 
-  public categoria: Categoria = { nombre: 'Sin Nombre', activo: true, subcategorias: [], _id: '123456' };
+  public categoria: Categoria = { nombre: 'Sin Nombre',
+                                  activo: true,
+                                  menuHorizontal: true,
+                                  menuVertical: true,
+                                  subcategorias: [],
+                                  _id: '123456'
+                                };
 
   public subcategorias = [];
 
