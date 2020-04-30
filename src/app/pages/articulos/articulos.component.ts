@@ -17,6 +17,7 @@ export class ArticulosComponent implements OnInit {
   mailingCantidad: number = 0;
   slideshowCantidad: number = 0;
   ofertasCantidad: number = 0;
+  superOfertaCantidad: number = 0;
 
 
 
@@ -57,6 +58,11 @@ export class ArticulosComponent implements OnInit {
                                                         articulo.activo === true
                                           ).length;
 
+        this.superOfertaCantidad = resp.filter( articulo => articulo.superOferta === true &&
+                                                        articulo.nuevo === false &&
+                                                        articulo.activo === true
+                                          ).length;
+
       });
 
   }
@@ -75,6 +81,10 @@ export class ArticulosComponent implements OnInit {
 
   verOfertas() {
     this.router.navigate([ '/articulosOfertas' ]);
+  }
+
+  verSuperOferta() {
+    this.router.navigate([ '/articulosSuperOferta' ]);
   }
 
   verSlideshow() {

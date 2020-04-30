@@ -67,6 +67,18 @@ export class ArticuloService {
     }
 
 
+    // Obtener articulos Super Oferta
+    cargarArticulosSuperOferta() {
+
+      this.token = localStorage.getItem('token');
+      const url = URL_SERVICIOS + '/articulos/superoferta?token=' + this.token;
+
+      return this.http.get( url );
+
+}
+
+
+
     // Obtener articulos SlideShow
     cargarArticulosSlideshow() {
 
