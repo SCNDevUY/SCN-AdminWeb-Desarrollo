@@ -18,6 +18,7 @@ export class ArticulosComponent implements OnInit {
   slideshowCantidad: number = 0;
   ofertasCantidad: number = 0;
   superOfertaCantidad: number = 0;
+  inicioCantidad: number = 0;
 
 
 
@@ -62,6 +63,10 @@ export class ArticulosComponent implements OnInit {
                                                         articulo.nuevo === false &&
                                                         articulo.activo === true
                                           ).length;
+        this.inicioCantidad = resp.filter( articulo => articulo.inicio === true &&
+                                                        articulo.nuevo === false &&
+                                                        articulo.activo === true
+                                          ).length;
 
       });
 
@@ -89,6 +94,10 @@ export class ArticulosComponent implements OnInit {
 
   verSlideshow() {
     this.router.navigate([ '/articulosSlideshow' ]);
+  }
+
+  verInicio() {
+    this.router.navigate([ '/articulosInicio' ]);
   }
 
 }

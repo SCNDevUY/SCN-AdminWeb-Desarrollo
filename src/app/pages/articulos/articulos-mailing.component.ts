@@ -73,6 +73,24 @@ export class ArticulosMailingComponent implements OnInit {
 
   async agregar( articulo: Articulo ) {
 
+    if ( articulo.oferta === true ) {
+      Swal.fire({
+        title: 'Este articulo esta en OFERTA',
+        icon: 'warning',
+        confirmButtonText: 'Opss!'
+      });
+      return;
+    }
+
+    if ( articulo.superOferta === true ) {
+      Swal.fire({
+        title: 'Este articulo esta en SUPER-OFERTA',
+        icon: 'warning',
+        confirmButtonText: 'Opss!'
+      });
+      return;
+    }
+
     let valor: number;
 
     let { value: precioMailing } = await Swal.fire({

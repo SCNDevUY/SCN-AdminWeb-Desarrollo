@@ -21,6 +21,7 @@
         public mailing?: boolean,
         public precioMailing?: number,
         public slideShow?: boolean,
+        public inicio?: boolean,
         public img?: string[],
         public imgNombre?: string[],
         public imgSlideshow?: string[],

@@ -18,8 +18,19 @@
                     <img *ngIf="imagenTemp" [src]="imagenTemp" class="w150">
     
                     <input (change)="seleccionImagen( $event.target.files[0] )" type="file" class="hidden">
-    
+   
                 </div>
+                <div class="col-sm-12">
+                  <div class="alert alert-warning text-center">
+                      <strong>TAMAÑOS DE IMAGENES</strong>
+                      <br><br>
+                      <span>Articulos - 500x500px</span>
+                      <br>
+                      <span>Carousel - 1400x500px</span>
+                      <br>
+                      <span>Marca - 300x150px</span>
+                  </div>
+              </div>
                 <div class="modal-footer">
                     <button (click)="subirImagen( this._modalUploadService.tipo, this._modalUploadService.data )" [disabled]="!imagenTemp" type="button" class="btn btn-primary">Subir imagen</button>
                     <button (click)="cerrarModal()" type="button" class="btn btn-secondary">Cerrar</button>

@@ -4,7 +4,7 @@
         <div class="card">
             <div class="card-body">
 
-                <input #input (keyup)="buscarArticulo( input.value )" type="text" class="form-control" placeholder="Buscar articulo">
+                <input #input (keyup)="buscarArticulo( input.value, true )" type="text" class="form-control" placeholder="Buscar articulo">
 
             </div>
         </div>
@@ -59,7 +59,7 @@
                                 <td>
                                     <p>u$s {{ articulo.precio }}</p>
                                 </td>
-                                <td *ngIf="!articulo.superOferta" class="button-group text-center">
+                                <td *ngIf="!articulo.inicio" class="button-group text-center">
                                     <button (click)="agregar( articulo )" class="btn btn-success">
                                         <i class="fa fa-plus"></i>
                                     </button>
@@ -90,7 +90,7 @@
 
                 <div class="row">
                     <div class="col-lg-5 col-md-5 col-sm-12">
-                        <h3 class="card-title">Super Oferta ( <small>{{ totalRegistrosSuperOferta }}</small> )</h3>
+                        <h3 class="card-title">Inicio ( <small>{{ totalRegistrosInicio }}</small> )</h3>
                     </div>
                 </div>
 
@@ -103,27 +103,27 @@
                                 <th>Codigo</th>
                                 <th>Nombre</th>
                                 <th>Precio</th>
-                                <th>Precio SuperOferta</th>
+                                <th>Precio Oferta</th>
                             </tr>
                         </thead>
-                        <tbody *ngIf="totalRegistrosSuperOferta > 0">
-                            <tr>
+                        <tbody>
+                            <tr *ngFor="let articulo of inicio">
                                 <td class="button-group text-center">
-                                    <button (click)="quitar( superOferta )" class="btn btn-danger">
+                                    <button (click)="quitar( articulo )" class="btn btn-danger">
                                         <i class="fa fa-minus"></i>
                                     </button>
                                 </td>
                                 <td>
-                                    <p>{{ superOferta.codigoInterno }}</p>
+                                    <p>{{ articulo.codigoInterno }}</p>
                                 </td>
                                 <td>
-                                    <p>{{ superOferta.nombre }}</p>
+                                    <p>{{ articulo.nombre }}</p>
                                 </td>
                                 <td>
-                                    <p>u$s {{ superOferta.precio }}</p>
+                                    <p>u$s {{ articulo.precio }}</p>
                                 </td>
                                 <td>
-                                    <p>u$s {{ superOferta.precioSuperOferta }}</p>
+                                    <p>u$s {{ articulo.precioOferta }}</p>
                                 </td>
                             </tr>
                         </tbody>
@@ -133,37 +133,8 @@
 
             </div>
         </div>
-
-
-        <div *ngIf="totalRegistrosSuperOferta > 0" class="card">
-            <div class="card-body">
-    
-                <div class="row">
-                    <div class="col-4">
-                        <img [src]="superOferta.img" class="img-thumbnail">
-                    </div>
-                    <div class="col-8 text-right">
-                        <h3 class="badge badge-primary">Super Oferta</h3>
-                        <h2><strong>{{ superOferta.descripcionSuperOferta }}</strong></h2>
-                        <h5>{{ superOferta.nombre }}</h5>
-                        <h6 class="ofertaTachado">u$s {{ superOferta.precio }}.00 </h6>
-                        <h3>u$s {{ superOferta.precioSuperOferta }}.00 </h3>
-                        <br>
-                        <button class="btn btn-primary">
-                            Quiero saber mas...
-                        </button>
-                    </div>
-
-                </div>
-    
-    
-            </div>
-        </div>
-
     </div>
-
 </div> 
-
 
 
 

@@ -22,6 +22,7 @@ import { ArticulosMailingComponent } from './articulos/articulos-mailing.compone
 import { ArticulosOfertasComponent } from './articulos/articulos-ofertas.component';
 import { ArticulosSlideshowComponent } from './articulos/articulos-slideshow.component';
 import { ArticulosSuperOfertaComponent } from './articulos/articulos-super-oferta.component';
+import { ArticulosInicioComponent } from './articulos/articulos-inicio.component';
 
 const pagesRoutes: Routes = [
     {
@@ -48,6 +49,7 @@ const pagesRoutes: Routes = [
             { path: 'articulosEditar/:id',  component: ArticulosEditarComponent,  data: { titulo: 'Mantenimiento de Articulos - Editar' } },
             { path: 'articulosMailing', component: ArticulosMailingComponent, data: { titulo: 'Mantenimiento de Articulos - Mailing' } },
             { path: 'articulosOfertas', component: ArticulosOfertasComponent, data: { titulo: 'Mantenimiento de Articulos - Ofertas' } },
+            { path: 'articulosInicio',  component: ArticulosInicioComponent, data: { titulo: 'Mantenimiento de Articulos - Inicio' } },
             { path: 'articulosSuperOferta',
               component: ArticulosSuperOfertaComponent,
               data: { titulo: 'Mantenimiento de Articulos - Super Oferta' }

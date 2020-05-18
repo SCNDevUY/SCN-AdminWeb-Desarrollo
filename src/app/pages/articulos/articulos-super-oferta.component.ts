@@ -35,7 +35,7 @@ export class ArticulosSuperOfertaComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarArticulos( this.activo );
-    this.cargarSuperOferta();
+
     this.usuario = JSON.parse( localStorage.getItem('usuario') );
 
   }
@@ -55,6 +55,8 @@ export class ArticulosSuperOfertaComponent implements OnInit {
 
       });
 
+    this.cargarSuperOferta();
+
   }
 
   cargarSuperOferta() {
@@ -63,10 +65,9 @@ export class ArticulosSuperOfertaComponent implements OnInit {
     this._articulosService.cargarArticulosSuperOferta()
       .subscribe( (resp: any) => {
 
-        this.superOferta = resp.articulos;
+        this.superOferta = resp.articulos[0];
         this.totalRegistrosSuperOferta = resp.total;
         this.cargando = false;
-
       });
 
   }
@@ -75,9 +76,37 @@ export class ArticulosSuperOfertaComponent implements OnInit {
 
   async agregar( articulo: Articulo ) {
 
-    let valor: number;
+    if ( this.totalRegistrosSuperOferta > 0 ) {
+      Swal.fire({
+        title: 'Ya existe una Super Oferta activa',
+        icon: 'warning',
+        confirmButtonText: 'Opss!'
+      });
+      return;
+    }
 
-    let { value: precioOferta } = await Swal.fire({
+    if ( articulo.mailing === true ) {
+      Swal.fire({
+        title: 'Este articulo esta en el MAILING',
+        icon: 'warning',
+        confirmButtonText: 'Opss!'
+      });
+      return;
+    }
+
+    if ( articulo.oferta === true ) {
+      Swal.fire({
+        title: 'Este articulo esta en OFERTA',
+        icon: 'warning',
+        confirmButtonText: 'Opss!'
+      });
+      return;
+    }
+
+    let titular;
+    let valor;
+
+    const { value: precioOferta } = await Swal.fire({
       title: 'Super Oferta',
       html: '<h3><strong>PRECIO: </strong>u$s ' + articulo.precio + '.00 iva inc</h3>' +
       '<h3><strong>COSTO : </strong>u$s ' + articulo.costo + ' + iva</h3>' +
@@ -87,25 +116,47 @@ export class ArticulosSuperOfertaComponent implements OnInit {
       '<p>Ingrese el precio</p>' +
       '<input id="precio" class="swal2-input" placeholder="Precio...">' ,
       showCancelButton: true,
-      inputValidator: (value) => {
-        if (!value) {
-          return 'Debe ingresar los datos';
-        }
+      focusConfirm: false,
+      preConfirm: () => {
+        return [
+          titular = document.getElementById('descripcion'),
+          valor = document.getElementById('precio')
+        ];
       }
     });
 
-
     if (precioOferta) {
 
-      // this.ofertas.push( articulo );
-      // this.totalRegistrosOfertas = this.ofertas.length;
+      if ( titular.value.length <= 0 ) {
+        Swal.fire({
+          title: 'Debe ingresar un Titular',
+          icon: 'warning',
+          confirmButtonText: 'Opss!'
+        });
+        return;
+      }
 
-      // precioOferta = Number(precioOferta);
-      // articulo.oferta = true;
-      // articulo.precioOferta = precioOferta;
+      if ( valor.value.length <= 0 ) {
+        Swal.fire({
+          title: 'Debe ingresar un Precio',
+          icon: 'warning',
+          confirmButtonText: 'Opss!'
+        });
+        return;
+      }
+
+      articulo.superOferta = true;
+      articulo.precioSuperOferta = Number(valor.value);
+      articulo.descripcionSuperOferta = titular.value;
 
       this._articulosService.actualizarArticulo( articulo )
-        .subscribe();
+        .subscribe( resp => {
+
+          this.cargarArticulos();
+
+        });
+
+
     }
 
 
@@ -118,7 +169,7 @@ export class ArticulosSuperOfertaComponent implements OnInit {
     // this.ofertas.splice(index, 1);
     // this.totalRegistrosOfertas = this.ofertas.length;
 
-    articulo.oferta = false;
+    articulo.superOferta = false;
 
     this._articulosService.actualizarArticulo( articulo )
       .subscribe( resp => {

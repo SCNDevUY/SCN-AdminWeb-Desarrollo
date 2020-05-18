@@ -39,7 +39,9 @@ input[type=file].hidden {
     z-index: 9999;
 }
 
-
+.ofertaTachado {
+  text-decoration: line-through;
+}
 
 
 /*
