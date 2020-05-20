@@ -1,6 +1,4 @@
-<p>dashboard works!</p>
-
-<p>
+<!-- <p>
 
     git init <br>
     git add . <br>
@@ -37,4 +35,19 @@
     <br>
     Falta crear el Release en Git<br>
 
-</p>
+</p> -->
+
+
+<div class="row" *ngIf="graficos">
+
+    <div class="col-6">
+        <div class="card">
+            <div class="card-body">
+                
+                    <app-grafico-dona [etiquetas]="graficos.grafico1.labels" [valores]="graficos.grafico1.data" [tipo]="graficos.grafico1.type" [leyenda]="graficos.grafico1.leyenda"></app-grafico-dona>
+
+            </div>
+        </div>
+    </div>
+
+</div>

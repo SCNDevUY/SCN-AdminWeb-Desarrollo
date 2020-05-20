@@ -47,6 +47,7 @@ import { GraficoDonaComponent } from '../components/grafico-dona/grafico-dona.co
 // Rutas
 import { PAGES_ROUTES } from './pages.routes';
 import { ArticulosInicioComponent } from './articulos/articulos-inicio.component';
+import { GlobalesComponent } from './globales/globales.component';
 
 @NgModule({
     declarations: [
@@ -74,7 +75,8 @@ import { ArticulosInicioComponent } from './articulos/articulos-inicio.component
         ArticulosOfertasComponent,
         ArticulosSlideshowComponent,
         ArticulosSuperOfertaComponent,
-        ArticulosInicioComponent
+        ArticulosInicioComponent,
+        GlobalesComponent
     ],
     exports: [
         DashboardComponent,
