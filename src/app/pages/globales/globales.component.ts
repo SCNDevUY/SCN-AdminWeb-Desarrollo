@@ -11,6 +11,7 @@ export class GlobalesComponent implements OnInit {
 
 
   global: Global[] = [];
+  _id: string;
 
   constructor( public _globalServices: GlobalesService ) {
 
@@ -18,8 +19,7 @@ export class GlobalesComponent implements OnInit {
       .subscribe( (resp: any) => {
 
           this.global = resp.global;
-
-          console.log(this.global);
+          this._id = resp.global[0]._id;
 
       });
 
@@ -30,9 +30,15 @@ export class GlobalesComponent implements OnInit {
   }
 
 
-  guardarCarrito( carrito ) {
+  guardarCarrito( carrito: boolean ) {
+
+    const global = {
+      carrito
+    };
 
     console.log(carrito);
+    this._globalServices.guardarConfiguracion( global, this._id )
+      .subscribe();
 
   }
 
