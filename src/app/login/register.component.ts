@@ -46,6 +46,7 @@ export class RegisterComponent implements OnInit {
 
     this.forma = new FormGroup({
         nombre: new FormControl( null, Validators.required ),
+        telefono: new FormControl( null, Validators.required ),
         correo: new FormControl( null, [Validators.required, Validators.email] ),
         password: new FormControl( null, Validators.required ),
         password2: new FormControl( null, Validators.required ),
@@ -77,6 +78,7 @@ export class RegisterComponent implements OnInit {
 
     const usuario = new Usuario(
       this.forma.value.nombre,
+      this.forma.value.telefono,
       this.forma.value.correo,
       this.forma.value.password
     );
