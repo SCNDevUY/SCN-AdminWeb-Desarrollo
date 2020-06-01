@@ -92,7 +92,7 @@ export class ArticulosEditarComponent implements OnInit {
 
   cargarMarcas() {
 
-    this._marcasService.cargarMarcas( 0, true )
+    this._marcasService.cargarMarcas( 0, 0, true )
     .subscribe( resp => {
         this.marcas = resp;
     });

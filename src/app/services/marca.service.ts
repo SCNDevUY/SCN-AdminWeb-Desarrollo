@@ -25,10 +25,10 @@ export class MarcaService {
   }
 
     // Obtener marcas
-    cargarMarcas( desde: number = 0, activo: boolean = true ) {
+    cargarMarcas( desde: number = 0, limite: number = 5, activo: boolean = true ) {
 
       this.token = localStorage.getItem('token');
-      const url = URL_SERVICIOS + '/marcas?activo=' + activo + '&desde=' + desde + '&token=' + this.token;
+      const url = URL_SERVICIOS + '/marcas?activo=' + activo + '&desde=' + desde + '&limite=' + limite + '&token=' + this.token;
 
       return this.http.get( url );
 
