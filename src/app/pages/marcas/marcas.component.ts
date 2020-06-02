@@ -69,7 +69,7 @@ export class MarcasComponent implements OnInit {
       this.activos = false;
     }
 
-    this._marcasService.cargarMarcas( this.desde, activo )
+    this._marcasService.cargarMarcas( this.desde, 5, activo )
       .subscribe( (resp: any) => {
 
         this.marcas = resp.marcas;
