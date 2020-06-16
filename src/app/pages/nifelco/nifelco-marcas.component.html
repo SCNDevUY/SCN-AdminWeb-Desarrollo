@@ -1,0 +1,62 @@
+
+<!-- <div class="row animated fadeIn">
+    <div class="col-sm-12">
+        <div class="alert alert-warning text-center">
+            <strong>Cargando</strong>
+            <br>
+            <i class="fa fa-refresh fa-spin fa-2x"></i>
+            <br>
+            <span>Espere por favor</span>
+        </div>
+    </div>
+</div> -->
+
+<div class="row animated fadeIn">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-lg-5 col-md-5 col-sm-12">
+                        <h3 class="card-title">Marcas ( <small>{{ totalRegistros }}</small> )</h3>
+                    </div>
+                </div>
+                <div class="table-responsive">
+
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Codigo Marca</th>
+                                <th>Nombre</th>
+                                <th>Web</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let marca of marcas">
+                                <td><p>{{ marca.CodigoMarca._ }}</p></td>
+                                <td><p>{{ marca.Marca._ }}</p></td>
+                                <td><p>{{ marca.Link._ }}</p></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                
+                <!-- <div *ngIf="totalRegistros > 5" class="button-group">
+                    <button (click)="cambiarDesde(-5)" class="btn btn-secondary">
+                        Anteriores
+                    </button>
+    
+                    <button (click)="cambiarDesde(5)" class="btn btn-secondary">
+                        Siguientes
+                    </button>
+                </div> -->
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div> 
+

@@ -28,6 +28,15 @@ export class SidebarService {
         { titulo: 'SubCategorias', url: '/subcategorias' },
         { titulo: 'Articulos', url: '/articulos' }
       ]
+    },
+    {
+      titulo: 'Nifelco',
+      icono: 'mdi mdi-folder-lock-open',
+      submenu: [
+        { titulo: 'Marcas', url: '/nifelco/marcas' },
+        { titulo: 'Grupo Articulos', url: '/nifelco/grupoarticulos' },
+        { titulo: 'Lista Articulos', url: '/nifelco/listaarticulos' }
+      ]
     }
   ];
 

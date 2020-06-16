@@ -26,6 +26,11 @@ import { ArticulosSlideshowComponent } from './articulos/articulos-slideshow.com
 import { ArticulosSuperOfertaComponent } from './articulos/articulos-super-oferta.component';
 import { ArticulosInicioComponent } from './articulos/articulos-inicio.component';
 
+// Nifelco
+import { NifelcoMarcasComponent } from './nifelco/nifelco-marcas.component';
+import { GrupoArticulosComponent } from './nifelco/grupo-articulos.component';
+import { ListaArticulosComponent } from './nifelco/lista-articulos.component';
+
 const pagesRoutes: Routes = [
     {
         path: '',
@@ -55,10 +60,17 @@ const pagesRoutes: Routes = [
             { path: 'articulosOfertas', component: ArticulosOfertasComponent, data: { titulo: 'Mantenimiento de Articulos - Ofertas' } },
             { path: 'articulosInicio',  component: ArticulosInicioComponent, data: { titulo: 'Mantenimiento de Articulos - Inicio' } },
             { path: 'articulosSuperOferta',
-              component: ArticulosSuperOfertaComponent,
-              data: { titulo: 'Mantenimiento de Articulos - Super Oferta' }
+                component: ArticulosSuperOfertaComponent, data: { titulo: 'Mantenimiento de Articulos - Super Oferta' }
             },
             { path: 'articulosSlideshow', component: ArticulosSlideshowComponent, data: {titulo: 'Mantenimiento de Articulos - SlideShow'}},
+
+            // Nifelco
+            { path: 'nifelco/marcas', component: NifelcoMarcasComponent, data: {titulo: 'Mantenimiento Nifelco - Marcas'}},
+            { path: 'nifelco/grupoarticulos',
+                component: GrupoArticulosComponent, data: {titulo: 'Mantenimiento Nifelco - Grupo Articulos'}},
+            { path: 'nifelco/listaarticulos',
+                component: ListaArticulosComponent, data: {titulo: 'Mantenimiento Nifelco - Lista Articulos'}},
+
             { path: '', pathMatch: 'full', redirectTo: '/dashboard' }
         ]
     }

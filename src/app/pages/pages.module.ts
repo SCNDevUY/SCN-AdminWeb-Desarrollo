@@ -48,6 +48,9 @@ import { GraficoDonaComponent } from '../components/grafico-dona/grafico-dona.co
 import { PAGES_ROUTES } from './pages.routes';
 import { ArticulosInicioComponent } from './articulos/articulos-inicio.component';
 import { GlobalesComponent } from './globales/globales.component';
+import { NifelcoMarcasComponent } from './nifelco/nifelco-marcas.component';
+import { GrupoArticulosComponent } from './nifelco/grupo-articulos.component';
+import { ListaArticulosComponent } from './nifelco/lista-articulos.component';
 
 @NgModule({
     declarations: [
@@ -76,7 +79,10 @@ import { GlobalesComponent } from './globales/globales.component';
         ArticulosSlideshowComponent,
         ArticulosSuperOfertaComponent,
         ArticulosInicioComponent,
-        GlobalesComponent
+        GlobalesComponent,
+        NifelcoMarcasComponent,
+        GrupoArticulosComponent,
+        ListaArticulosComponent
     ],
     exports: [
         DashboardComponent,

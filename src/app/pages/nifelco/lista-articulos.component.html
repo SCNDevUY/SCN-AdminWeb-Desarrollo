@@ -1,0 +1,102 @@
+
+<!-- <div class="row animated fadeIn">
+    <div class="col-sm-12">
+        <div class="alert alert-warning text-center">
+            <strong>Cargando</strong>
+            <br>
+            <i class="fa fa-refresh fa-spin fa-2x"></i>
+            <br>
+            <span>Espere por favor</span>
+        </div>
+    </div>
+</div> -->
+
+<div class="row">
+    <div class="col-md-12">
+        <form #f="ngForm" (ngSubmit)="consultar( f )" class="form-horizontal">
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <label class="control-label text-left col-md-12">Palabras</label>
+                    <input type="text" [(ngModel)]="palabras" name="palabras" placeholder="?" class="form-control" required>
+                </div>
+                
+                <div class="col-md-3">
+                    <label class="control-label text-left col-md-12">Codigo Grupo</label>
+                    <!-- <input type="text" [(ngModel)]="codigoGrupo" name="codigoGrupo" class="form-control" required> -->
+
+                    <select class="form-control custom-select" name="codigoGrupo" [(ngModel)]="codigoGrupo"> 
+                        <option value="" id="valor">TODAS</option>
+                        <option [value]="grupo.CodigoGrupo._" id="{{ grupo.CodigoGrupo._ }}" *ngFor="let grupo of grupoArticulos" >{{ grupo.Descripcion._ }}</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <label class="control-label text-left col-md-12">Codigo Marca</label>
+                    <!-- <input type="number" [(ngModel)]="codigoMarca" name="codigoMarca" class="form-control" required> -->
+
+                    <select class="form-control custom-select" name="codigoMarca" [(ngModel)]="codigoMarca"> 
+                        <option value="-1" id="valor">TODAS</option>
+                        <option [value]="marca.CodigoMarca._" id="{{ marca.CodigoMarca._ }}" *ngFor="let marca of marcas" >{{ marca.Marca._ }}</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-success">Consultar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>    
+
+<div class="row animated fadeIn" *ngIf="listaArticulos">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-lg-5 col-md-5 col-sm-12">
+                        <h3 class="card-title">Lista Articulos ( <small>{{ totalRegistros }}</small> )</h3>
+                    </div>
+                </div>
+                <div class="table-responsive">
+
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Codigo Articulo</th>
+                                <th>Producto</th>
+                                <th>Costo</th>
+                                <th>Inventario</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let articulo of listaArticulos">
+                                <td><p>{{ articulo.CodS._ }}</p></td>
+                                <td><p>{{ articulo.Producto._ }}</p></td>
+                                <td><p>{{ articulo.Costo._ }}</p></td>
+                                <td><p>{{ articulo.Inventario._ }}</p></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                
+                <!-- <div *ngIf="totalRegistros > 5" class="button-group">
+                    <button (click)="cambiarDesde(-5)" class="btn btn-secondary">
+                        Anteriores
+                    </button>
+    
+                    <button (click)="cambiarDesde(5)" class="btn btn-secondary">
+                        Siguientes
+                    </button>
+                </div> -->
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div> 
+
+

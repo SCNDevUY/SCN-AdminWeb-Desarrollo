@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2';
 
 // Modelos
 import { Marca } from 'src/app/models/marca.model';
@@ -7,7 +8,7 @@ import { Usuario } from '../../models/usuario.model';
 // Servicios
 import { MarcaService } from 'src/app/services/marca.service';
 import { ModalUploadService } from '../../components/modal-upload/modal-upload.service';
-import Swal from 'sweetalert2';
+import { NifelcoService } from '../../services/nifelco.service';
 
 @Component({
   selector: 'app-marcas',
@@ -24,12 +25,17 @@ export class MarcasComponent implements OnInit {
 
   activos: boolean = true;
 
+  // NIFELCO
+  marcasNifelco: any[];
+
   constructor( public _marcasService: MarcaService,
+               public _nifelcoService: NifelcoService,
                public _modalUploadService: ModalUploadService ) { }
 
 
   ngOnInit(): void {
     this.cargarMarcas();
+    this.cargarMarcasNifelco( -1 );
     this.usuario = JSON.parse( localStorage.getItem('usuario') );
   }
 
@@ -213,4 +219,23 @@ export class MarcasComponent implements OnInit {
     this.cargarMarcas();
 
   }
+
+
+    // NIFELCO
+
+    cargarMarcasNifelco( codMarca: number ) {
+
+      this._nifelcoService.cargarMarcas( codMarca )
+        .subscribe( (resp: any) => {
+
+          this.marcasNifelco = resp.result['SOAP-ENV:Envelope']['SOAP-ENV:Body']['NS2:TMarca'];
+
+        });
+
+    }
+
+
+
+
+
 }
