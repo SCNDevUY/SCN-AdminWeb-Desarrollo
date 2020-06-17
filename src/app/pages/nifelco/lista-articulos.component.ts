@@ -17,7 +17,7 @@ export class ListaArticulosComponent implements OnInit {
   listaArticulos: any[];
   totalRegistros = 0;
 
-  palabras: string;
+  palabras: string = '';
   codigoGrupo: string;
   codigoMarca: number;
 
