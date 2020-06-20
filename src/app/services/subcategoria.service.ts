@@ -22,10 +22,10 @@ export class SubcategoriaService {
   }
 
     // Obtener subcategorias
-    cargarSubCategorias( desde: number = 0, activo: boolean = true ) {
+    cargarSubCategorias( desde: number = 0, limite: number = 5, activo: boolean = true ) {
 
       this.token = localStorage.getItem('token');
-      const url = URL_SERVICIOS + '/subcategorias?activo=' + activo + '&desde=' + desde + '&token=' + this.token;
+      const url = URL_SERVICIOS + '/subcategorias?activo=' + activo + '&desde=' + desde + '&limite=' + limite + '&token=' + this.token;
 
       return this.http.get( url );
 

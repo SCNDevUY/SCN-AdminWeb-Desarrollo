@@ -79,7 +79,7 @@ export class ModalSubcategoriasService {
         // Cargar
         cargarSubCategorias( activo: boolean = true ) {
 
-          this._subCategoriaService.cargarSubCategorias( this.desde, activo )
+          this._subCategoriaService.cargarSubCategorias( this.desde, 0, activo )
             .subscribe( (resp: any) => {
 
               this.subcategoriasdeSubcategorias = resp.subCategorias;

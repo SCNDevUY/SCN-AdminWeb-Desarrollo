@@ -34,6 +34,7 @@ export class ArticulosEditarComponent implements OnInit {
     precio: 0,
     stock: 0,
     costo: 0,
+    codigoProveedor: '',
     marca: {
       nombre: '',
       img: ''

@@ -57,4 +57,19 @@ export class NifelcoService {
 
 
 
+    // Obtener imagen de Articulo
+    cargarImagenArticulo( codigo: string, tamanio: string ) {
+
+        const url = URL_SERVICIOS
+                    + '/nifelco/imagenarticulo?usuario=' + NIFELCO_USUARIO
+                    + '&password=' + NIFELCO_PASSWORD
+                    + '&codigo=' + codigo
+                    + '&tamanio=' + tamanio;
+
+        return this.http.post( url, null );
+
+    }
+
+
+
 }

@@ -8,6 +8,7 @@ import { Usuario } from '../../models/usuario.model';
 import { SubcategoriaService } from 'src/app/services/subcategoria.service';
 
 import Swal from 'sweetalert2';
+import { NifelcoService } from '../../services/nifelco.service';
 
 @Component({
   selector: 'app-subcategorias',
@@ -19,15 +20,21 @@ export class SubcategoriasComponent implements OnInit {
   usuario: Usuario;
   subcategorias: SubCategoria[] = [];
   desde: number = 0;
+  limite: number = 5;
   totalRegistros: number = 0;
   cargando: boolean = true;
 
   activos: boolean = true;
 
-  constructor( public _subCategoriaService: SubcategoriaService) { }
+  // NIFELCO
+  categoriasNifelco: any[];
+
+  constructor( public _subCategoriaService: SubcategoriaService,
+               public _nifelcoService: NifelcoService ) { }
 
   ngOnInit(): void {
     this.cargarSubCategorias();
+    this.cargarCategoriasNifelco('');
     this.usuario = JSON.parse( localStorage.getItem('usuario') );
   }
 
@@ -62,7 +69,7 @@ export class SubcategoriasComponent implements OnInit {
       this.activos = false;
     }
 
-    this._subCategoriaService.cargarSubCategorias( this.desde, activo )
+    this._subCategoriaService.cargarSubCategorias( this.desde, this.limite, activo )
       .subscribe( (resp: any) => {
 
         this.subcategorias = resp.subCategorias;
@@ -206,6 +213,19 @@ export class SubcategoriasComponent implements OnInit {
 
     this.desde += valor;
     this.cargarSubCategorias();
+
+  }
+
+
+  // NIFELCO
+
+  cargarCategoriasNifelco( grupoPadre: string ) {
+
+    this._nifelcoService.cargarGrupoArticulos( grupoPadre )
+        .subscribe( (resp: any) => {
+
+          this.categoriasNifelco = resp.result['SOAP-ENV:Envelope']['SOAP-ENV:Body']['NS2:TGrupo_Articulos'];
+    });
 
   }
 

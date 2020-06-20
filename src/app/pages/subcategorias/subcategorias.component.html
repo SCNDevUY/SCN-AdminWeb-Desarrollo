@@ -46,6 +46,7 @@
                             <tr>
                                 <th>Nombre</th>
                                 <th>Estado</th>
+                                <th>Categoria Nifelco</th>
                                 <th class="text-center">Acciones</th>
                             </tr>
                         </thead>
@@ -56,6 +57,12 @@
                                     <select [(ngModel)]="subcategoria.activo" name="role" class="form-control">
                                         <option value="true">ACTIVO</option>
                                         <option value="false">INACTIVO</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select [(ngModel)]="subcategoria.codigoNifelco" name="role" class="form-control">
+                                        <option value="" id="nada"> NO </option>
+                                        <option [value]="categoria.CodigoGrupo._" id="{{ categoria.CodigoGrupo._ }}" *ngFor="let categoria of categoriasNifelco" >{{ categoria.Descripcion._ }}</option>
                                     </select>
                                 </td>
                                 <td class="button-group text-center">

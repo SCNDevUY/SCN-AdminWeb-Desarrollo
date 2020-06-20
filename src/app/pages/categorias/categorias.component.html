@@ -48,6 +48,8 @@
                                 <th>Menu Horizontal</th>
                                 <th>Menu Vertical</th>
                                 <th>Estado</th>
+                                <th>Categoria Nifelco</th>
+                                <th>Utilidad Nifelco</th>
                                 <th class="text-center">Acciones</th>
                             </tr>
                         </thead>
@@ -71,6 +73,15 @@
                                         <option value="true">ACTIVO</option>
                                         <option value="false">INACTIVO</option>
                                     </select>
+                                </td>
+                                <td>
+                                    <select [(ngModel)]="categoria.codigoNifelco" name="role" class="form-control">
+                                        <option value="" id="nada"> NO </option>
+                                        <option [value]="categoria.CodigoGrupo._" id="{{ categoria.CodigoGrupo._ }}" *ngFor="let categoria of categoriasNifelco" >{{ categoria.Descripcion._ }}</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input [(ngModel)]="categoria.utilidadNifelco" name="utilidadNifelco" type="number" class="form-control" style="width: 100px" min="1" step="1">
                                 </td>
                                 <td class="button-group text-center">
                                     <button *ngIf="activos" (click)="mostrarModal( categoria )" class="btn btn-dark">

@@ -7,6 +7,8 @@
         public precio: number,
         public costo: number,
         public stock: number,
+        public webservice?: boolean,
+        public codigoProveedor?: string,
         public nuevo?: boolean,
         public descripcion?: string,
         public marca?: string,

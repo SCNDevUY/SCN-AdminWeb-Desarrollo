@@ -44,9 +44,9 @@ export class ListaArticulosComponent implements OnInit {
 
   consultar( forma: Form ) {
 
-    console.log( this.palabras);
-    console.log(this.codigoGrupo);
-    console.log(this.codigoMarca);
+    // console.log( this.palabras);
+    // console.log(this.codigoGrupo);
+    // console.log(this.codigoMarca);
 
     this.cargarListaArticulos( this.palabras, this.codigoGrupo, this.codigoMarca );
 
