@@ -7,7 +7,6 @@ export class Categoria {
         public menuHorizontal: boolean,
         public menuVertical: boolean,
         public codigoNifelco?: string,
-        public utilidadNifelco?: number,
         public subcategorias?: string[],
         public _id?: string
     ) { }
