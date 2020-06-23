@@ -47,6 +47,7 @@
                                 <th>Nombre</th>
                                 <th>Estado</th>
                                 <th>Categoria Nifelco</th>
+                                <th>Utilidad Nifelco</th>
                                 <th class="text-center">Acciones</th>
                             </tr>
                         </thead>
@@ -62,8 +63,11 @@
                                 <td>
                                     <select [(ngModel)]="subcategoria.codigoNifelco" name="role" class="form-control">
                                         <option value="" id="nada"> NO </option>
-                                        <option [value]="categoria.CodigoGrupo._" id="{{ categoria.CodigoGrupo._ }}" *ngFor="let categoria of categoriasNifelco" >{{ categoria.Descripcion._ }}</option>
+                                        <option [value]="categoria.CodigoGrupo._" id="{{ categoria.CodigoGrupo._ }}" *ngFor="let categoria of categoriasNifelco" >{{ categoria.CodigoGrupo._ }} - {{ categoria.Descripcion._ }}</option>
                                     </select>
+                                </td>
+                                <td>
+                                    <input [(ngModel)]="subcategoria.utilidadNifelco" name="utilidadNifelco" type="number" class="form-control" style="width: 100px" min="1" step="1">
                                 </td>
                                 <td class="button-group text-center">
                                     <button (click)="guardarSubCategoria( subcategoria )" class="btn btn-primary">

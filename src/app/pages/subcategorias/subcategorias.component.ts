@@ -27,7 +27,8 @@ export class SubcategoriasComponent implements OnInit {
   activos: boolean = true;
 
   // NIFELCO
-  categoriasNifelco: any[];
+  categoriasNifelco: any[] = [];
+  categoriasNifelcoTmp: any[];
 
   constructor( public _subCategoriaService: SubcategoriaService,
                public _nifelcoService: NifelcoService ) { }
@@ -224,7 +225,17 @@ export class SubcategoriasComponent implements OnInit {
     this._nifelcoService.cargarGrupoArticulos( grupoPadre )
         .subscribe( (resp: any) => {
 
-          this.categoriasNifelco = resp.result['SOAP-ENV:Envelope']['SOAP-ENV:Body']['NS2:TGrupo_Articulos'];
+          this.categoriasNifelcoTmp = resp.result['SOAP-ENV:Envelope']['SOAP-ENV:Body']['NS2:TGrupo_Articulos'];
+
+          this.categoriasNifelcoTmp.forEach( (categoria: any) => {
+
+            if ( categoria.CodigoGrupo._.length > 2 ) {
+              this.categoriasNifelco.push( categoria );
+            }
+
+          });
+
+
     });
 
   }
