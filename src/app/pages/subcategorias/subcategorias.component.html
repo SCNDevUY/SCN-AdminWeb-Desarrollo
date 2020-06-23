@@ -62,7 +62,7 @@
                                 </td>
                                 <td>
                                     <select [(ngModel)]="subcategoria.codigoNifelco" name="role" class="form-control">
-                                        <option value="" id="nada"> NO </option>
+                                        <option value="" id="nada"> - NO - </option>
                                         <option [value]="categoria.CodigoGrupo._" id="{{ categoria.CodigoGrupo._ }}" *ngFor="let categoria of categoriasNifelco" >{{ categoria.CodigoGrupo._ }} - {{ categoria.Descripcion._ }}</option>
                                     </select>
                                 </td>
