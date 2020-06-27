@@ -5,4 +5,4 @@ export const CLIENT_ID = '8897900251-qu1pjna9idq8trtc19f1qvsml0ofu8gf.apps.googl
 
 // Configuracion Nifelco
 export const NIFELCO_USUARIO     = 'polakof';
-export const NIFELCO_PASSWORD    = 'maldonado';
+export const NIFELCO_PASSWORD    = 'FAJAGAGE17';
