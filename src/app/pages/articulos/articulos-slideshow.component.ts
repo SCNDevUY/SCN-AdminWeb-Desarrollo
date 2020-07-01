@@ -87,6 +87,13 @@ export class ArticulosSlideshowComponent implements OnInit {
 
   }
 
+  async cambiarImagenSlideshow( articulo: Articulo ) {
+
+      this._modalUploadService.mostrarModal( 'slideshow', articulo );
+
+  }
+
+
 
   quitar( articulo: Articulo ) {
 

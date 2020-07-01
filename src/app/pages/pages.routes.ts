@@ -16,6 +16,8 @@ import { UsuariosComponent } from './usuarios/usuarios.component';
 import { MarcasComponent } from './marcas/marcas.component';
 import { CategoriasComponent } from './categorias/categorias.component';
 import { SubcategoriasComponent } from './subcategorias/subcategorias.component';
+import { CrewComponent } from './crew/crew.component';
+
 import { ArticulosComponent } from './articulos/articulos.component';
 import { ArticulosActivosComponent } from './articulos/articulos-activos.component';
 import { ArticulosNuevosComponent } from './articulos/articulos-nuevos.component';
@@ -30,6 +32,7 @@ import { ArticulosInicioComponent } from './articulos/articulos-inicio.component
 import { NifelcoMarcasComponent } from './nifelco/nifelco-marcas.component';
 import { GrupoArticulosComponent } from './nifelco/grupo-articulos.component';
 import { ListaArticulosComponent } from './nifelco/lista-articulos.component';
+import { ArticulosSlideshowImagenesComponent } from './articulos/articulos-slideshow-imagenes.component';
 
 const pagesRoutes: Routes = [
     {
@@ -52,6 +55,7 @@ const pagesRoutes: Routes = [
             { path: 'marcas',           component: MarcasComponent,           data: { titulo: 'Mantenimiento de marcas' } },
             { path: 'categorias',       component: CategoriasComponent,       data: { titulo: 'Mantenimiento de Categorias' } },
             { path: 'subcategorias',    component: SubcategoriasComponent,    data: { titulo: 'Mantenimiento de SubCategorias' } },
+            { path: 'crew',             component: CrewComponent,             data: { titulo: 'Mantenimiento de Crew' } },
             { path: 'articulos',        component: ArticulosComponent,        data: { titulo: 'Mantenimiento de Articulos' } },
             { path: 'articulosActivos', component: ArticulosActivosComponent, data: { titulo: 'Mantenimiento de Articulos' } },
             { path: 'articulosNuevos',  component: ArticulosNuevosComponent,  data: { titulo: 'Mantenimiento de Articulos - Nuevos' } },
@@ -62,8 +66,12 @@ const pagesRoutes: Routes = [
             { path: 'articulosSuperOferta',
                 component: ArticulosSuperOfertaComponent, data: { titulo: 'Mantenimiento de Articulos - Super Oferta' }
             },
-            { path: 'articulosSlideshow', component: ArticulosSlideshowComponent, data: {titulo: 'Mantenimiento de Articulos - SlideShow'}},
-
+            { path: 'articulosSlideshow',
+                component: ArticulosSlideshowComponent, data: {titulo: 'Mantenimiento de Articulos - SlideShow - Articulos'}
+            },
+            { path: 'articulosSlideshowImagenes',
+                component: ArticulosSlideshowImagenesComponent, data: {titulo: 'Mantenimiento de Articulos - SlideShow - Imagenes'}
+            },
             // Nifelco
             { path: 'nifelco/marcas', component: NifelcoMarcasComponent, data: {titulo: 'Mantenimiento Nifelco - Marcas'}},
             { path: 'nifelco/grupoarticulos',

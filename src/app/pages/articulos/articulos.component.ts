@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ArticuloService } from '../../services/articulo.service';
+
+// MODELOS
 import { Articulo } from '../../models/articulo.model';
+
+// SERVICIOS
+import { ArticuloService } from '../../services/articulo.service';
+import { CarouselService } from '../../services/carousel.service';
 
 @Component({
   selector: 'app-articulos',
@@ -16,6 +21,7 @@ export class ArticulosComponent implements OnInit {
   nuevosCantidad: number = 0;
   mailingCantidad: number = 0;
   slideshowCantidad: number = 0;
+  slideshowImagenesCantidad: number = 0;
   ofertasCantidad: number = 0;
   superOfertaCantidad: number = 0;
   inicioCantidad: number = 0;
@@ -24,6 +30,7 @@ export class ArticulosComponent implements OnInit {
 
 
   constructor( public _articulosService: ArticuloService,
+               public _carouselService: CarouselService,
                public router: Router ) { }
 
   ngOnInit(): void {
@@ -70,6 +77,12 @@ export class ArticulosComponent implements OnInit {
 
       });
 
+
+    this._carouselService.cargarCarousel()
+        .subscribe( (carouselResp: any) => {
+            this.slideshowImagenesCantidad = carouselResp.total;
+    });
+
   }
 
   verActivosoInactivos( titulo: string, valor: boolean ) {
@@ -94,6 +107,10 @@ export class ArticulosComponent implements OnInit {
 
   verSlideshow() {
     this.router.navigate([ '/articulosSlideshow' ]);
+  }
+
+  verSlideshowImagenes() {
+    this.router.navigate([ '/articulosSlideshowImagenes' ]);
   }
 
   verInicio() {

@@ -1,0 +1,92 @@
+<div class="row animated fadeIn" *ngIf="cargando">
+    <div class="col-sm-12">
+        <div class="alert alert-warning text-center">
+            <strong>Cargando</strong>
+            <br>
+            <i class="fa fa-refresh fa-spin fa-2x"></i>
+            <br>
+            <span>Espere por favor</span>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn" *ngIf="!cargando">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-lg-5 col-md-5 col-sm-12">
+                        <h3 *ngIf="activos" class="card-title">Carousel activos ( <small>{{ totalRegistros }}</small> )</h3>
+                        <h3 *ngIf="!activos" class="card-title">Carousel inactivos ( <small>{{ totalRegistros }}</small> )</h3>
+                    </div>
+                    <div class="col-lg-7 col-md-7 col-sm-12 button-group text-right">
+                        <button *ngIf="!activos" (click)="cargarCarousel()" type="button" class="btn btn-success btn-rounded"><i class="fa fa-check"></i> Ver activos</button>
+                        <button *ngIf="activos" (click)="cargarCarousel(false)" type="button" class="btn btn-danger btn-rounded"><i class="fa fa-close"></i> Ver inactivos</button>
+                        <button *ngIf="activos" (click)="agregarCarousel()" type="button" class="btn btn-primary btn-rounded"><i class="fa fa-plus"></i> Agregar</button>
+                        <!-- data-toggle="modal" data-target="#crearMarca" -->
+                    </div>
+                </div>
+                <div class="table-responsive">
+
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Imagen</th>
+                                <th>Nombre</th>
+                                <th>Estado</th>
+                                <th class="text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let carou of carousel">
+                                <td class="w70">
+                                    <img (click)="mostrarModal( carou )" [src]="carou.img | imagen" class="img-50 pointer">
+                                </td>
+                                <td><input [(ngModel)]="carou.nombre" name="nombre" type="text" class="form-control" ></td>
+                                <td>
+                                    <select [(ngModel)]="carou.activo" name="role" class="form-control">
+                                        <option value="true">ACTIVO</option>
+                                        <option value="false">INACTIVO</option>
+                                    </select>
+                                </td>
+                                <td class="button-group text-center">
+                                    <button (click)="guardarCarousel( carou )" class="btn btn-primary">
+                                        <i class="fa fa-save"></i>
+                                    </button>
+                                    <button *ngIf="!activos" (click)="borrarCarousel( carou )" class="btn btn-danger">
+                                        <i class="fa fa-trash-o"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div> 
+
+
+
+
+<!-- Modal -->
+<!-- <div class="modal fade" id="crearMarca" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Crear Marca</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+
+      </div>
+
+    </div>
+  </div>
+</div> -->

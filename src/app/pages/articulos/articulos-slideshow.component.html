@@ -103,6 +103,7 @@
                                 <th>Codigo</th>
                                 <th>Nombre</th>
                                 <th>Precio</th>
+                                <th>imagen</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -120,6 +121,9 @@
                                 </td>
                                 <td>
                                     <p>u$s {{ articulo.precio }}</p>
+                                </td>
+                                <td>
+                                    <img (click)="cambiarImagenSlideshow( articulo )" [src]="articulo.imgSlideshow | imagen" class="img-50 pointer">
                                 </td>
                             </tr>
                         </tbody>

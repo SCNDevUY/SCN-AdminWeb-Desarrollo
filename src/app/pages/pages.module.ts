@@ -51,6 +51,8 @@ import { GlobalesComponent } from './globales/globales.component';
 import { NifelcoMarcasComponent } from './nifelco/nifelco-marcas.component';
 import { GrupoArticulosComponent } from './nifelco/grupo-articulos.component';
 import { ListaArticulosComponent } from './nifelco/lista-articulos.component';
+import { ArticulosSlideshowImagenesComponent } from './articulos/articulos-slideshow-imagenes.component';
+import { CrewComponent } from './crew/crew.component';
 
 @NgModule({
     declarations: [
@@ -82,7 +84,9 @@ import { ListaArticulosComponent } from './nifelco/lista-articulos.component';
         GlobalesComponent,
         NifelcoMarcasComponent,
         GrupoArticulosComponent,
-        ListaArticulosComponent
+        ListaArticulosComponent,
+        ArticulosSlideshowImagenesComponent,
+        CrewComponent
     ],
     exports: [
         DashboardComponent,
