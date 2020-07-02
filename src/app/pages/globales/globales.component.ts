@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalesService } from '../../services/globales.service';
 import { Global } from '../../models/global.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-globales',
@@ -10,7 +11,7 @@ import { Global } from '../../models/global.model';
 export class GlobalesComponent implements OnInit {
 
 
-  global: Global[] = [];
+  global: Global;
   _id: string;
 
   constructor( public _globalServices: GlobalesService ) {
@@ -18,8 +19,10 @@ export class GlobalesComponent implements OnInit {
     this._globalServices.cargarConfiguracion()
       .subscribe( (resp: any) => {
 
-          this.global = resp.global;
+          this.global = resp.global[0];
           this._id = resp.global[0]._id;
+
+          console.log(this.global);
 
       });
 
@@ -30,15 +33,19 @@ export class GlobalesComponent implements OnInit {
   }
 
 
-  guardarCarrito( carrito: boolean ) {
+ 
+  guardar( global: Global ) {
 
-    const global = {
-      carrito
-    };
-
-    console.log(carrito);
     this._globalServices.guardarConfiguracion( global, this._id )
-      .subscribe();
+      .subscribe( resp => {
+
+        Swal.fire({
+          title: 'Configuracion cambiada con exito!',
+          icon: 'success',
+          confirmButtonText: 'Aceptar!'
+        });
+
+      });
 
   }
 

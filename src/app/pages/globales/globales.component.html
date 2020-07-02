@@ -1,34 +1,53 @@
-<div class="row">
-
-    <div class="col-3">
+<div class="row animated fadeIn">
+    <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h3 class="card-title">Activar Carrito</h3>                
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Activar</th>
-                            <th class="text-center">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let opcion of global">
-                            <td>
-                                <select [(ngModel)]="opcion.carrito" name="carrito" class="form-control">
-                                    <option value="true">SI</option>
-                                    <option value="false">NO</option>
-                                </select>
-                            </td>
-                            <td class="button-group text-center">
-                                <button (click)="guardarCarrito( opcion.carrito )" class="btn btn-primary">
-                                    <i class="fa fa-save"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+
+                <div *ngIf="global" class="table-responsive">
+
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Configuracion</th>
+                                <th>Estado</th>
+                                <th class="text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Carrito</td>
+                                <td>
+                                    <select [(ngModel)]="global.carrito" name="carrito" class="form-control">
+                                        <option value="true">ACTIVO</option>
+                                        <option value="false">INACTIVO</option>
+                                    </select>
+                                </td>
+                                <td class="button-group text-center">
+                                    <button (click)="guardar( global )" class="btn btn-primary">
+                                        <i class="fa fa-save"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Mantenimiento</td>
+                                <td>
+                                    <select [(ngModel)]="global.mantenimiento" name="mantenimiento" class="form-control">
+                                        <option value="true">ACTIVO</option>
+                                        <option value="false">INACTIVO</option>
+                                    </select>
+                                </td>
+                                <td class="button-group text-center">
+                                    <button (click)="guardar( global )" class="btn btn-primary">
+                                        <i class="fa fa-save"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
             </div>
         </div>
     </div>
-
-</div>
+</div> 
