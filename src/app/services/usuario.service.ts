@@ -82,6 +82,7 @@ export class UsuarioService {
       return this.http.post( url, { token } )
         .pipe(
           map( (resp: any) => {
+
               this.guardarStorage( resp.id, resp.token, resp.usuario );
               return true;
           })
@@ -103,6 +104,18 @@ export class UsuarioService {
       return this.http.post( url, usuario )
         .pipe(
             map( (resp: any) => {
+
+                if ( resp.usuario.role === 'USER_ROLE' ) {
+                    Swal.fire({
+                      title: 'No tiene autorizacion para iniciar sesion',
+                      text: resp.usuario.email,
+                      icon: 'warning',
+                      confirmButtonText: 'Upsss!'
+                    });
+                    this.logout();
+                    return false;
+                }
+
                 this.guardarStorage( resp.id, resp.token, resp.usuario );
                 return true;
             })
