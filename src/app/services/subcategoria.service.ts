@@ -64,7 +64,7 @@ export class SubcategoriaService {
 
         return this.http.get( url )
             .pipe(
-              map( (resp: any) => resp.subcategorias )
+              map( (resp: any) => resp.subCategorias )
             );
 
       }
