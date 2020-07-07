@@ -53,6 +53,7 @@ import { GrupoArticulosComponent } from './nifelco/grupo-articulos.component';
 import { ListaArticulosComponent } from './nifelco/lista-articulos.component';
 import { ArticulosSlideshowImagenesComponent } from './articulos/articulos-slideshow-imagenes.component';
 import { CrewComponent } from './crew/crew.component';
+import { ArticulosCargarComponent } from './articulos-cargar/articulos-cargar.component';
 
 @NgModule({
     declarations: [
@@ -86,7 +87,8 @@ import { CrewComponent } from './crew/crew.component';
         GrupoArticulosComponent,
         ListaArticulosComponent,
         ArticulosSlideshowImagenesComponent,
-        CrewComponent
+        CrewComponent,
+        ArticulosCargarComponent
     ],
     exports: [
         DashboardComponent,

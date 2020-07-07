@@ -27,7 +27,8 @@ export class SidebarService {
         { titulo: 'Marcas', url: '/marcas' },
         { titulo: 'Categorias', url: '/categorias' },
         { titulo: 'SubCategorias', url: '/subcategorias' },
-        { titulo: 'Articulos', url: '/articulos' }
+        { titulo: 'Articulos', url: '/articulos' },
+        { titulo: 'Articulos - Cargar archivo', url: '/articulosCargar' }
       ]
     },
     {

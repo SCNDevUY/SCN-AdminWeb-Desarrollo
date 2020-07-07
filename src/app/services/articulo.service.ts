@@ -165,4 +165,16 @@ export class ArticuloService {
 
     }
 
+
+
+    // Obtener articulos SlideShow
+    cargarArchivo( archivo: File ) {
+
+      const formData: FormData = new FormData();
+      formData.append('archivo', archivo, archivo.name);
+
+      const url = URL_SERVICIOS + '/articulos/cargararchivo';
+      return this.http.post( url, formData );
+    }
+
 }

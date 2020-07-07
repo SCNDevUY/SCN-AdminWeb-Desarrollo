@@ -1,0 +1,44 @@
+<div class="row animated fadeIn" *ngIf="cargando">
+    <div class="col-sm-12">
+        <div class="alert alert-warning text-center">
+            <strong>Cargando</strong>
+            <br>
+            <i class="fa fa-refresh fa-spin fa-2x"></i>
+            <br>
+            <span>Espere por favor</span>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn" *ngIf="!cargando">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h4>Cargar archivo</h4>
+                        <!-- <button type="button" (click)="cargarArchivo()" class="btn btn-md btn-primary">Cargar</button> -->
+                        <input (change)="seleccionArchivo( $event.target.files[0] )" type="file" class="hidden">
+                    </div>
+                    <div *ngIf="cargados" class="col-lg-6">
+                        <br>
+                        <h2 class="text-success">ARTICULOS CARGADOS CON EXITO!</h2>
+                    </div>
+                </div>
+                <hr>
+                <div *ngIf="cargados" class="row mt-4">
+                    <div class="col-lg-4">
+                        <h5>Total de articulos</h5>
+                        <p>{{ totalRegistros }}</p>
+                    </div>
+                    <div class="col-lg-4">
+                        <h5>Articulos nuevos</h5>
+                    </div>
+                    <div class="col-lg-4">
+                        <h5>Articulos modificados</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

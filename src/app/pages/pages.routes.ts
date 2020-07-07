@@ -18,6 +18,8 @@ import { CategoriasComponent } from './categorias/categorias.component';
 import { SubcategoriasComponent } from './subcategorias/subcategorias.component';
 import { CrewComponent } from './crew/crew.component';
 
+import { ArticulosCargarComponent } from './articulos-cargar/articulos-cargar.component';
+
 import { ArticulosComponent } from './articulos/articulos.component';
 import { ArticulosActivosComponent } from './articulos/articulos-activos.component';
 import { ArticulosNuevosComponent } from './articulos/articulos-nuevos.component';
@@ -56,6 +58,7 @@ const pagesRoutes: Routes = [
             { path: 'categorias',       component: CategoriasComponent,       data: { titulo: 'Mantenimiento de Categorias' } },
             { path: 'subcategorias',    component: SubcategoriasComponent,    data: { titulo: 'Mantenimiento de SubCategorias' } },
             { path: 'crew',             component: CrewComponent,             data: { titulo: 'Mantenimiento de Crew' } },
+            { path: 'articulosCargar',  component: ArticulosCargarComponent,  data: { titulo: 'Articulos - Cargar archivo' } },
             { path: 'articulos',        component: ArticulosComponent,        data: { titulo: 'Mantenimiento de Articulos' } },
             { path: 'articulosActivos', component: ArticulosActivosComponent, data: { titulo: 'Mantenimiento de Articulos' } },
             { path: 'articulosNuevos',  component: ArticulosNuevosComponent,  data: { titulo: 'Mantenimiento de Articulos - Nuevos' } },
