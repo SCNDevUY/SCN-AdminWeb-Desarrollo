@@ -6,6 +6,9 @@ import Swal from 'sweetalert2';
 import { ArticulosCargarService } from '../../services/articulos-cargar.service';
 import { ArticuloService } from '../../services/articulo.service';
 
+// Modelos
+import { Articulo } from '../../models/articulo.model';
+
 @Component({
   selector: 'app-articulos-cargar',
   templateUrl: './articulos-cargar.component.html',
@@ -17,10 +20,15 @@ export class ArticulosCargarComponent implements OnInit {
 
   cargados = false;
 
-  articulos = [];
-  totalRegistros = 0;
+  articulosArchivo = [];
+  totalRegistrosArchivo = 0;
+
+  articulos: Articulo[];
 
   archivoSubir: File;
+
+  articulosNuevos = 0;
+  articulosModificados = 0;
 
   constructor( public _articulosCargarService: ArticulosCargarService,
                public _articuloService: ArticuloService ) { }
@@ -65,20 +73,42 @@ export class ArticulosCargarComponent implements OnInit {
           this._articuloService.cargarArchivo( archivo )
           .subscribe( (resp: any) => {
 
-            console.log(resp);
-            this.articulos = resp.articulos;
-            this.totalRegistros = resp.total;
+            this.articulosArchivo = resp.articulos;
+            this.totalRegistrosArchivo = resp.total;
 
-            this.cargando = false;
+            console.log( this.articulosArchivo );
 
-            Swal.fire(
-              'Cargados!',
-              'Articulos cargados con exito.',
-              'success'
-            );
 
+            this._articuloService.cargarArticulosTodos()
+              .subscribe( (resp2: any) => {
+
+                console.log(resp2);
+                this.articulos = resp2.articulos;
+
+                this.articulosArchivo.forEach( art => {
+
+                  const index = this.articulos.map( item => item.codigoInterno ).indexOf( art.codigoInterno );
+                  if ( index === -1 ) {
+                      console.log('No existe');
+                      this.articulosNuevos ++;
+                  } else {
+                    console.log('Existe articulo: ', art.codigoInterno );
+                    this.articulosModificados ++;
+                  }
+
+                });
+
+
+                this.cargando = false;
+
+                Swal.fire(
+                  'Cargados!',
+                  'Articulos cargados con exito.',
+                  'success'
+                );
+
+              });
           });
-
         }
       });
 

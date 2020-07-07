@@ -45,6 +45,15 @@ export class ArticuloService {
 
     }
 
+    // Obtener articulos TODOS
+    cargarArticulosTodos() {
+
+      const url = URL_SERVICIOS + '/articulos/todos';
+
+      return this.http.get( url );
+
+    }
+
     // Obtener articulos
     cargarArticulosMailing() {
 
