@@ -30,6 +30,8 @@ export class ArticulosCargarComponent implements OnInit {
   articulosNuevos = 0;
   articulosModificados = 0;
 
+  cotizacion: number = 0;
+
   constructor( public _articulosCargarService: ArticulosCargarService,
                public _articuloService: ArticuloService ) { }
 
@@ -55,6 +57,34 @@ export class ArticulosCargarComponent implements OnInit {
         return;
     }
 
+    this.archivoSubir = archivo;
+
+  }
+
+
+  cargarArchivo() {
+
+    if ( this.cotizacion <= 0 ) {
+
+      Swal.fire(
+        'Atencion!',
+        'Debe de ingresar la cotizacion del Dolar',
+        'warning'
+      );
+      return;
+    }
+
+    if ( !this.archivoSubir ) {
+
+      Swal.fire(
+        'Atencion!',
+        'Debe de seleccionar un archivo',
+        'warning'
+      );
+      return;
+
+    }
+
     Swal.fire({
       title: 'Atencion!',
       text: 'Esta seguro de cargar los articulos!',
@@ -70,7 +100,7 @@ export class ArticulosCargarComponent implements OnInit {
           this.cargados = true;
           this.cargando = true;
 
-          this._articuloService.cargarArchivo( archivo )
+          this._articuloService.cargarArchivo( this.archivoSubir )
           .subscribe( (resp: any) => {
 
             this.articulosArchivo = resp.articulos;
@@ -87,17 +117,33 @@ export class ArticulosCargarComponent implements OnInit {
 
                 this.articulosArchivo.forEach( art => {
 
-                  const index = this.articulos.map( item => item.codigoInterno ).indexOf( art.codigoInterno );
+                  // const codInt = Number(art.codigoInterno);
+
+                  const index = this.articulos.map( item => item.codigoInterno ).indexOf( Number(art.codigoInterno) );
                   if ( index === -1 ) {
                       console.log('No existe');
                       this.articulosNuevos ++;
+
+                      // CALCULAR COSTO en U$S
+                      
+
+                      const articuloCrear: Articulo = {
+                        codigoInterno: Number(art.codigoInterno),
+                        nombre:        art.nombre,
+                        precio:        art.precio,
+                        costo:         art.costo,
+                        stock:         Number(art.stock)
+                      }
+
+                      // this._articuloService.crearArticulo()
+
+
                   } else {
                     console.log('Existe articulo: ', art.codigoInterno );
                     this.articulosModificados ++;
                   }
 
                 });
-
 
                 this.cargando = false;
 
@@ -112,9 +158,8 @@ export class ArticulosCargarComponent implements OnInit {
         }
       });
 
+
   }
-
-
 
 
 }

@@ -175,8 +175,16 @@ export class ArticuloService {
     }
 
 
+    // Crear Articulo
+    crearArticulo( articulo: Articulo ) {
 
-    // Obtener articulos SlideShow
+      const url = URL_SERVICIOS + '/articulos/';
+      return this.http.post( url, articulo );
+    }
+
+
+
+    // Cargar Archivo
     cargarArchivo( archivo: File ) {
 
       const formData: FormData = new FormData();

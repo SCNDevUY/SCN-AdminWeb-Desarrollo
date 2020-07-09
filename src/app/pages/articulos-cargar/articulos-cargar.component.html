@@ -14,15 +14,25 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <h4>Cargar archivo</h4>
+                <div *ngIf="!cargados" class="row">
+                    <div class="col-lg-4">
+                        <h4>PASO 1 - Cotizacion Dolar</h4>
+                        <input type="text" [(ngModel)]="cotizacion" name="cotizacion" class="form-control">
+                    </div>
+                    <div class="col-lg-4">
+                        <h4>PASO 2 - Cargar archivo</h4>
                         <!-- <button type="button" (click)="cargarArchivo()" class="btn btn-md btn-primary">Cargar</button> -->
                         <input (change)="seleccionArchivo( $event.target.files[0] )" type="file" class="hidden">
                     </div>
-                    <div *ngIf="cargados" class="col-lg-6">
+                    <div class="col-lg-4">
+                        <h4>PASO 3 - Finalizar</h4>
+                        <button type="button" (click)="cargarArchivo()" class="btn btn-sm btn-primary">Finalizar</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div *ngIf="cargados" class="col-lg-12">
                         <br>
-                        <h2 class="text-success">ARTICULOS CARGADOS CON EXITO!</h2>
+                        <h2 class="text-success text-center">ARTICULOS CARGADOS CON EXITO!</h2>
                     </div>
                 </div>
                 <hr>
