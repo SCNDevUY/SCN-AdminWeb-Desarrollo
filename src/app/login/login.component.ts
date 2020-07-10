@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
   auth2: any;
 
   constructor( public router: Router,
-               public _usuarioService: UsuarioService ) { }
+               public _usuarioService: UsuarioService ) {}
 
 
   ngOnInit(): void {
@@ -82,7 +82,11 @@ export class LoginComponent implements OnInit {
     const usuario = new Usuario( null, null, forma.value.email, forma.value.password );
 
     this._usuarioService.login( usuario, forma.value.recuerdame )
-        .subscribe( () => this.router.navigate([ '/dashboard' ]) );
+        .subscribe( ( resp) => {
+          this.router.navigate([ '/dashboard' ]);
+        }, err => {
+
+        });
 
   }
 

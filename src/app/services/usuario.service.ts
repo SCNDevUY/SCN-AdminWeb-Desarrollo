@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 import { Usuario } from '../models/usuario.model';
 import { URL_SERVICIOS } from '../config/config';
@@ -25,6 +26,8 @@ export class UsuarioService {
 
     url: any = '';
 
+    cargando: boolean = false;
+
     constructor( public http: HttpClient,
                  public router: Router,
                  private storage: AngularFireStorage ) {
@@ -33,13 +36,50 @@ export class UsuarioService {
     }
 
     // Ver si esta logueado
+    // Ver si esta logueado
     estaLogueado() {
-        if ( this.token.length > 5 ) {
-          return true;
-        } else {
-          return false;
-        }
+      if ( this.token.length > 5 ) {
+
+        return this.chequearToken()
+          .subscribe(
+            resp => {
+              return true;
+            },
+            err => {
+              Swal.fire({
+                title: 'Atencion',
+                text: 'Sesion Expirada!',
+                icon: 'warning',
+                confirmButtonText: 'Aceptar'
+              });
+              this.logout();
+              return false;
+            }
+          );
+
+      } else {
+        return false;
+      }
+  }
+
+    // Chequear si token expiro
+    chequearToken() {
+      const url = URL_SERVICIOS + '/usuarios/token';
+      // url += '?token=' + this.token;
+      const token = { token: this.token };
+
+      return this.http.post( url, token )
+            .pipe(
+                map( (resp: any) => {
+                  return true;
+                }),
+                catchError( err => {
+                  return throwError(err);
+                })
+            );
     }
+
+
 
     // Cargar Storage
     cargarStorage() {
@@ -93,6 +133,8 @@ export class UsuarioService {
     // Login normal
     login( usuario: Usuario, recordar: boolean = false ) {
 
+      this.cargando = true;
+
       if ( recordar ) {
         localStorage.setItem( 'email', usuario.email );
       } else {
@@ -106,6 +148,7 @@ export class UsuarioService {
             map( (resp: any) => {
 
                 if ( resp.usuario.role === 'USER_ROLE' ) {
+                    this.cargando = false;
                     Swal.fire({
                       title: 'No tiene autorizacion para iniciar sesion',
                       text: resp.usuario.email,
@@ -114,10 +157,21 @@ export class UsuarioService {
                     });
                     this.logout();
                     return false;
-                }
+                  }
 
+                this.cargando = false;
                 this.guardarStorage( resp.id, resp.token, resp.usuario );
                 return true;
+            }),
+            catchError( err => {
+              this.cargando = false;
+              Swal.fire({
+                title: 'Error',
+                text: err.error.mensaje,
+                icon: 'warning',
+                confirmButtonText: 'Upsss!'
+              });
+              return throwError(err);
             })
         );
 

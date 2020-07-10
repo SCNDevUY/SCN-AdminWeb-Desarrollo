@@ -121,26 +121,42 @@ export class ArticulosCargarComponent implements OnInit {
 
                   const index = this.articulos.map( item => item.codigoInterno ).indexOf( Number(art.codigoInterno) );
                   if ( index === -1 ) {
-                      console.log('No existe');
                       this.articulosNuevos ++;
 
-                      // CALCULAR COSTO en U$S
-                      
+                      const costoTmp = (art.costo / this.cotizacion) * 1.22;
+                      let precioTmp = ( costoTmp * 1.30 ) * 1.22;
 
+                      // Quita decimales
+                      precioTmp = Number( precioTmp.toFixed(0) );
+                      // transforma el ultimo numero en un 9
+                      let precioTmp2 = String(precioTmp);
+                      precioTmp2 = precioTmp2.slice( 0, -1 );
+                      precioTmp2 = precioTmp2 + '9';
+                      precioTmp = Number(precioTmp2);
+
+
+                      // TODO falta agregar el costo en $
                       const articuloCrear: Articulo = {
-                        codigoInterno: Number(art.codigoInterno),
+                        codigoInterno: art.codigoInterno,
                         nombre:        art.nombre,
-                        precio:        art.precio,
-                        costo:         art.costo,
-                        stock:         Number(art.stock)
-                      }
+                        costo:         Number( costoTmp.toFixed(2) ),
+                        precio:        precioTmp,
+                        stock:         art.stock
+                      };
 
+                      console.log(articuloCrear);
+
+                      // TODO falta actualizar la DB
                       // this._articuloService.crearArticulo()
 
 
                   } else {
-                    console.log('Existe articulo: ', art.codigoInterno );
+
+                    // TODO si el costo en $ es igual no actualizar costo ni venta , solo nombre y stock
+
                     this.articulosModificados ++;
+
+                    // TODO falta actualizar la DB
                   }
 
                 });
@@ -162,4 +178,8 @@ export class ArticulosCargarComponent implements OnInit {
   }
 
 
+
+
+
+  
 }
