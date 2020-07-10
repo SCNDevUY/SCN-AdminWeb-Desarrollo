@@ -24,11 +24,14 @@ export class ArticulosCargarComponent implements OnInit {
   totalRegistrosArchivo = 0;
 
   articulos: Articulo[];
+  articuloTmp: Articulo;
 
   archivoSubir: File;
 
   articulosNuevos = 0;
   articulosModificados = 0;
+  articulosSoloNombreStock = 0;
+  articulosCambioCosto = 0;
 
   cotizacion: number = 0;
 
@@ -115,15 +118,17 @@ export class ArticulosCargarComponent implements OnInit {
                 console.log(resp2);
                 this.articulos = resp2.articulos;
 
-                this.articulosArchivo.forEach( art => {
-
-                  // const codInt = Number(art.codigoInterno);
+                this.articulosArchivo.forEach( async art => {
 
                   const index = this.articulos.map( item => item.codigoInterno ).indexOf( Number(art.codigoInterno) );
+
                   if ( index === -1 ) {
+
+                  // ARTICULO NO EXISTE
+
                       this.articulosNuevos ++;
 
-                      const costoTmp = (art.costo / this.cotizacion) * 1.22;
+                      const costoTmp = (art.costoPesos / this.cotizacion);
                       let precioTmp = ( costoTmp * 1.30 ) * 1.22;
 
                       // Quita decimales
@@ -134,29 +139,56 @@ export class ArticulosCargarComponent implements OnInit {
                       precioTmp2 = precioTmp2 + '9';
                       precioTmp = Number(precioTmp2);
 
-
-                      // TODO falta agregar el costo en $
                       const articuloCrear: Articulo = {
                         codigoInterno: art.codigoInterno,
                         nombre:        art.nombre,
                         costo:         Number( costoTmp.toFixed(2) ),
+                        costoPesos:    art.costoPesos,
                         precio:        precioTmp,
                         stock:         art.stock
                       };
 
-                      console.log(articuloCrear);
-
-                      // TODO falta actualizar la DB
-                      // this._articuloService.crearArticulo()
-
+                      const artCreado = await this.crearArticulo( articuloCrear );
 
                   } else {
+                    // ARTICULO EXISTE
+                    this.articuloTmp = this.articulos[index];
 
-                    // TODO si el costo en $ es igual no actualizar costo ni venta , solo nombre y stock
+                    if ( this.articuloTmp.costoPesos === art.costoPesos ) {
+                      // console.log('es igual');
+
+                      this.articuloTmp.nombre = art.nombre;
+                      this.articuloTmp.stock = art.stock;
+
+                      this.articulosSoloNombreStock ++;
+                    } else {
+                      // console.warn('no es igual');
+
+                      const costoTmp = (art.costoPesos / this.cotizacion);
+                      let precioTmp = ( costoTmp * 1.30 ) * 1.22;
+
+                      // Quita decimales
+                      precioTmp = Number( precioTmp.toFixed(0) );
+                      // transforma el ultimo numero en un 9
+                      let precioTmp2 = String(precioTmp);
+                      precioTmp2 = precioTmp2.slice( 0, -1 );
+                      precioTmp2 = precioTmp2 + '9';
+                      precioTmp = Number(precioTmp2);
+
+                      this.articuloTmp.nombre = art.nombre;
+                      this.articuloTmp.costo = Number( costoTmp.toFixed(2) );
+                      this.articuloTmp.costoPesos = art.costoPesos;
+                      this.articuloTmp.precio = precioTmp;
+                      this.articuloTmp.stock = art.stock;
+
+                      this.articulosCambioCosto ++;
+                    }
 
                     this.articulosModificados ++;
 
-                    // TODO falta actualizar la DB
+                    // Actualizar la DB
+                    const arctAct = await this.actualizarArticulo( this.articuloTmp );
+
                   }
 
                 });
@@ -178,8 +210,46 @@ export class ArticulosCargarComponent implements OnInit {
   }
 
 
+ async crearArticulo( articuloCrear: Articulo ) {
+
+    return new Promise((resolve, reject) => {
+
+      this._articuloService.crearArticulo( articuloCrear )
+        .subscribe( (resp: any) => {
+
+            if ( resp.ok === true ) {
+              resolve( true );
+            } else {
+              reject( false );
+            }
+
+        });
+
+    });
+
+  }
 
 
 
-  
+  async actualizarArticulo( articuloActualizar ) {
+
+    return new Promise((resolve, reject) => {
+
+      this._articuloService.actualizarArticulo( articuloActualizar )
+        .subscribe( (resp: any) => {
+
+            if ( resp.ok === true ) {
+              resolve( true );
+            } else {
+              reject( false );
+            }
+
+        });
+
+    });
+
+  }
+
+
+
 }

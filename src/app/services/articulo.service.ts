@@ -54,7 +54,7 @@ export class ArticuloService {
 
     }
 
-    // Obtener articulos
+    // Obtener articulos Mailing
     cargarArticulosMailing() {
 
           this.token = localStorage.getItem('token');
@@ -65,7 +65,7 @@ export class ArticuloService {
     }
 
 
-    // Obtener articulos
+    // Obtener articulos Inicio
     cargarArticulosInicio() {
 
           this.token = localStorage.getItem('token');
@@ -178,8 +178,13 @@ export class ArticuloService {
     // Crear Articulo
     crearArticulo( articulo: Articulo ) {
 
-      const url = URL_SERVICIOS + '/articulos/';
+      this.token = localStorage.getItem('token');
+
+      let url = URL_SERVICIOS + '/articulos/';
+      url += '?token=' + this.token;
+
       return this.http.post( url, articulo );
+
     }
 
 
@@ -192,6 +197,17 @@ export class ArticuloService {
 
       const url = URL_SERVICIOS + '/articulos/cargararchivo';
       return this.http.post( url, formData );
+    }
+    
+
+    // Obtener articulos
+    cargarArticuloXcodigoInerno( codigoInterno ) {
+
+      this.token = localStorage.getItem('token');
+      const url = URL_SERVICIOS + '/articulos/codigoInterno?codigoInterno=' + codigoInterno + '&token=' + this.token;
+
+      return this.http.get( url );
+
     }
 
 }

@@ -50,6 +50,16 @@
                         <p>{{ articulosModificados }}</p>
                     </div>
                 </div>
+                <div *ngIf="cargados" class="row mt-4">
+                    <div class="col-lg-6">
+                        <h5>Cambiados solo nombre y Stock</h5>
+                        <p>{{ articulosSoloNombreStock }}</p>
+                    </div>
+                    <div class="col-lg-6">
+                        <h5>Articulos que les cambio el costo</h5>
+                        <p>{{ articulosCambioCosto }}</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
