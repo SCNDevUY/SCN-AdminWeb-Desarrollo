@@ -8,6 +8,7 @@ import { ArticuloService } from '../../services/articulo.service';
 
 // Modelos
 import { Articulo } from '../../models/articulo.model';
+import { nextTick } from 'process';
 
 @Component({
   selector: 'app-articulos-cargar',
@@ -21,17 +22,19 @@ export class ArticulosCargarComponent implements OnInit {
   cargados = false;
 
   articulosArchivo = [];
-  totalRegistrosArchivo = 0;
 
   articulos: Articulo[];
   articuloTmp: Articulo;
+  articuloTmp2: Articulo;
 
   archivoSubir: File;
 
+  totalRegistrosArchivo = 0;
   articulosNuevos = 0;
   articulosModificados = 0;
-  articulosSoloNombreStock = 0;
-  articulosCambioCosto = 0;
+  articulosSoloNombreStock: Articulo[] = [];
+  articulosCambioCosto: Articulo[] = [];
+  articulosStockCero: Articulo[] = [];
 
   cotizacion: number = 0;
 
@@ -109,15 +112,16 @@ export class ArticulosCargarComponent implements OnInit {
             this.articulosArchivo = resp.articulos;
             this.totalRegistrosArchivo = resp.total;
 
-            console.log( this.articulosArchivo );
+            // console.log( this.articulosArchivo );
 
 
             this._articuloService.cargarArticulosTodos()
               .subscribe( (resp2: any) => {
 
-                console.log(resp2);
+                // console.log(resp2);
                 this.articulos = resp2.articulos;
 
+            // CREO EL ARTICULO NUEVO o ACTUALIZO NOMBRE Y STOCK
                 this.articulosArchivo.forEach( async art => {
 
                   const index = this.articulos.map( item => item.codigoInterno ).indexOf( Number(art.codigoInterno) );
@@ -154,13 +158,18 @@ export class ArticulosCargarComponent implements OnInit {
                     // ARTICULO EXISTE
                     this.articuloTmp = this.articulos[index];
 
+                    // PREGUNTO SI LOS COSTOS PESOS SON IGUALES
                     if ( this.articuloTmp.costoPesos === art.costoPesos ) {
                       // console.log('es igual');
+                      if ( this.articuloTmp.nombre !== art.nombre || this.articuloTmp.stock !== art.stock ) {
+                        this.articuloTmp.nombre = art.nombre;
+                        this.articuloTmp.stock = art.stock;
 
-                      this.articuloTmp.nombre = art.nombre;
-                      this.articuloTmp.stock = art.stock;
+                        this.articulosSoloNombreStock.push( this.articuloTmp );
+                      } else {
+                        return;
+                      }
 
-                      this.articulosSoloNombreStock ++;
                     } else {
                       // console.warn('no es igual');
 
@@ -181,7 +190,7 @@ export class ArticulosCargarComponent implements OnInit {
                       this.articuloTmp.precio = precioTmp;
                       this.articuloTmp.stock = art.stock;
 
-                      this.articulosCambioCosto ++;
+                      this.articulosCambioCosto.push( this.articuloTmp );
                     }
 
                     this.articulosModificados ++;
@@ -189,6 +198,31 @@ export class ArticulosCargarComponent implements OnInit {
                     // Actualizar la DB
                     const arctAct = await this.actualizarArticulo( this.articuloTmp );
 
+                  }
+
+                });
+
+            // BUSCO SI ALGUN ARTICULO ESTA CON STOCK 0 y LO DEJO INACTIVO
+                this.articulos.forEach( async ( artDb: Articulo ) => {
+
+                  const index = this.articulosArchivo.map( item => Number(item.codigoInterno) ).indexOf( artDb.codigoInterno );
+                  if ( index === -1 ) {
+                    // NO EXISTE porque tiene stock 0
+
+                    if ( artDb.nuevo === true && artDb.stock === 0 && artDb.activo === false ) {
+                      return;
+                    } else {
+                      artDb.activo = false;
+                      artDb.nuevo = true;
+                      artDb.stock = 0;
+                      this.articulosStockCero.push( artDb );
+                      this.articulosModificados ++;
+
+                      // Actualizar la DB
+                      const arctAct = await this.actualizarArticulo( artDb );
+                    }
+                  } else {
+                    return;
                   }
 
                 });
