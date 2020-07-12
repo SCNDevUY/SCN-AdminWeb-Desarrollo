@@ -84,7 +84,6 @@ export class ArticulosEditarComponent implements OnInit {
             this.muestroActivo = true;
 
         }
-        console.log('Articulo: ', this.articulo);
 
       });
 
@@ -106,8 +105,6 @@ export class ArticulosEditarComponent implements OnInit {
     .subscribe( resp => {
 
       this.categorias = resp;
-
-      // console.log(this.categorias.categorias);
 
     });
   }
@@ -131,7 +128,6 @@ export class ArticulosEditarComponent implements OnInit {
     if ( !this.subcategoriasTemp.includes( idSubCat ) ) {
 
       this.subcategoriasTemp.push( idSubCat );
-      // console.log(this.subcategoriasTemp);
 
     } else {
 
@@ -139,11 +135,10 @@ export class ArticulosEditarComponent implements OnInit {
       const index = this.subcategoriasTemp.map( item => item).indexOf(idSubCat);
 
       this.subcategoriasTemp.splice(index, 1);
-      // console.log(this.subcategoriasTemp);
+
     }
 
     this.articulo.subcategoria = this.subcategoriasTemp;
-    // console.log(this.articulo);
 
   }
 
@@ -160,7 +155,6 @@ export class ArticulosEditarComponent implements OnInit {
       this.articulo.activo = true;
     }
 
-    // console.log(this.articulo);
     this._articulosService.actualizarArticulo( this.articulo )
       .subscribe( resp => {
 

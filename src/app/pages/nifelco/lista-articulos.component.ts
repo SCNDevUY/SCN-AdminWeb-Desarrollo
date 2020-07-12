@@ -34,19 +34,13 @@ export class ListaArticulosComponent implements OnInit {
     this._nifelcoService.cargarListaArticulos( palabras, codigoGrupo, codigoMarca )
       .subscribe( (resp: any) => {
         // this.cargando = true;
-        // console.log(resp);
         this.listaArticulos = resp.result['SOAP-ENV:Envelope']['SOAP-ENV:Body']['NS2:TArticulo_Lista'];
         this.totalRegistros = this.listaArticulos.length;
-        // console.log( this.listaArticulos );
       });
 
   }
 
   consultar( forma: Form ) {
-
-    // console.log( this.palabras);
-    // console.log(this.codigoGrupo);
-    // console.log(this.codigoMarca);
 
     this.cargarListaArticulos( this.palabras, this.codigoGrupo, this.codigoMarca );
 
@@ -59,7 +53,6 @@ export class ListaArticulosComponent implements OnInit {
     this._nifelcoService.cargarGrupoArticulos( grupoPadre )
       .subscribe( (resp: any) => {
         // this.cargando = true;
-        // console.log( resp );
         this.grupoArticulos = resp.result['SOAP-ENV:Envelope']['SOAP-ENV:Body']['NS2:TGrupo_Articulos'];
         this.totalRegistros = this.grupoArticulos.length;
       });

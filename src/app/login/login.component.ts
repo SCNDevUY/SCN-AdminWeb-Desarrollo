@@ -64,7 +64,6 @@ export class LoginComponent implements OnInit {
         // Para ver el Profile del usuario que hizo login con google
         // const profile = googleUser.getBasicProfile();
         const token = googleUser.getAuthResponse().id_token;
-        // console.log(token);
 
         this._usuarioService.loginGoogle( token )
           .subscribe( () => window.location.href = '#/dashboard' );

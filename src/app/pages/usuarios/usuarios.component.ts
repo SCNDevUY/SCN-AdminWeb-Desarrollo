@@ -48,8 +48,6 @@ export class UsuariosComponent implements OnInit {
     this._usuariosService.cargarUsuarios( this.desde )
       .subscribe( (resp: any) => {
 
-        console.log(resp);
-
         this.usuarios = resp.usuarios;
         this.totalRegistros = resp.total;
         this.cargando = false;

@@ -25,7 +25,6 @@ export class GrupoArticulosComponent implements OnInit {
     this._nifelcoService.cargarGrupoArticulos( grupoPadre )
       .subscribe( (resp: any) => {
         // this.cargando = true;
-        // console.log( resp );
         this.grupoArticulos = resp.result['SOAP-ENV:Envelope']['SOAP-ENV:Body']['NS2:TGrupo_Articulos'];
         this.totalRegistros = this.grupoArticulos.length;
       });

@@ -62,7 +62,6 @@ export class RegisterComponent implements OnInit {
     }
 
     if ( !this.forma.value.condiciones ) {
-      console.log('Debe de aceprar las condiciones');
 
       Swal.fire({
         title: 'Importante!',
@@ -72,9 +71,6 @@ export class RegisterComponent implements OnInit {
       });
       return;
     }
-    // console.log('Forma Valida: ', this.forma.valid);
-
-    // console.log(this.forma.value);
 
     const usuario = new Usuario(
       this.forma.value.nombre,

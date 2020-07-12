@@ -245,8 +245,6 @@ export class CategoriasComponent implements OnInit {
     this._nifelcoService.cargarGrupoArticulos( grupoPadre )
         .subscribe( (resp: any) => {
 
-          console.log(resp.result['SOAP-ENV:Envelope']['SOAP-ENV:Body']['NS2:TGrupo_Articulos']);
-
           this.categoriasNifelcoTmp = resp.result['SOAP-ENV:Envelope']['SOAP-ENV:Body']['NS2:TGrupo_Articulos'];
 
           this.categoriasNifelcoTmp.forEach( (categoria: any) => {

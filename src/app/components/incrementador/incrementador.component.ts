@@ -16,9 +16,6 @@ export class IncrementadorComponent implements OnInit {
 
   constructor() {
 
-    // console.log('Leyenda :', this.leyenda);
-    // console.log('Progreso :', this.porcentaje);
-
    }
 
   ngOnInit(): void {
@@ -27,7 +24,6 @@ export class IncrementadorComponent implements OnInit {
   onChanges( newValue: number ) {
 
     // let elemHTML: any = document.getElementsByName('porcentaje')[0];
-    // console.log(elemHTML.value);
 
     this.txtProgress.nativeElement.value = this.porcentaje;
 

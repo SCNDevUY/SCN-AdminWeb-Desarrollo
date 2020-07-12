@@ -22,8 +22,6 @@ export class GlobalesComponent implements OnInit {
           this.global = resp.global[0];
           this._id = resp.global[0]._id;
 
-          console.log(this.global);
-
       });
 
 

@@ -112,13 +112,10 @@ export class ArticulosCargarComponent implements OnInit {
             this.articulosArchivo = resp.articulos;
             this.totalRegistrosArchivo = resp.total;
 
-            // console.log( this.articulosArchivo );
-
 
             this._articuloService.cargarArticulosTodos()
               .subscribe( (resp2: any) => {
 
-                // console.log(resp2);
                 this.articulos = resp2.articulos;
 
             // CREO EL ARTICULO NUEVO o ACTUALIZO NOMBRE Y STOCK
@@ -160,7 +157,7 @@ export class ArticulosCargarComponent implements OnInit {
 
                     // PREGUNTO SI LOS COSTOS PESOS SON IGUALES
                     if ( this.articuloTmp.costoPesos === art.costoPesos ) {
-                      // console.log('es igual');
+
                       if ( this.articuloTmp.nombre !== art.nombre || this.articuloTmp.stock !== art.stock ) {
                         this.articuloTmp.nombre = art.nombre;
                         this.articuloTmp.stock = art.stock;
