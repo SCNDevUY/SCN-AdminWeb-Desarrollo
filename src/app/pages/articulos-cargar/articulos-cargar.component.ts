@@ -32,7 +32,7 @@ export class ArticulosCargarComponent implements OnInit {
   totalRegistrosArchivo = 0;
   articulosNuevos = 0;
   articulosModificados = 0;
-  articulosSoloNombreStock: Articulo[] = [];
+  articulosSoloStock: Articulo[] = [];
   articulosCambioCosto: Articulo[] = [];
   articulosStockCero: Articulo[] = [];
 
@@ -152,23 +152,21 @@ export class ArticulosCargarComponent implements OnInit {
                       const artCreado = await this.crearArticulo( articuloCrear );
 
                   } else {
-                    // ARTICULO EXISTE
+                  // ARTICULO EXISTE
                     this.articuloTmp = this.articulos[index];
 
                     // PREGUNTO SI LOS COSTOS PESOS SON IGUALES
                     if ( this.articuloTmp.costoPesos === art.costoPesos ) {
 
-                      if ( this.articuloTmp.nombre !== art.nombre || this.articuloTmp.stock !== art.stock ) {
-                        this.articuloTmp.nombre = art.nombre;
+                      if ( this.articuloTmp.stock !== art.stock ) {
                         this.articuloTmp.stock = art.stock;
 
-                        this.articulosSoloNombreStock.push( this.articuloTmp );
+                        this.articulosSoloStock.push( this.articuloTmp );
                       } else {
                         return;
                       }
 
                     } else {
-                      // console.warn('no es igual');
 
                       const costoTmp = (art.costoPesos / this.cotizacion);
                       let precioTmp = ( costoTmp * 1.30 ) * 1.22;
@@ -181,7 +179,6 @@ export class ArticulosCargarComponent implements OnInit {
                       precioTmp2 = precioTmp2 + '9';
                       precioTmp = Number(precioTmp2);
 
-                      this.articuloTmp.nombre = art.nombre;
                       this.articuloTmp.costo = Number( costoTmp.toFixed(2) );
                       this.articuloTmp.costoPesos = art.costoPesos;
                       this.articuloTmp.precio = precioTmp;

@@ -51,17 +51,19 @@
                     </div>
                 </div>
                 <div *ngIf="cargados" class="row mt-4">
-                    <div class="col-lg-4" *ngIf="articulosSoloNombreStock">
-                        <h5>Cambiados solo nombre y Stock <span>({{ articulosSoloNombreStock.length }})</span></h5>
-                        <p *ngFor="let articulo of articulosSoloNombreStock">{{ articulo.nombre }}</p>
+                    <div class="col-lg-6" *ngIf="articulosSoloStock">
+                        <h5>Articulos que les cambio el Stock <span>({{ articulosSoloStock.length }})</span></h5>
+                        <p *ngFor="let articulo of articulosSoloStock">{{ articulo.codigoInterno }} - {{ articulo.nombre }}</p>
                     </div>
-                    <div class="col-lg-4" *ngIf="articulosCambioCosto">
+                    <div class="col-lg-6" *ngIf="articulosCambioCosto">
                         <h5>Articulos que les cambio el costo <span>({{ articulosCambioCosto.length }})</span></h5>
-                        <p *ngFor="let articulo of articulosCambioCosto">{{ articulo.nombre }}</p>
+                        <p *ngFor="let articulo of articulosCambioCosto">{{ articulo.codigoInterno }} - {{ articulo.nombre }}</p>
                     </div>
-                    <div class="col-lg-4" *ngIf="articulosStockCero">
-                        <h5>Articulos Stock 0 <span>({{ articulosStockCero.length }})</span></h5>
-                        <p *ngFor="let articulo of articulosStockCero">{{ articulo.nombre }}</p>
+                </div>
+                <div *ngIf="cargados" class="row mt-4">
+                    <div class="col-lg-6" *ngIf="articulosStockCero">
+                        <h5>Articulos - Stock en 0 <span>({{ articulosStockCero.length }})</span></h5>
+                        <p *ngFor="let articulo of articulosStockCero">{{ articulo.codigoInterno }} - {{ articulo.nombre }}</p>
                     </div>
                 </div>
             </div>
