@@ -206,9 +206,14 @@ export class ArticulosCargarComponent implements OnInit {
                     if ( artDb.nuevo === true && artDb.stock === 0 && artDb.activo === false ) {
                       return;
                     } else {
-                      artDb.activo = false;
-                      artDb.nuevo = true;
                       artDb.stock = 0;
+                      artDb.nuevo = true;
+                      artDb.activo = false;
+                      artDb.mailing = false;
+                      artDb.oferta = false;
+                      artDb.superOferta = false;
+                      artDb.inicio = false;
+                      artDb.slideShow = false;
                       this.articulosStockCero.push( artDb );
                       this.articulosModificados ++;
 
