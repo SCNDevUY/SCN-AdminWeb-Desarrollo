@@ -17,6 +17,7 @@ import { MarcasComponent } from './marcas/marcas.component';
 import { CategoriasComponent } from './categorias/categorias.component';
 import { SubcategoriasComponent } from './subcategorias/subcategorias.component';
 import { CrewComponent } from './crew/crew.component';
+import { TarjetasComponent } from './tarjetas/tarjetas.component';
 
 import { ArticulosCargarComponent } from './articulos-cargar/articulos-cargar.component';
 
@@ -46,6 +47,7 @@ const pagesRoutes: Routes = [
             { path: 'globales', component: GlobalesComponent, data: { titulo: 'Configuraciones Globales' } },
             { path: 'account-settings', component: AccountSettingsComponent, data: { titulo: 'Configuracion de la cuenta' } },
             { path: 'perfil', component: ProfileComponent, data: { titulo: 'Perfil del usuario' } },
+            { path: 'tarjetas', component: TarjetasComponent, data: { titulo: 'Medios de pago' } },
 
             // { path: 'progress', component: ProgressComponent, data: { titulo: 'Progress' } },
             // { path: 'graficas1', component: Graficas1Component, data: { titulo: 'Graficas' } },

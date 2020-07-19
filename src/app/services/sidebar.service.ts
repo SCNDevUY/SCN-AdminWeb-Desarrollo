@@ -28,7 +28,8 @@ export class SidebarService {
         { titulo: 'Categorias', url: '/categorias' },
         { titulo: 'SubCategorias', url: '/subcategorias' },
         { titulo: 'Articulos', url: '/articulos' },
-        { titulo: 'Articulos - Cargar archivo', url: '/articulosCargar' }
+        { titulo: 'Articulos - Cargar archivo', url: '/articulosCargar' },
+        { titulo: 'Medios de pago', url: '/tarjetas' }
       ]
     },
     {
