@@ -31,7 +31,7 @@ export class GlobalesComponent implements OnInit {
   }
 
 
- 
+
   guardar( global: Global ) {
 
     this._globalServices.guardarConfiguracion( global, this._id )

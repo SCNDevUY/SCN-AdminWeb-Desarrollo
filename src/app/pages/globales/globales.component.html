@@ -42,6 +42,17 @@
                                     </button>
                                 </td>
                             </tr>
+                            <tr>
+                                <td>FlipBook</td>
+                                <td>
+                                    <input type="text" [(ngModel)]="global.flipBook" name="flipBook" class="form-control">
+                                </td>
+                                <td class="button-group text-center">
+                                    <button (click)="guardar( global )" class="btn btn-primary">
+                                        <i class="fa fa-save"></i>
+                                    </button>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
 
