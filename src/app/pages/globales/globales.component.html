@@ -53,6 +53,28 @@
                                     </button>
                                 </td>
                             </tr>
+                            <tr>
+                                <td>Usuario Nifelco</td>
+                                <td>
+                                    <input type="text" [(ngModel)]="global.usuarioNifelco" name="usuarioNifelco" class="form-control">
+                                </td>
+                                <td class="button-group text-center">
+                                    <button (click)="guardar( global )" class="btn btn-primary">
+                                        <i class="fa fa-save"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Password Nifelco</td>
+                                <td>
+                                    <input type="text" [(ngModel)]="global.passwordNifelco" name="passwordNifelco" class="form-control">
+                                </td>
+                                <td class="button-group text-center">
+                                    <button (click)="guardar( global )" class="btn btn-primary">
+                                        <i class="fa fa-save"></i>
+                                    </button>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
 
