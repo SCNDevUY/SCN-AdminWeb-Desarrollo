@@ -71,7 +71,7 @@ export class ArticulosInicioComponent implements OnInit {
 
   agregar( articulo: Articulo ) {
 
-    if ( this.totalRegistrosInicio === 8 ) {
+    if ( this.totalRegistrosInicio === 12 ) {
       Swal.fire({
         title: 'No pueden haber mas de 8 articulos',
         icon: 'warning',
