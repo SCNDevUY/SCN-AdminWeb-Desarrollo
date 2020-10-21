@@ -34,6 +34,9 @@
                                     </div>
                                 </div>
 
+                            </div>
+                            <!--/span-->
+                            <div class="col-md-6">
                                 <div class="form-group row">
                                     <label class="control-label text-right col-md-3">Stock</label>
                                     <div class="col-md-9">
@@ -47,19 +50,25 @@
                                         <input type="text" [(ngModel)]="articulo.codigoProveedor" name="codigoProveedor" class="form-control">
                                     </div>
                                 </div>
-
-                            </div>
-                            <!--/span-->
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="control-label text-right col-md-3">Info</label>
-                                    <div class="col-md-9">
-                                        <textarea class="form-control" [(ngModel)]="articulo.descripcion" name="descripcion" rows="10"></textarea>
-                                    </div>
-                                </div>
                             </div>
                             <!--/span-->
                         </div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="form-group row">
+            <label class="control-label text-right col-md-2">Descripcion</label>
+            <div class="col-md-10">
+                <!-- <textarea class="form-control" [(ngModel)]="articulo.descripcion" name="descripcion" rows="10"></textarea> -->
+                <quill-editor 
+                    name="descripcion"
+                    [(ngModel)]="articulo.descripcion"
+                    [styles]="{height: '400px'}" 
+                    (onContentChanged)="cambioContenido($event)">
+                </quill-editor>
+            </div>
+        </div>
+    </div>
+</div>
                         
                         <h3 class="box-title">MARCA</h3>
                         <hr class="m-t-0 m-b-40">

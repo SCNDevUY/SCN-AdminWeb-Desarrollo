@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NgForm, Form } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import Swal from 'sweetalert2';
+
+import { EditorChangeContent, EditorChangeSelection } from 'ngx-quill';
 
 // Modelos
 import { Articulo } from '../../models/articulo.model';
@@ -19,7 +21,7 @@ import { CategoriaService } from '../../services/categoria.service';
   templateUrl: './articulos-editar.component.html',
   styles: []
 })
-export class ArticulosEditarComponent implements OnInit {
+export class ArticulosEditarComponent {
 
   id: string;
 
@@ -68,9 +70,9 @@ export class ArticulosEditarComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
+  cambioContenido( event: any ) {
+    this.articulo.descripcion = event.html;
   }
-
 
   obtenerArticulo() {
 

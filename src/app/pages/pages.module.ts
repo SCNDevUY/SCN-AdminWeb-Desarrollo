@@ -11,6 +11,9 @@ import { PipesModule } from '../pipes/pipes.module';
 // ng2-charts
 import { ChartsModule } from 'ng2-charts';
 
+// NGX Quill
+import { QuillModule } from 'ngx-quill';
+
 // Componentes
 import { PagesComponent } from './pages.component';
 
@@ -105,7 +108,8 @@ import { TarjetasComponent } from './tarjetas/tarjetas.component';
         FormsModule,
         ChartsModule,
         PAGES_ROUTES,
-        PipesModule
+        PipesModule,
+        QuillModule.forRoot()
     ]
 })
 export class PagesModule { }
