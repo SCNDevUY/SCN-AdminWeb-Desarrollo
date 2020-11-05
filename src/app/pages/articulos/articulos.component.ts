@@ -7,6 +7,7 @@ import { Articulo } from '../../models/articulo.model';
 // SERVICIOS
 import { ArticuloService } from '../../services/articulo.service';
 import { CarouselService } from '../../services/carousel.service';
+import { SubirArchivoService } from '../../services/subir-archivo.service';
 
 @Component({
   selector: 'app-articulos',
@@ -26,10 +27,13 @@ export class ArticulosComponent implements OnInit {
   superOfertaCantidad: number = 0;
   inicioCantidad: number = 0;
 
+  articulos: Articulo[];
 
+  data: any[];
 
 
   constructor( public _articulosService: ArticuloService,
+               public _subirArchivoService: SubirArchivoService,
                public _carouselService: CarouselService,
                public router: Router ) { }
 
@@ -116,5 +120,44 @@ export class ArticulosComponent implements OnInit {
   verInicio() {
     this.router.navigate([ '/articulosInicio' ]);
   }
+
+
+
+
+  cambiarImagenes() {
+
+    this._articulosService.cargarArticulos(0, 0, true )
+      .subscribe( (arti: any) => {
+
+        console.log(arti);
+
+        this.data = arti.articulos;
+
+        this.data.forEach( (articulo: any, index) => {
+
+            const imgAgregar = {
+              url: articulo.img,
+              nombre: articulo.imgNombre,
+              principal: true
+            };
+            let imgTmp = [];
+            imgTmp = articulo.imagenes;
+            imgTmp.push( imgAgregar );
+            articulo.imagenes = imgTmp;
+
+            this._subirArchivoService.actualizarData(articulo, 'articulos')
+              .subscribe( resp => {
+
+                console.log(resp);
+
+              });
+
+        });
+
+
+      });
+
+  }
+
 
 }

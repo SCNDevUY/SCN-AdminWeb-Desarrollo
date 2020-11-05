@@ -114,10 +114,10 @@ export class ArticuloService {
 
 
     // Obtener articulos Nuevos
-    cargarArticulosNuevos( desde: number = 0 ) {
+    cargarArticulosNuevos( desde: number = 0, limite: number = 25 ) {
 
       this.token = localStorage.getItem('token');
-      const url = URL_SERVICIOS + '/articulos/nuevos?desde=' + desde + '&token=' + this.token;
+      const url = URL_SERVICIOS + '/articulos/nuevos?desde=' + desde + '&limite=' + limite + '&token=' + this.token
 
       return this.http.get( url );
 

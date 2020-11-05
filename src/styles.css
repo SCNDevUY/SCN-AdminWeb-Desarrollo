@@ -16,6 +16,12 @@
     width: 70px;
 }
 
+.bordeColor {
+  border-style: solid;
+  border-color: #ffbb34;
+  border-width: 3px;
+}
+
 
 input[type=file].hidden {
     color: transparent;

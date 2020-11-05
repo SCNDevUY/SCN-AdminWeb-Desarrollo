@@ -4,6 +4,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import Swal from 'sweetalert2';
 
+// Firebase
+import { AngularFireStorage } from '@angular/fire/storage';
+import * as firebase from 'firebase';
+
 import { EditorChangeContent, EditorChangeSelection } from 'ngx-quill';
 
 // Modelos
@@ -15,6 +19,7 @@ import { Categoria } from '../../models/categoria.model';
 import { ArticuloService } from '../../services/articulo.service';
 import { MarcaService } from '../../services/marca.service';
 import { CategoriaService } from '../../services/categoria.service';
+import { ModalUploadService } from '../../components/modal-upload/modal-upload.service';
 
 @Component({
   selector: 'app-articulos-editar',
@@ -52,13 +57,13 @@ export class ArticulosEditarComponent {
   subcategorias = [];
   subcategoriasTemp = [];
 
-
-
   constructor( public _articulosService: ArticuloService,
                public _marcasService: MarcaService,
                public _categoriasService: CategoriaService,
+               public _modalUploadService: ModalUploadService,
                public activatedRoute: ActivatedRoute,
-               public router: Router, ) {
+               public router: Router,
+               private storage: AngularFireStorage, ) {
 
     this.activatedRoute.params.subscribe( params => {
       this.id = params.id;
@@ -148,6 +153,78 @@ export class ArticulosEditarComponent {
     this.eligioMarca = true;
     this.imgArticulo = event[0].id;
   }
+
+
+  mostrarModal( articulo: Articulo ) {
+    this._modalUploadService.mostrarModal( 'articulos', articulo );
+  }
+
+  eliminarImagen( articulo: any, idx: number ) {
+
+    let imgTmp = [];
+    imgTmp = articulo.imagenes;
+
+    if ( articulo.imagenes.length >= 2 ) {
+      if ( articulo.imagenes[idx].principal ) {
+        if ( articulo.imagenes.length >= 2 && idx === 0 ) {
+          imgTmp[1].principal = true;
+        } else {
+          imgTmp[0].principal = true;
+        }
+      }
+    }
+
+    const imagenBorrada = imgTmp.splice( idx, 1 );
+    articulo.imagenes = imgTmp;
+
+    this._articulosService.actualizarArticulo( articulo )
+      .subscribe( resp => {
+
+        // Borro archivo de Firebase
+        const storageRef = firebase.storage().ref();
+        storageRef.child(`articulos/${ imagenBorrada[0].nombre }`)
+        .delete();
+
+        Swal.fire({
+          title: 'Imagen Eliminada',
+          text: this.articulo.nombre,
+          icon: 'success',
+          confirmButtonText: 'Bien!'
+        });
+
+      });
+
+  }
+
+
+  cambiarImagenPrincipal( articulo: any, idx: number ) {
+
+    if ( articulo.imagenes[idx].principal ) {
+      return;
+    }
+
+    let imgTmp = [];
+    imgTmp = articulo.imagenes;
+    imgTmp.forEach( ( img: any, index ) => {
+
+      if ( index === idx ) {
+          imgTmp[index].principal = true;
+      } else {
+        imgTmp[index].principal = false;
+      }
+
+    });
+
+    this.articulo.imagenes = imgTmp;
+
+    this._articulosService.actualizarArticulo( this.articulo )
+    .subscribe( resp => {
+
+    });
+
+  }
+
+
 
 
   guardar( forma: Form ) {

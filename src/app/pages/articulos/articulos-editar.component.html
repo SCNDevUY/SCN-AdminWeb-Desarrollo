@@ -53,23 +53,39 @@
                             </div>
                             <!--/span-->
                         </div>
-<div class="row">
-    <div class="col-md-12">
-        <div class="form-group row">
-            <label class="control-label text-right col-md-2">Descripcion</label>
-            <div class="col-md-10">
-                <!-- <textarea class="form-control" [(ngModel)]="articulo.descripcion" name="descripcion" rows="10"></textarea> -->
-                <quill-editor 
-                    name="descripcion"
-                    [(ngModel)]="articulo.descripcion"
-                    [styles]="{height: '400px'}" 
-                    (onContentChanged)="cambioContenido($event)">
-                </quill-editor>
-            </div>
-        </div>
-    </div>
-</div>
-                        
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label class="control-label text-right col-md-2">Descripcion</label>
+                                    <div class="col-md-10">
+                                        <!-- <textarea class="form-control" [(ngModel)]="articulo.descripcion" name="descripcion" rows="10"></textarea> -->
+                                        <quill-editor 
+                                            name="descripcion"
+                                            [(ngModel)]="articulo.descripcion"
+                                            [styles]="{height: '400px'}" 
+                                            (onContentChanged)="cambioContenido($event)">
+                                        </quill-editor>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row m-b-40">
+                            <div class="col-md-12">
+                                <h3 class="box-title">IMAGENES</h3>
+                                <hr class="m-t-0 m-b-40">
+
+                                <div *ngIf="articulo.imagenes">
+                                    <div *ngFor="let imagen of articulo.imagenes; index as i" class="col-3 float-left">
+                                        <img (click)="cambiarImagenPrincipal( articulo, i )" [src]="imagen.url | imagen" [ngClass]="{bordeColor: imagen.principal}" class="img-fluid img-thumbnail pointer">
+                                        <button (click)="eliminarImagen( articulo, i )" type="button" class="btn btn-sm btn-block btn-outline-danger">ELIMINAR</button>
+                                    </div>
+                                    <button *ngIf="articulo.imagenes.length <= 3" (click)="mostrarModal( articulo )" type="button" class="btn btn-success">AGREGAR</button>
+                                </div>
+                            </div>                           
+                        </div>                        
+
                         <h3 class="box-title">MARCA</h3>
                         <hr class="m-t-0 m-b-40">
                         <h2 *ngIf="!articulo.nuevo"><span class="badge badge-primary">{{ articulo.marca.nombre }}</span></h2>

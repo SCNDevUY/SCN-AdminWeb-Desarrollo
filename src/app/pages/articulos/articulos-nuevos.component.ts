@@ -22,6 +22,8 @@ export class ArticulosNuevosComponent implements OnInit {
   usuario: Usuario;
   articulos: any[];
   desde: number = 0;
+  limite: number = 25;
+
   totalRegistros: number = 0;
   cargando: boolean = true;
 
@@ -44,7 +46,7 @@ export class ArticulosNuevosComponent implements OnInit {
 
     this.cargando = true;
 
-    this._articulosService.cargarArticulosNuevos( this.desde )
+    this._articulosService.cargarArticulosNuevos( this.desde, this.limite )
       .subscribe( (resp: any) => {
 
         this.articulos = resp.articulos;

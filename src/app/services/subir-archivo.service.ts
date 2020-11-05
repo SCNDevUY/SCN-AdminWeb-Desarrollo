@@ -24,6 +24,8 @@ import { ModalUploadService } from '../components/modal-upload/modal-upload.serv
 })
 export class SubirArchivoService {
 
+  imagenVieja = '';
+
   constructor( private storage: AngularFireStorage,
                private usuarioService: UsuarioService,
                public http: HttpClient,
@@ -34,7 +36,9 @@ export class SubirArchivoService {
     // Cambiar Imagen
     async subirArchivo( archivo: File, data: any, tipo: string ) {
 
-      const imagenVieja = data.imgNombre;
+      if ( tipo !== 'articulos' ) {
+        this.imagenVieja = data.imgNombre;
+      }
 
       // Obtener nombre del archivo
       const nombreCortado = archivo.name.split('.');
@@ -57,22 +61,42 @@ export class SubirArchivoService {
 
             uploadTask.snapshot.ref.getDownloadURL().then( (URL) => {
 
-                if ( tipo === 'slideshow' ) {
-                  data.imgSlideshow = URL;
-                  data.imgNombreSlideshow = nombreArchivo;
-                } else {
-                  data.img = URL;
-                  data.imgNombre = nombreArchivo;
+                switch (tipo) {
+                  case 'articulos':
+                    const imgAgregar = {
+                      url: URL,
+                      nombre: nombreArchivo,
+                      principal: false
+                    };
+                    if ( data.imagenes.length === 0 ) {
+                        imgAgregar.principal = true;
+                    }
+                    let imgTmp = [];
+                    imgTmp = data.imagenes;
+                    imgTmp.push( imgAgregar );
+                    data.imagenes = imgTmp;
+                    break;
+                  case 'slideshow':
+                    data.imgSlideshow = URL;
+                    data.imgNombreSlideshow = nombreArchivo;
+                    break;
+
+                  default:
+                    data.img = URL;
+                    data.imgNombre = nombreArchivo;
+                    break;
                 }
 
                 // Actualizo el usuario en la DB
                 this.actualizarData( data, tipo )
                 .subscribe( resp => {
 
-                  // Borro imagen vieja
-                  if ( imagenVieja !== undefined ) {
-                      storageRef.child(`${tipo}/${ imagenVieja }`)
-                      .delete();
+                  if ( tipo !== 'articulos' ) {
+                    // Borro imagen vieja
+                    if ( this.imagenVieja !== undefined ) {
+                        storageRef.child(`${tipo}/${ this.imagenVieja }`)
+                        .delete();
+                    }
                   }
 
                   Swal.fire({

@@ -36,7 +36,6 @@ export class UsuarioService {
     }
 
     // Ver si esta logueado
-    // Ver si esta logueado
     estaLogueado() {
       if ( this.token.length > 5 ) {
 

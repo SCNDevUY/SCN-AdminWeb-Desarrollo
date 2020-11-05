@@ -21,7 +21,7 @@ export class ArticulosActivosComponent implements OnInit {
   usuario: Usuario;
   articulos: any[];
   desde: number = 0;
-  limite: number = 5;
+  limite: number = 25;
   totalRegistros: number = 0;
   cargando: boolean = true;
 
