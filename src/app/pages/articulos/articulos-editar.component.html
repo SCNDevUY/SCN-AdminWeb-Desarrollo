@@ -45,11 +45,31 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="control-label text-right col-md-3">Codigo Proveedor</label>
+                                    <label class="control-label text-right col-md-3">Codigo Unicom</label>
                                     <div class="col-md-9">
                                         <input type="text" [(ngModel)]="articulo.codigoProveedor" name="codigoProveedor" class="form-control">
                                     </div>
                                 </div>
+
+                                <div class="form-group row">
+                                    <label class="control-label text-right col-md-3">Color</label>
+                                    <div class="col-md-9">
+                                        <input type="color" list="profilecolorslist" [(ngModel)]="articulo.color" name="color" class="form-control">
+                                        <datalist id="profilecolorslist">
+                                            <option value="#000000">
+                                            <option value="#ffffff">
+                                            <option value="#c0c0c0">
+                                            <option value="#ff0000">
+                                            <option value="#00ff00">
+                                            <option value="#0000ff">
+                                            <option value="#ffff00">
+                                            <option value="#ff9900">
+                                            <option value="#00ffff">
+                                            <option value="#ff00ff">
+                                        </datalist>
+                                    </div>
+                                </div>
+                                
                             </div>
                             <!--/span-->
                         </div>
@@ -102,12 +122,10 @@
                                                 <th>Codigo</th>
                                                 <th>Nombre</th>
                                                 <th>Color</th>
-                                                <th>Codigo Color</th>
-                                                <th class="text-center">Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr *ngFor="let articuloVariante of articulo.variantesColores">
+                                            <tr *ngFor="let articuloVariante of variantesColores">
                                                 <td>
                                                     <p>{{ articuloVariante.codigoInterno }}</p>
                                                 </td>
@@ -115,24 +133,17 @@
                                                     <p>{{ articuloVariante.nombre }}</p>
                                                 </td>
                                                 <td>
-                                                    <p>u$s {{ articuloVariante.colorNombre }}</p>
-                                                </td>
-                                                <td>
-                                                    <p>u$s {{ articuloVariante.colorCodigo }}</p>
-                                                </td>
-                                                <td class="button-group text-center">
-                                                    <!-- <button (click)="editarArticulo( articulo._id )" class="btn btn-sm btn-primary">
-                                                        <i class="fa fa-save"></i> EDITAR
-                                                    </button> -->
+                                                    <input type="color" disabled [ngModel]="articuloVariante.color" name="color2">
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </table>
                 
                                 </div>
-                                <button (click)="agregarVariante()" type="button" class="btn btn-success">AGREGAR</button>
+                                <!-- <button (click)="agregarVariante()" type="button" class="btn btn-success">AGREGAR</button> -->
                             </div>
                         </div>
+
 
 
 <!-- MARCA -->

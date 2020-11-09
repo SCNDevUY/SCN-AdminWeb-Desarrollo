@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import Swal from 'sweetalert2';
 
+declare var $: any;
+
 // Firebase
 import { AngularFireStorage } from '@angular/fire/storage';
 import * as firebase from 'firebase';
@@ -57,6 +59,8 @@ export class ArticulosEditarComponent {
   subcategorias = [];
   subcategoriasTemp = [];
 
+  variantesColores = [];
+
   constructor( public _articulosService: ArticuloService,
                public _marcasService: MarcaService,
                public _categoriasService: CategoriaService,
@@ -85,12 +89,15 @@ export class ArticulosEditarComponent {
       .subscribe( resp => {
 
         this.articulo = resp;
+        // console.log(this.articulo);
 
         if ( this.articulo.nuevo === false ) {
 
             this.muestroActivo = true;
 
         }
+
+        this.cargarVarianteColores();
 
       });
 
@@ -255,17 +262,29 @@ export class ArticulosEditarComponent {
   }
 
 
-  agregarVariante() {
+  cargarVarianteColores() {
 
     const codigoInternoCortado = Number(this.articulo.codigoInterno.toString().slice(0, -2));
-    console.log(codigoInternoCortado);
 
-    this._articulosService.cargarArticuloXcodigoInerno( codigoInternoCortado )
-        .subscribe( resp => {
+    // console.log(codigoInternoCortado.toString().length);
+    if ( codigoInternoCortado.toString().length >= 6 ) {
 
-          console.log(resp);
+      this._articulosService.cargarArticuloXcodigoInerno( codigoInternoCortado )
+      .subscribe( (resp: any) => {
 
+        let b = [];
+        b = resp.articulo;
+        b.forEach( variante => {
+            if ( variante.codigoInterno !== this.articulo.codigoInterno ) {
+              this.variantesColores.push(variante);
+            }
         });
+
+      });
+
+    }
+
+
 
   }
 

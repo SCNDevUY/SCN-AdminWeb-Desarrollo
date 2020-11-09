@@ -124,40 +124,40 @@ export class ArticulosComponent implements OnInit {
 
 
 
-  cambiarImagenes() {
+  // cambiarImagenes() {
 
-    this._articulosService.cargarArticulos(0, 0, true )
-      .subscribe( (arti: any) => {
+  //   this._articulosService.cargarArticulos(0, 0, true )
+  //     .subscribe( (arti: any) => {
 
-        console.log(arti);
+  //       console.log(arti);
 
-        this.data = arti.articulos;
+  //       this.data = arti.articulos;
 
-        this.data.forEach( (articulo: any, index) => {
+  //       this.data.forEach( (articulo: any, index) => {
 
-            const imgAgregar = {
-              url: articulo.img,
-              nombre: articulo.imgNombre,
-              principal: true
-            };
-            let imgTmp = [];
-            imgTmp = articulo.imagenes;
-            imgTmp.push( imgAgregar );
-            articulo.imagenes = imgTmp;
+  //           const imgAgregar = {
+  //             url: articulo.img,
+  //             nombre: articulo.imgNombre,
+  //             principal: true
+  //           };
+  //           let imgTmp = [];
+  //           imgTmp = articulo.imagenes;
+  //           imgTmp.push( imgAgregar );
+  //           articulo.imagenes = imgTmp;
 
-            this._subirArchivoService.actualizarData(articulo, 'articulos')
-              .subscribe( resp => {
+  //           this._subirArchivoService.actualizarData(articulo, 'articulos')
+  //             .subscribe( resp => {
 
-                console.log(resp);
+  //               console.log(resp);
 
-              });
+  //             });
 
-        });
+  //       });
 
 
-      });
+  //     });
 
-  }
+  // }
 
 
 }

@@ -30,7 +30,7 @@
         public imgNombre?: string,
         public imgSlideshow?: string,
         public imgNombreSlideshow?: string,
-        public variantesColores?: object[],
+        public color?: string,
         public _id?: string
     ) { }
 

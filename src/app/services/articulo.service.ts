@@ -198,13 +198,12 @@ export class ArticuloService {
       const url = URL_SERVICIOS + '/articulos/cargararchivo';
       return this.http.post( url, formData );
     }
-    
+
 
     // Obtener articulos
     cargarArticuloXcodigoInerno( codigoInterno ) {
 
-      this.token = localStorage.getItem('token');
-      const url = URL_SERVICIOS + '/articulos/codigoInterno?codigoInterno=' + codigoInterno + '&token=' + this.token;
+      const url = URL_SERVICIOS + '/articulos/codigoInterno?codigoInterno=' + codigoInterno;
 
       return this.http.get( url );
 
