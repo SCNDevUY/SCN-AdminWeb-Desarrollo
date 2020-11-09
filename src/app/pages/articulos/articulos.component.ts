@@ -140,10 +140,18 @@ export class ArticulosComponent implements OnInit {
   //             nombre: articulo.imgNombre,
   //             principal: true
   //           };
-  //           let imgTmp = [];
   //           imgTmp = articulo.imagenes;
-  //           imgTmp.push( imgAgregar );
+  //           imgTmp = imgTmp.slice(1, 1);
+  //           ( imgAgregar );
   //           articulo.imagenes = imgTmp;
+            
+  //           let imgTmp = [];
+  //           let imgTmpCortado = [];
+  //           imgTmp = articulo.imagenes;
+  //           imgTmpCortado = imgTmp.slice(0, 1);
+            
+  //           articulo.imagenes = imgTmpCortado;
+
 
   //           this._subirArchivoService.actualizarData(articulo, 'articulos')
   //             .subscribe( resp => {
