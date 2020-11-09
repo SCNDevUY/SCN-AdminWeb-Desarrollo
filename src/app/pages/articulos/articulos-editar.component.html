@@ -30,7 +30,7 @@
                                 <div class="form-group row">
                                     <label class="control-label text-right col-md-3">Costo</label>
                                     <div class="col-md-9">
-                                        <input type="text" [(ngModel)]="articulo.costo" name="costo" class="form-control">
+                                        <input disabled type="text" [(ngModel)]="articulo.costo" name="costo" class="form-control">
                                     </div>
                                 </div>
 
@@ -40,7 +40,7 @@
                                 <div class="form-group row">
                                     <label class="control-label text-right col-md-3">Stock</label>
                                     <div class="col-md-9">
-                                        <input type="text" [(ngModel)]="articulo.stock" name="stock" class="form-control">
+                                        <input disabled type="text" [(ngModel)]="articulo.stock" name="stock" class="form-control">
                                     </div>
                                 </div>
 
@@ -60,16 +60,18 @@
                                     <label class="control-label text-right col-md-2">Descripcion</label>
                                     <div class="col-md-10">
                                         <!-- <textarea class="form-control" [(ngModel)]="articulo.descripcion" name="descripcion" rows="10"></textarea> -->
-                                        <quill-editor 
+                                        <quill-editor
                                             name="descripcion"
                                             [(ngModel)]="articulo.descripcion"
-                                            [styles]="{height: '400px'}" 
+                                            [styles]="{height: '400px'}"
                                             (onContentChanged)="cambioContenido($event)">
                                         </quill-editor>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+<!-- IMAGENES -->
 
                         <div class="row m-b-40">
                             <div class="col-md-12">
@@ -83,17 +85,65 @@
                                     </div>
                                     <button *ngIf="articulo.imagenes.length <= 3" (click)="mostrarModal( articulo )" type="button" class="btn btn-success">AGREGAR</button>
                                 </div>
-                            </div>                           
-                        </div>                        
+                            </div>
+                        </div>
 
-                        <h3 class="box-title">MARCA</h3>
+<!-- VARIANTES DE COLORES -->
+
+                        <div class="row m-b-40">
+                            <div class="col-md-12">
+                                <h3 class="box-title">VARIANTES DE COLORES</h3>
+                                <hr class="m-t-0 m-b-40">
+                                <div class="table-responsive">
+
+                                    <table class="table table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>Codigo</th>
+                                                <th>Nombre</th>
+                                                <th>Color</th>
+                                                <th>Codigo Color</th>
+                                                <th class="text-center">Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let articuloVariante of articulo.variantesColores">
+                                                <td>
+                                                    <p>{{ articuloVariante.codigoInterno }}</p>
+                                                </td>
+                                                <td>
+                                                    <p>{{ articuloVariante.nombre }}</p>
+                                                </td>
+                                                <td>
+                                                    <p>u$s {{ articuloVariante.colorNombre }}</p>
+                                                </td>
+                                                <td>
+                                                    <p>u$s {{ articuloVariante.colorCodigo }}</p>
+                                                </td>
+                                                <td class="button-group text-center">
+                                                    <!-- <button (click)="editarArticulo( articulo._id )" class="btn btn-sm btn-primary">
+                                                        <i class="fa fa-save"></i> EDITAR
+                                                    </button> -->
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                
+                                </div>
+                                <button (click)="agregarVariante()" type="button" class="btn btn-success">AGREGAR</button>
+                            </div>
+                        </div>
+
+
+<!-- MARCA -->
                         <hr class="m-t-0 m-b-40">
-                        <h2 *ngIf="!articulo.nuevo"><span class="badge badge-primary">{{ articulo.marca.nombre }}</span></h2>
+                        <h3 class="box-title mt-5">MARCA <span *ngIf="!articulo.nuevo" class="badge badge-primary p-3">{{ articulo.marca.nombre }}</span></h3>
+                        <!-- <h2 *ngIf="!articulo.nuevo"><span class="badge badge-primary">{{ articulo.marca.nombre }}</span></h2> -->
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Seleccione la Marca</label>
-                                    <select (change)='cambiarImagen($event.target.selectedOptions)' class="form-control custom-select" name="marca" [(ngModel)]="articulo.marca"> 
+                                    <select (change)='cambiarImagen($event.target.selectedOptions)' class="form-control custom-select" name="marca" [(ngModel)]="articulo.marca">
                                         <option [value]="marca._id" id="{{marca.img}}" *ngFor="let marca of marcas.marcas" >{{marca.nombre}}</option>
                                     </select>
                                 </div>
@@ -104,12 +154,14 @@
                                 </div>
                             </div>
                         </div>
-                        
+                        <!-- <hr class="m-t-0 m-b-40"> -->
+
+<!-- CATEGORIAS -->
+
                         <div class="row">
                             <div class="col-md-6">
-                                <h3 class="box-title">CATEGORIAS</h3>
-                                <hr class="m-t-0 m-b-40">
-                                <h2 *ngIf="!articulo.nuevo"><span class="badge badge-primary">{{ articulo.categoria.nombre }}</span></h2>
+                                <h3 class="box-title">CATEGORIAS <span *ngIf="!articulo.nuevo" class="badge badge-primary p-3">{{ articulo.categoria.nombre }}</span></h3>
+                                <!-- <h2 *ngIf="!articulo.nuevo"><span class="badge badge-primary">{{ articulo.categoria.nombre }}</span></h2> -->
                                 <div class="form-group">
                                     <label class="control-label">Seleccione la Categoria</label>
                                     <select (change)='cargarSubCategorias($event.target.value)' class="form-control custom-select" name="categoria" [(ngModel)]="articulo.categoria">
@@ -117,10 +169,12 @@
                                     </select>
                                 </div>
                             </div>
+
+<!-- SUB CATEGORIAS -->
+
                             <div class="col-md-6">
                                 <h3 class="box-title">SUBCATEGORIAS</h3>
-                                <hr class="m-t-0 m-b-40">
-                                <h2 *ngIf="!articulo.nuevo"><span *ngFor="let subcategoria of articulo.subcategoria" class="badge badge-primary mr-2">{{ subcategoria.nombre }}</span></h2>
+                                <h2 *ngIf="!articulo.nuevo"><span *ngFor="let subcategoria of articulo.subcategoria" class="badge badge-primary mr-2 p-3">{{ subcategoria.nombre }}</span></h2>
                                 <div class="form-group">
                                     <label class="control-label">Seleccione las SubCategorias</label>
                                     <div class="controls">
@@ -130,9 +184,13 @@
                                         </fieldset>
                                     </div>
                                 </div>
-                            </div>                            
+                            </div>
                         </div>
-                        <div class="row" *ngIf="muestroActivo">
+                        <!-- <hr class="m-t-0 m-b-40"> -->
+
+<!-- ACTIVO -->
+
+                        <div class="row mt-5" *ngIf="muestroActivo">
                             <div class="col-md-12">
                                 <h3 class="box-title">ACTIVO</h3>
                                 <hr class="m-t-0 m-b-40">
@@ -140,12 +198,13 @@
                                     <label>NO
                                         <input [(ngModel)]="articulo.activo" name="activo" type="checkbox"><span class="lever"></span>SI</label>
                                 </div>
-                            </div>                           
+                            </div>
                         </div>
                     </div>
-                    <br>
-                    <hr>
-                    <div class="form-actions">
+
+<!-- GUARDAR -->
+
+                    <div class="form-actions mt-5">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="row">

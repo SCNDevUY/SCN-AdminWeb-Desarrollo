@@ -25,11 +25,12 @@
         public precioMailing?: number,
         public slideShow?: boolean,
         public inicio?: boolean,
-        public imagenes?: string[],
+        public imagenes?: object[],
         public img?: string,
         public imgNombre?: string,
         public imgSlideshow?: string,
         public imgNombreSlideshow?: string,
+        public variantesColores?: object[],
         public _id?: string
     ) { }
 

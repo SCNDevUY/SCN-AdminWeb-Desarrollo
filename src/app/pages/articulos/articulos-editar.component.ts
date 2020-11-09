@@ -255,4 +255,18 @@ export class ArticulosEditarComponent {
   }
 
 
+  agregarVariante() {
+
+    const codigoInternoCortado = Number(this.articulo.codigoInterno.toString().slice(0, -2));
+    console.log(codigoInternoCortado);
+
+    this._articulosService.cargarArticuloXcodigoInerno( codigoInternoCortado )
+        .subscribe( resp => {
+
+          console.log(resp);
+
+        });
+
+  }
+
 }
