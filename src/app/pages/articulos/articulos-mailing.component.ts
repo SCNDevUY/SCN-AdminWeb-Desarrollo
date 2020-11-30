@@ -93,7 +93,7 @@ export class ArticulosMailingComponent implements OnInit {
 
     let valor: number;
 
-    let { value: precioMailing } = await Swal.fire({
+    let { value: precioMailing = 0} = await Swal.fire({
       title: 'Ingrese el precio del Mailing',
       html: '<h3><strong>PRECIO: </strong>u$s ' + articulo.precio + '</h3>' +
       '<h3><strong>COSTO : </strong>u$s ' + articulo.costo + '</h3>',

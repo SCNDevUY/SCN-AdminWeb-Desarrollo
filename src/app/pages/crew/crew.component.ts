@@ -100,7 +100,7 @@ export class CrewComponent implements OnInit {
 
     }
 
-    let { value: crew } = await Swal.fire({
+    let { value: crew = '' } = await Swal.fire({
       title: 'Ingrese el nombre del Crew a agregar',
       input: 'text',
       inputPlaceholder: 'Ingrese el nombre...',

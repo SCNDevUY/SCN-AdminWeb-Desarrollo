@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NgForm, Form } from '@angular/forms';
+// import { NgForm, Form } from '@angular/forms';
+import { Form } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import Swal from 'sweetalert2';
@@ -7,15 +8,16 @@ import Swal from 'sweetalert2';
 declare var $: any;
 
 // Firebase
-import { AngularFireStorage } from '@angular/fire/storage';
-import * as firebase from 'firebase';
+// import { AngularFireStorage } from '@angular/fire/storage';
+// import * as firebase from 'firebase';
+import firebase from 'firebase';
 
-import { EditorChangeContent, EditorChangeSelection } from 'ngx-quill';
+// import { EditorChangeContent, EditorChangeSelection } from 'ngx-quill';
 
 // Modelos
 import { Articulo } from '../../models/articulo.model';
-import { Marca } from '../../models/marca.model';
-import { Categoria } from '../../models/categoria.model';
+// import { Marca } from '../../models/marca.model';
+// import { Categoria } from '../../models/categoria.model';
 
 // Servicios
 import { ArticuloService } from '../../services/articulo.service';
@@ -66,8 +68,7 @@ export class ArticulosEditarComponent {
                public _categoriasService: CategoriaService,
                public _modalUploadService: ModalUploadService,
                public activatedRoute: ActivatedRoute,
-               public router: Router,
-               private storage: AngularFireStorage, ) {
+               public router: Router ) {
 
     this.activatedRoute.params.subscribe( params => {
       this.id = params.id;

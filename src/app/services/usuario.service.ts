@@ -8,8 +8,10 @@ import { Usuario } from '../models/usuario.model';
 import { URL_SERVICIOS } from '../config/config';
 
 // Firebase
-import { AngularFireStorage } from '@angular/fire/storage';
-import * as firebase from 'firebase';
+// import { AngularFireStorage } from '@angular/fire/storage';
+// import * as firebase from 'firebase';
+
+import firebase from 'firebase';
 
 // import { SubirArchivoService } from './subir-archivo.service';
 
@@ -29,8 +31,8 @@ export class UsuarioService {
     cargando: boolean = false;
 
     constructor( public http: HttpClient,
-                 public router: Router,
-                 private storage: AngularFireStorage ) {
+                 public router: Router ) {
+                //  private storage: AngularFireStorage ) {
 
       this.cargarStorage();
     }

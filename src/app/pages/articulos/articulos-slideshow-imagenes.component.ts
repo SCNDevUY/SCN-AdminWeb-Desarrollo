@@ -99,7 +99,7 @@ export class ArticulosSlideshowImagenesComponent implements OnInit {
 
     }
 
-    let { value: carousel } = await Swal.fire({
+    let { value: carousel = '' } = await Swal.fire({
       title: 'Ingrese el nombre del Carousel a agregar',
       input: 'text',
       inputPlaceholder: 'Ingrese el nombre...',

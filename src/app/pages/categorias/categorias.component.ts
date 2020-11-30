@@ -121,7 +121,7 @@ export class CategoriasComponent implements OnInit {
 
     }
 
-    let { value: categoria } = await Swal.fire({
+    let { value: categoria = '' } = await Swal.fire({
       title: 'Ingrese la Categoria a agregar',
       input: 'text',
       inputPlaceholder: 'Ingrese la categoria...',

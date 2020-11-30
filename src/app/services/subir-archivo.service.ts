@@ -9,7 +9,8 @@ import { URL_SERVICIOS } from '../config/config';
 
 // Firebase
 import { AngularFireStorage } from '@angular/fire/storage';
-import * as firebase from 'firebase';
+// import * as firebase from 'firebase';
+import firebase from 'firebase';
 
 // Modelos
 import { Usuario } from 'src/app/models/usuario.model';

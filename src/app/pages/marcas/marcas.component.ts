@@ -118,7 +118,7 @@ export class MarcasComponent implements OnInit {
 
     }
 
-    let { value: marca } = await Swal.fire({
+    let { value: marca = '' } = await Swal.fire({
       title: 'Ingrese la marca a agregar',
       input: 'text',
       inputPlaceholder: 'Ingrese la marca...',

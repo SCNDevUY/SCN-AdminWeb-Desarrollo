@@ -101,7 +101,7 @@ export class TarjetasComponent implements OnInit {
 
     }
 
-    let { value: tarjeta } = await Swal.fire({
+    let { value: tarjeta = '' } = await Swal.fire({
       title: 'Ingrese el nombre de la Tarjeta a agregar',
       input: 'text',
       inputPlaceholder: 'Ingrese el nombre...',

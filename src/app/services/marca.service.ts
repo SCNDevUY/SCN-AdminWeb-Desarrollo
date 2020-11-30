@@ -9,7 +9,8 @@ import { Marca } from '../models/marca.model';
 import { URL_SERVICIOS } from '../config/config';
 
 // Firebase
-import * as firebase from 'firebase';
+// import * as firebase from 'firebase';
+import firebase from 'firebase';
 
 
 @Injectable({

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import * as firebase from 'firebase';
+// import * as firebase from 'firebase';
+import firebase from 'firebase';
 
 // CONFIGURACIONES
 import { URL_SERVICIOS } from '../config/config';

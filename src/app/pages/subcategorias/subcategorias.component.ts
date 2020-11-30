@@ -115,7 +115,7 @@ export class SubcategoriasComponent implements OnInit {
 
     }
 
-    let { value: subcategoria } = await Swal.fire({
+    let { value: subcategoria = '' } = await Swal.fire({
       title: 'Ingrese la SubCategoria a agregar',
       input: 'text',
       inputPlaceholder: 'Ingrese la subcategoria...',
